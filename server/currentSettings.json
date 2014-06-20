@@ -14,7 +14,7 @@
     "save": {
         "disabled": false
     },
-    "maximizeEnabled": false,
+    "maximizeEnabled": true,
     "minimize": {
         "settings": true,
         "log": true,

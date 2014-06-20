@@ -5,17 +5,17 @@ settings = require("./settings");
 module.exports = {
 
     'Adventure_MapMove_Res': function(rs, cb, fullRs){
-        dungeon.updateMap(fullRs.Object_Change_Notify_characterAdventureMap);
+        dungeon.update(fullRs.Object_Change_Notify_characterAdventureMap);
         cb();
     },
 
     'Adventure_GetMapInfo_Res': function(rs, cb){
-        dungeon.initMap(rs);
+        dungeon.init(rs);
         cb();
     },
 
     'Adventure_ContinueProgress_Res': function(rs, cb){
-        dungeon.initMap(rs);
+        dungeon.init(rs);
         cb();
     },
 

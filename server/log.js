@@ -32,6 +32,6 @@ module.exports = {
     },
 
     debug: function (msg) {
-//        console.log(msg);
+        console.log(msg);
     }
 };

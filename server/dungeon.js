@@ -4,7 +4,7 @@ var settings = require("./settings");
 var log = require('./log');
 
 function Point(point) {
-    if (isNumber(point)) return {
+    if (_.isNumber(point)) return {
         y: parseInt((point + "")[0]) - 1,
         x: parseInt((point + "")[1]) - 1
     };
@@ -39,6 +39,11 @@ function loadChanges(obj) {
     })
 }
 
+function get(point) {
+    var pt = new Point(point);
+    return grid[pt.x][pt.y];
+}
+
 module.exports = {
 
     init: function (rs) {
@@ -52,23 +57,23 @@ module.exports = {
 
     update: function (rs) {
         if (!rs.attrs) return;
-        if (rs.map.id != rs.id) this.init(rs.attrs);
+
+        if( !map.id ) this.init(rs.attrs);
+
+        if (map.id != rs.id) this.init(rs.attrs);
         loadChanges(rs.attrs);
     },
 
-    point: function (point) {
-        var pt = new Point(point);
-        return grid[pt.x][pt.y];
-    },
+    get: get,
 
     prepareForPoint: function (point, cb, safe) {
 
-        if( hadSafe ) { hadSafe = false; return; }
+        if( hadSafe ) { hadSafe = false; cb(); return; }
 
-        if (!mapReady(cb)) return;
+        if (!mapReady()) { cb(); return; }
 
-        var p = map.getPoint(point);
-        if (p.visited == 1) return;
+        var p = get(point);
+        if (p.visited == 1) { cb(); return; }
 
         if (p.type == 'mo' || p.type == 'ev') {
             strategy.loadRecord('default', function () {
@@ -86,16 +91,17 @@ module.exports = {
             } else {
                 lib.maximizeSoldiers(cb);
             }
+        } else {
+            cb(); return;
         }
     }
 };
 
 var hadSafe = false;
 
-function mapReady(cb) {
+function mapReady() {
     if (map == null) {
         log.error("Dungeon map was not loaded. Restart CogBot and re-enter dungeon.");
-        cb();
         return false;
     } else return true;
 }

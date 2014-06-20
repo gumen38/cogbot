@@ -38,19 +38,22 @@ Planned
 -------
 
 Installation comfort:
+
 1. Add runnable built-in Node.js server to make it not neccessary for user to install it.  
 2. Get rid of FoxyProxy (make proxy functionality inside of CogBot Chrome Plugin.  
 
 Planned Important features:
+
 1. Alert when need recruit more soldiers  
 2. Handle situation when CogServer is on maintenance.  
 
 Planned Features:
-1. Dungeon auto-crawler.  
-2. Abyss auto-crawler.  
-3. Auto-manage recruiting and keeping enough soldiers.  
-4. Daily Auto-routine (typical daily stuff).  
-5. Scheduler for timed events like Alliance War/World Boss/2x Super Soldiers recruit/Clash of gods.  
+
+1. Dungeon auto-crawler (exploring same dungeon 6 times per day is boring).  
+2. Abyss auto-crawler (exploring abyss becomes boring on 3rd day, with exception of when you can do new rooms).  
+3. Auto-manage recruiting and keeping enough soldiers (it's boring micromanagement).  
+4. Daily Auto-routine (typical daily boring must-do stuff like alliance quests and so on).  
+5. Scheduler for timed events like Alliance War/World Boss/2x Super Soldiers recruit/Clash of gods. Should help european players which have totally unbearable AW/WB/CG/2xSS times.  
 
 
 Bugs/Issues

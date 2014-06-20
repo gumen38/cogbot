@@ -5,32 +5,32 @@ What it does
 ------------
 
 _Version 0.2_  
-1.Automatic 'Maximize soldiers'.
-2.Automatic formation/soldiers loading.
-3.Manual formation/soldiers save.
-4.User interface to configure save/load/maximize options.
-5.User interface to show current formation/soldiers.
-6.User interface to save current formation/soldiers.
-7.User interface to show automatical formation/soldiers loading alerts.
-8.Supports save/load for: Specific Dungeon boss, Specific Abyss room, World boss, Default setup
+1. Automatic 'Maximize soldiers'.  
+2. Automatic formation/soldiers loading.  
+3. Manual formation/soldiers save.  
+4. User interface to configure save/load/maximize options.  
+5. User interface to show current formation/soldiers.  
+6. User interface to save current formation/soldiers.  
+7. User interface to show automatical formation/soldiers loading alerts.  
+8. Supports save/load for: Specific Dungeon boss, Specific Abyss room, World boss, Default setup  
 
 How it works
 ------------
 
-1.It uses node.js server (http://nodejs.org/) which should be installed to run CogBot Server.
-2.It uses CogBot Chrome Plugin to provide user interface (it works as viewport to CogBot Server).
-3.It uses FoxyProxy Chrome Plugin which should proxy *do.php* calls ro CogBot Server (localhost:3333).  
+1. It uses node.js server (http://nodejs.org/) which should be installed to run CogBot Server.
+2. It uses CogBot Chrome Plugin to provide user interface (it works as viewport to CogBot Server).
+3. It uses FoxyProxy Chrome Plugin which should proxy *do.php* calls ro CogBot Server (localhost:3333).  
 It catches internal game requests/responses in order to watch/operate game actions. 
 
 Installation guide
 ------------------
 
-1.Install node.js
-2.Run run.bat
-3.Install chrome plugin: chrome extensions -> enable developer mode -> install unpacked extension -> point it to /plugin folder
-4.Go to CogBot page
-5.Press CogBot plugin button in chrome
-6.Login and start the game
+1. Install node.js
+2. Run run.bat
+3. Install chrome plugin: chrome extensions -> enable developer mode -> install unpacked extension -> point it to /plugin folder
+4. Go to CogBot page
+5. Press CogBot plugin button in chrome
+6. Login and start the game
 
 If it works, you will see you current deploy.
 

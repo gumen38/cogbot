@@ -1,0 +1,51 @@
+<fieldset id="current">
+    <legend>Current strategy</legend>
+    <%
+        var rec = record, det = heroDetails;//underscore visibility scope trick
+        function info(code){
+            var hero = rec.deploy.HeroSet_SetTroopStrategy_Req.attackTroopStrategy[code];
+            if( hero == -1 ) return "N/A";
+            if( !det[hero] ) return "None";
+            return det[hero].name + "<br/>[" + det[hero].soldier + "]";
+        }
+%>
+<% if ( ready ) { %>
+<table>
+    <tr><td><%= info('11') %></td><td><%= info('12') %></td><td><%= info('13') %></td><td><%= info('14') %></td></tr>
+    <tr><td><%= info('21') %></td><td><%= info('22') %></td><td><%= info('23') %></td><td><%= info('24') %></td></tr>
+</table>
+<% } else { %>
+        <div>Capturing session... <span class="hint" hint="400">(?)</span></div>
+        <div class="hint-info" hint="400">The CogBot Server is waiting for requests from game to game server</br>
+            in order to capture game session code from the request.</br>
+            If you have started the game, but session was not capture, try following things:<hr/>
+            Check FoxyProxy is configured to url mask *do.php* , host localhost and port 3333<hr/>
+            Check FoxyProxy is turned ON<hr/>
+            If game was started before you have started bot, just do some activity in game, e.g. maximize soldiers
+        </div>
+<% } %>
+</fieldset>
+
+<% if ( ready ) { %>
+<fieldset id="save">
+        <legend><span class="hint" hint="400">Save formation and assigns</span></legend>
+        <ul>
+            <li><a class="btn" model="default" href="#">Save as Default Strategy</a></li>
+            <li><a class="btn" model="boss" href="#">Save for next dungeon boss</a> </li>
+            <li><a class="btn" model="abyss" href="#">Save for next abyss room</a>  </li>
+            <li><a class="btn" model="wboss" href="#">Save for World Boss</a>       </li>
+        </ul>
+        <div><%=saveInfo%></div>
+        <div class="hint-info" hint="400">Will save current attack formation and assigned soldiers (for ALL heroes).</div>
+</fieldset>
+<% } %>
+
+<% if ( ready ) { %>
+<fieldset id="load" class="<%=settings.get().minimize.load ? 'minimized' :'' %>">
+    <legend>Loading information</legend>
+    <% if( loaded ) { %>
+    <div>Strategy <%=strategyCode%> was automatically loaded</div>
+    <% } %>
+    <div><a class="btn" id="hotfix.default" href="#" model="default">Apply Default Strategy</a></div>
+</fieldset>
+<% } %>

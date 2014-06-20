@@ -1,0 +1,22 @@
+{
+  "body": [
+    {
+      "Hero_DeploySoldierAllMax_Req": {
+        "serialNo": 598,
+        "characterId": null
+      }
+    }
+  ],
+  "session": "l09nclqacpht2b2mb593h4f726"
+}
+{ host: 'm1-kongregate.callofgods.com',
+  'proxy-connection': 'keep-alive',
+  'content-length': '118',
+  origin: 'http://m1-kongregate.callofgods.com',
+  'user-agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.153 Safari/537.36',
+  'content-type': 'text/xml',
+  accept: '*/*',
+  referer: 'http://m1-kongregate.callofgods.com/client/en/flash/bin/cog.swf_v=1402626910',
+  'accept-encoding': 'utf-8',
+  'accept-language': 'ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4',
+  cookie: 'PHPSESSID=l09nclqacpht2b2mb593h4f726; __utma=104208658.1221715245.1401721953.1402739122.1402741399.31; __utmc=104208658; __utmz=104208658.1402741399.31.31.utmcsr=m1-kongregate.callofgods.com|utmccn=(referral)|utmcmd=referral|utmcct=/php/play.php' }

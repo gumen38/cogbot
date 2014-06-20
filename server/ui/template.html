@@ -1,0 +1,195 @@
+<style>
+    #cogbot_panel {
+        z-index: 999999;
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 270px;
+        background-color: #EEE;
+    }
+
+    #cogbot_panel fieldset {
+        display: inline-block;
+        border: 1px solid #444;
+        width: 100%;
+        padding: 3px;
+        margin: 2px;
+    }
+
+    #cogbot_panel legend {
+        color: #444;
+        font-size: 10px;
+        border: 1px solid #444;
+        padding: 1px;
+    }
+
+    #cogbot_panel fieldset fieldset {
+        border-color: #666;
+        border-style: dotted;
+        width: 95%;
+    }
+
+    #cogbot_panel fieldset fieldset legend {
+        color: #666;
+        border-color: #666;
+        border-style: dotted;
+    }
+
+    #cogbot_panel .hint {
+        text-decoration: underline;
+        color: #095;
+        cursor: help;
+        padding-right: 3px;
+    }
+
+    #cogbot_panel .hint-info {
+        font-size: 10px;
+        color: gray;
+        padding: 4px;
+        display: none;
+        border: 1px solid #0E5;
+        background-color: #FFC;
+        border-radius: 6px;
+        position: absolute;
+    }
+
+    #cogbot_panel a.btn {
+        border: 2px solid #707;
+        border-radius: 10px;
+        padding: 4px;
+        text-decoration: none;
+        line-height: 26px;
+        cursor: default;
+    }
+
+    #cogbot_panel a.btn:hover {
+        background-color: #ECE;
+        text-decoration: none;
+        border-color: #F0F;
+    }
+
+    #cogbot_panel th {
+        text-align: justify;
+    }
+
+    #cogbot_panel td {
+        text-align: center;
+    }
+
+    #cogbot_panel #current td {
+        text-align: left;
+        border: 1px solid red;
+    }
+
+    #cogbot_panel #current  {
+        width: 95%;
+    }
+
+    #cogbot_panel #settings {
+        width: 96%;
+        /*height: 243px;*/
+        border: 1px solid gray;
+    }
+
+    #cogbot_panel #log {
+        width: 96%;
+        /*height: 110px;*/
+        border: 1px solid gray;
+    }
+
+    #cogbot_panel #log .main {
+        color: #333;
+        font-size: 8px;
+        /*height: 90px;*/
+        overflow: scroll;
+    }
+
+    #cogbot_panel #save {
+        width: 96%;
+        /*height: 200px;*/
+        border: 1px solid blue;
+    }
+
+    #cogbot_panel #save td {
+        border: 1px solid black;
+    }
+
+    #cogbot_panel #load {
+        width: 96%;
+        /*height: 200px;*/
+        border: 1px solid red;
+    }
+
+    #cogbot_panel .checker-box {
+        display: inline-block;
+        position: relative;
+        vertical-align: top;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    #cogbot_panel .checker {
+        position: absolute;
+        font-weight: 900;
+        border: 1px solid #999;
+        border-radius: 4px;
+        width: 10px;
+        height: 10px;
+        font-size: 8px;
+        display: inline-block;
+        cursor: default;
+        box-shadow: 3px 3px 3px #333;
+
+    }
+
+    #cogbot_panel .checker.checked {
+        font-weight: 900;
+        border-color: #666;
+        background-color: #6D6;
+        box-shadow: 1px 1px 1px #333;
+        margin: 2px 0 0 2px;
+    }
+
+    #cogbot_panel  .minimize {
+        color: #00F;
+        font-weight: 900;
+        cursor: default;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    #cogbot_panel  .minimize:hover {
+        text-decoration: underline;
+    }
+
+    #cogbot_panel .collapsible  {
+        display: none;
+    }
+
+
+</style>
+
+<%= settings %>
+<%= strategy %>
+<%= log %>
+
+
+
+<a style="float:right" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=GRZ62PXJG8KUC" target="_blank">
+    <img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" alt="Donate">
+</a>
+
+<a style="float:right;padding-left: 10px;" href="mailto:setec.by@gmail.com" target="_blank">
+    <span class="hint" hint="1400">setec.by@gmail.com</span>
+</a>
+<div class="hint-info" hint="1400">Please write me your suggestions and feedback. If you have donated, you may write me a feature request. Quantity of suggestions and amount of donations will affect feature development priorities.</div>
+
+<span style="font-size:10px; padding: 6px; font-family: 'Courier New', Monospace">ver. 0.2</span>

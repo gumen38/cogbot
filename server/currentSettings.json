@@ -1,0 +1,25 @@
+{
+    "load": {
+        "disabled": false,
+        "atBattle": true,
+        "atWboss": true,
+        "defaultWboss": false,
+        "atBoss": true,
+        "defaultBoss": false,
+        "safeBoss": true,
+        "atAbyss": true,
+        "defaultAbyss": false,
+        "safeAbyss": true
+    },
+    "save": {
+        "disabled": false
+    },
+    "maximizeEnabled": false,
+    "minimize": {
+        "settings": true,
+        "log": true,
+        "save": true,
+        "load": false,
+        "current": true
+    }
+}

@@ -1,0 +1,80 @@
+<%
+var model = _model;
+function getProperty(obj, prop) { prop = prop.split('.'); while( prop.length!=0 ){obj = obj[prop[0]];prop = prop.slice(1);}; return obj;}
+function checker(path){ var checked = getProperty(model, path);
+return '<span class="checker-box"><span model="' + path + '" class="checker ' + (checked?'checked':'') + '"></span></span>';}
+%>
+
+<fieldset id="settings">
+    <legend>CogBot Settings <span class="minimize">[+/-]</span></legend>
+    <fieldset class="collapsible">
+        <legend><span class="hint" hint="110">Loading</span> settings</legend>
+        <table>
+            Disable all loading: <%=checker('load.disabled')%>
+            <tr>
+                <th>Load on...</th>
+                <th><span class="hint" hint="0">Enabled</span></th>
+                <th><span class="hint" hint="1">Default</span></th>
+                <th><span class="hint" hint="2">Safe</span></th>
+            </tr>
+            <tr>
+                <td>Normal battle</td>
+                <td><%=checker('load.atBattle')%></td>
+                <td>always</td>
+                <td>n/a</td>
+            </tr>
+            <tr>
+                <td>World Boss</td>
+                <td><%=checker('load.atWboss')%></td>
+                <td><%=checker('load.defaultWboss')%></td>
+                <td>n/a</td>
+            </tr>
+            <tr>
+                <td>Dungeon boss</td>
+                <td><%=checker('load.atBoss')%></td>
+                <td><%=checker('load.defaultBoss')%></td>
+                <td><%=checker('load.safeBoss')%></td>
+            </tr>
+            <tr>
+                <td>Abyss room</td>
+                <td><%=checker('load.atAbyss')%></td>
+                <td><%=checker('load.defaultAbyss')%></td>
+                <td><%=checker('load.safeAbyss')%></td>
+            </tr>
+        </table>
+        <div class="hint-info" hint="0">Automatically deploy heroes and assign soldiers.<br/>
+            WARNING: game will show wrong deploy/soldiers, but during battle you will see real deploy/soldiers
+        </div>
+        <div class="hint-info" hint="1">Use Default strategy ALWAYS</div>
+        <div class="hint-info" hint="2">(Abyss) ON:Autoload on enter OFF:Autoload on attack<br/>
+            (Dungeon Boss) ON:Autoload on boss click, OFF:Autoload on attack
+        </div>
+        <div class="hint-info" hint="110">
+            Automatic loading of saved strategy (deploy and soldier assigns) on battles.
+        </div>
+    </fieldset>
+    <fieldset class="collapsible">
+        <legend><span class="hint" hint="111">Saving</span> settings</legend>
+        <table>
+            Disable all saving: <%=checker('save.disabled')%>
+        </table>
+        <div class="hint-info" hint="111">When you change deploy and/or soldier assigns, CogBot will
+            ask you if you want to save new deploy and assigns for specific type of battle.
+        </div>
+    </fieldset>
+    <fieldset class="collapsible">
+        <legend>Maximize settings</legend>
+        <table>
+            <caption></caption>
+            <tr>
+                <td><span class="hint" hint="4">Enable auto-maximize</span></td>
+                <td><%=checker('maximizeEnabled')%></td>
+            </tr>
+        </table>
+        <div class="hint-info" hint="4">Maximize soldiers automatically<br/>
+            INFO: Applies to all Dungeon, Abyss, Normal and World Boss attacks.<br/>
+            WARNING: game will show wrong army stack size, but during battle you will see real stack size<br/>
+            PS: Fuck VIP!
+        </div>
+    </fieldset>
+</fieldset>

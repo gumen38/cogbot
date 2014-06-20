@@ -19,7 +19,7 @@ How it works
 
 1. It uses node.js server (http://nodejs.org/) which should be installed to run CogBot Server.
 2. It uses CogBot Chrome Plugin to provide user interface (it works as viewport to CogBot Server).
-3. It uses FoxyProxy Chrome Plugin which should proxy \*do.php\* calls ro CogBot Server (localhost:3333).  
+3. It uses FoxyProxy Chrome Plugin which should proxy \*do.php\* calls to CogBot Server (localhost:3333).  
 It catches internal game requests/responses in order to watch/operate game actions. 
 
 Installation guide

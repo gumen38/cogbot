@@ -38,28 +38,28 @@ Planned
 -------
 
 Installation comfort:
-1.Add runnable built-in Node.js server to make it not neccessary for user to install it.
-2.Get rid of FoxyProxy (make proxy functionality inside of CogBot Chrome Plugin.
+1. Add runnable built-in Node.js server to make it not neccessary for user to install it.  
+2. Get rid of FoxyProxy (make proxy functionality inside of CogBot Chrome Plugin.  
 
 Planned Important features:
-1.Alert when need recruit more soldiers
-2.Handle situation when CogServer is on maintenance.
+1. Alert when need recruit more soldiers  
+2. Handle situation when CogServer is on maintenance.  
 
 Planned Features:
-1.Dungeon auto-crawler
-2.Abyss auto-crawler
-3.Auto-manage recruiting and keeping enough soldiers
-4.Daily Auto-routine (typical daily stuff).
-5.Scheduler for timed events like Alliance War/World Boss/2x Super Soldiers recruit/Clash of gods.
+1. Dungeon auto-crawler.  
+2. Abyss auto-crawler.  
+3. Auto-manage recruiting and keeping enough soldiers.  
+4. Daily Auto-routine (typical daily stuff).  
+5. Scheduler for timed events like Alliance War/World Boss/2x Super Soldiers recruit/Clash of gods.  
 
 
 Bugs/Issues
 -----------
 
-1.Number of soldiers and formation in game client will be displayed wrong. But in battles you will see right soldiers/formation.  
+1. Number of soldiers and formation in game client will be displayed wrong. But in battles you will see right soldiers/formation.  
 I dont yet know how to fix it, because i don't know how to tell flash client to refresh its visual state without reloading itself.
 If i figure it out, it will be fixed.
-2.Session capture can be done directly from chrome plugin, but it's unsafe to let plugin watch cookies. At this moment
+2. Session capture can be done directly from chrome plugin, but it's unsafe to let plugin watch cookies. At this moment
 CogBot captures session from proxied game requests, but it requires at least one game request.
 
 Support me

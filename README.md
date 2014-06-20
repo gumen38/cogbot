@@ -62,8 +62,8 @@ If i figure it out, it will be fixed.
 2. Session capture can be done directly from chrome plugin, but it's unsafe to let plugin watch cookies. At this moment
 CogBot captures session from proxied game requests, but it requires at least one game request.
 
-Support me
-----------
+Support project
+---------------
 
 If you have found a bug or have a suggestion, write me about it to setec.by@gmail.com.  
 If you accompany it with a donation, it will be prioritized according to donated amount.  

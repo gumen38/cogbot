@@ -69,7 +69,7 @@ Support project
 ---------------
 
 If you have found a bug or have a suggestion, write me about it to setec.by@gmail.com.  
-If you accompany it with a donation, it will be prioritized according to donated amount.  
+If you accompany it with a donation, it will be prioritized according to the donated amount.  
 Each bug have priority 10, each suggestion have priority 1.
 Donation amount will multiply priority by formula (donation_in_USD+1)*priority, e.g. if you have submitted suggestion and donated 2 USD, it will have priority 3.
 

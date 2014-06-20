@@ -1,4 +1,4 @@
-Intoduction to CogBot - a Call of Gods game bot
+CogBot - a Call of Gods game bot
 =====================
 
 What it does

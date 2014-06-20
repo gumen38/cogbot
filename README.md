@@ -65,12 +65,12 @@ CogBot captures session from proxied game requests, but it requires at least one
 Support me
 ----------
 
-If you found a bug or have a suggestion, write me about it to setec.by@gmail.com.  
+If you have found a bug or have a suggestion, write me about it to setec.by@gmail.com.  
 If you accompany it with a donation, it will be prioritized according to donated amount.  
 Each bug have priority 10, each suggestion have priority 1.
 Donation amount will mupltiply priority by formula (donation_in_USD+1)*priority, e.g. if you have submitted suggestion and donated 2 USD, it will have priority 3.
 
-I will display suggestion and bugs here in table:
+I will update suggestion/bugs and their priorities here in the table:
 
 -nothing here yet-
 

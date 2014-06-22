@@ -83,7 +83,7 @@ module.exports = {
 
             var code = strategy.getCode(true, p.monsterId, false);
 
-            if (settings.get().save.enabled && strategy.getSchedule() == 'boss' ) {
+            if (!settings.get().save.disabled && strategy.getSchedule() == 'boss' ) {
                 strategy.saveRecord(code);
             }
 

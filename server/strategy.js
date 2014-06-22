@@ -36,10 +36,9 @@ function recordAssign(rs) {
     refreshUi();
 }
 
-function saveRecord(code, target) {
+function saveRecord(code) {
     if (!ready) return;
     if( settings.get().save.disabled ) { log.main('Strategy was NOT saved: all saving was disabled'); return; }
-    if( scheduled != target ) { log.debug('Strategy was NOT saved: target is ' + target + ' but save was scheduled for ' + scheduled); return; }
 
     mkdirp(__dirname + '/strategies/');
 
@@ -65,6 +64,7 @@ function cleanup() {
 
 }
 
+var previousRecordJson = null ;
 function loadRecord(code, cb) {
     cb = cb || function() {};
     strategyCode = code;
@@ -76,12 +76,13 @@ function loadRecord(code, cb) {
     try { recordJson = fs.readFileSync(__dirname + '/strategies/' + code, 'utf8'); } catch (e) {
         log.main('Strategy ' + code + ' was not found, loading will be cancelled.'); cb(); return;
     }
+    if( previousRecordJson && previousRecordJson == recordJson ) {
+        if (previousRecordJson == recordJson) { log.main('Strategy ' + code + ' was loaded but not applied: current strategy is same.'); cb(); return; }
+    }
+    previousRecordJson = recordJson;
 
-    var previousRecord = record;
     record = JSON.parse(recordJson);
     if( !record ) { log.main('Strategy was NOT loaded: can\'t read strategy record from file'); cb(); return; }
-
-    if (_.isEqual(previousRecord, record) ) { log.main('Strategy ' + code + 'was loaded but not applied: current strategy is same.'); cb(); return; }
 
     log.main('Applying strategy ' + code);
     apply(cb);

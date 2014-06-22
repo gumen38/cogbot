@@ -1,12 +1,15 @@
+
 <fieldset id="current">
     <legend>Current strategy</legend>
     <%
-        var rec = record, det = heroDetails;//underscore visibility scope trick
+        var rec = record, det = heroDetails, sol = soldierNames;//underscore visibility scope trick
         function info(code){
             var hero = rec.deploy.HeroSet_SetTroopStrategy_Req.attackTroopStrategy[code];
             if( hero == -1 ) return "N/A";
             if( !det[hero] ) return "None";
-            return det[hero].name + "<br/>[" + det[hero].soldier + "]";
+            var soldierId = rec.assigns[hero].Hero_DeploySoldier_Req.soldierId;
+            var soldierName = soldierId == 0 ? 'none' : (sol[soldierId] ? sol[soldierId] : soldierId);
+            return det[hero].name + "<br/>[" + soldierName + "]";
         }
 %>
 <% if ( ready ) { %>

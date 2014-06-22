@@ -58,9 +58,8 @@ module.exports = {
     update: function (rs) {
         if (!rs.attrs) return;
 
-        if( !map.id ) this.init(rs.attrs);
+        if( !map || (map.id != rs.id) ) { this.init(rs.attrs); return; }
 
-        if (map.id != rs.id) this.init(rs.attrs);
         loadChanges(rs.attrs);
     },
 
@@ -81,9 +80,14 @@ module.exports = {
             });
             return;
         } else if (p.type == 'bs') {
-            if (settings.get().load.atBoss) {
-                var code = strategy.getCode(true, p.monsterId, false);
+
+            var code = strategy.getCode(true, p.monsterId, false);
+
+            if (settings.get().save.enabled && strategy.getSchedule() == 'boss' ) {
                 strategy.saveRecord(code);
+            }
+
+            if (settings.get().load.atBoss) {
                 if (settings.get().load.defaultBoss) code = 'default';
                 strategy.loadRecord(code, function () {
                     lib.maximizeSoldiers(cb);

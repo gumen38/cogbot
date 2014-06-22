@@ -13,7 +13,7 @@ var loaded = false;
 var scheduled = false;
 var heroDetails = {};
 var strategyCode = "";
-var soldiersNames = JSON.parse(fs.readFileSync("./server/soldiers.json", "utf8"));
+var soldierNames = JSON.parse(fs.readFileSync("./server/soldiers.json", "utf8"));
 
 function getStrategyCode(isDungeon, monsterId, isAbyss, roomId, storeyId) {
     return (isDungeon ? 'D' + monsterId : '') + (isAbyss ? 'A' + storeyId + '-' + roomId : '');
@@ -30,10 +30,8 @@ function recordDeploy(rs) {
 function recordAssign(rs) {
     if (!ready) return;
     log.main('Strategy  updated.');
-    _.reject(record.assigns, function (assign) {
-        assign.Hero_DeploySoldier_Req.id == rs.Hero_DeploySoldier_Req.id
-    });
-    record.assigns.push(rs);
+     cleanup();
+    record.assigns[rs.Hero_DeploySoldier_Req.id] = rs;
     changed = true;
     refreshUi();
 }
@@ -56,25 +54,14 @@ function saveRecord(code, target) {
 
 function cleanup() {
 
-    var deployedHeroes = {};
+    var newAssigns = {};
     _.each(_.keys(record.deploy.HeroSet_SetTroopStrategy_Req.attackTroopStrategy), function(key) {
-        if( record.deploy.HeroSet_SetTroopStrategy_Req.attackTroopStrategy[key]!=-1 ) {
-            deployedHeroes[record.deploy.HeroSet_SetTroopStrategy_Req.attackTroopStrategy[key]] = true;
+        var heroId = record.deploy.HeroSet_SetTroopStrategy_Req.attackTroopStrategy[key];
+        if( heroId!=-1 ) {
+            newAssigns[heroId] = record.assigns[heroId];
         }
     });
-
-    var newAssigns = [];
-    _.each(record.assigns, function(assign){
-        if( deployedHeroes[assign.Hero_DeploySoldier_Req.id] ){
-            newAssigns.push(assign);
-            if( assign.Hero_DeploySoldier_Req.soldierId!=0 && !assign.Hero_DeploySoldier_Req.soldierCount ){
-                log.main("Soldiers number is ?");
-            }
-            if( assign.Hero_DeploySoldier_Req.soldierId!=0 && assign.Hero_DeploySoldier_Req.soldierCount==0 ){
-                log.main("Soldiers number is 0");
-            }
-        }
-    });
+    record.assigns = newAssigns;
 
 }
 
@@ -113,10 +100,9 @@ function apply(cb) {
 
     function applyAssigns() {
         var count = 0;
-        _.each(record.assigns, function (assign) {
-//            if( assign.Hero_DeploySoldier_Req.soldierId!=0 ) assign.Hero_DeploySoldier_Req.soldierCount = 1;
-            server.call(assign, function () {
-                if (++count == record.assigns.length) {
+        _.each(_.keys(record.assigns), function (heroId) {
+            server.call(record.assigns[heroId], function (rs) {
+                if (++count == _.keys(record.assigns).length) {
                     log.main('Strategy was applied');
                     changed = false;
                     loaded = true;
@@ -136,12 +122,16 @@ function init() {
         {"Hero_GetInfo_Req": {"characterId": null }}
     ];
     server.call(rq, function (rs) {
-        record.deploy = {"HeroSet_SetTroopStrategy_Req": {"attackTroopStrategy": rs.HeroSet_GetInfo_Res.attackTroopStrategy}};
+        record.deploy = {"HeroSet_SetTroopStrategy_Req": {
+            attackTroopStrategy: rs.HeroSet_GetInfo_Res.attackTroopStrategy,
+            defenceTroopStrategy: rs.HeroSet_GetInfo_Res.defenceTroopStrategy,
+            attackTroopStrategyId: rs.HeroSet_GetInfo_Res.attackTroopStrategyId,
+            defenceTroopStrategyId: rs.HeroSet_GetInfo_Res.defenceTroopStrategyId
+        }};
         record.assigns = [];
         _.each(rs.Hero_GetInfo_Res.heroes, function (hero) {
-            record.assigns.push({"Hero_DeploySoldier_Req": {"id": hero.id, "soldierId": hero.soldierId, "soldierCount": hero.soldierCount }});
-            var soldierName = hero.soldierId == 0 ? 'none' : (soldiersNames[hero.soldierId] ? soldiersNames[hero.soldierId] : hero.soldierId);
-            heroDetails[hero.id] = { name: hero.name, soldier: soldierName };
+            record.assigns[hero.id] = {"Hero_DeploySoldier_Req": {"id": hero.id, "soldierId": hero.soldierId, "soldierCount": hero.soldierCount }};
+            heroDetails[hero.id] = { name: hero.name };
         });
         ready = true;
         refreshUi();
@@ -151,7 +141,7 @@ function init() {
 
 events.on('server-ready', init);
 function refreshUi(){
-    events.emit('strategy-update', template({ saveInfo: saveInfo, record: record, heroDetails: heroDetails, ready: ready, loaded: loaded, changed: changed, strategyCode: strategyCode }));
+    events.emit('strategy-update', template({ saveInfo: saveInfo, record: record, heroDetails: heroDetails, soldierNames: soldierNames, ready: ready, loaded: loaded, changed: changed, strategyCode: strategyCode }));
 }
 events.on('reconnect', function(){
     refreshUi();
@@ -176,5 +166,6 @@ module.exports = {
     recordDeploy: recordDeploy,
     saveRecord: saveRecord,
     loadRecord: loadRecord,
-    scheduleSave: scheduleSave
+    scheduleSave: scheduleSave,
+    getSchedule: function(){ return scheduled; }
 }

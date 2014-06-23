@@ -25,6 +25,9 @@ module.exports = {
     'Adventure_MapMove_Req': function(rq, cb){
         dungeon.prepareForPoint(rq.point, cb);
     },
+    'Adventure_MapPreMove_Req': function(rq, cb) {
+        dungeon.earlyPrepareForPoint(rq.point, cb);
+    },
     'PurgatoryAbyss_Challenge_Req': function(rq, cb){
         abyss.prepareForFight(rq, cb);
     },

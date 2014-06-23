@@ -91,15 +91,7 @@ function loadRecord(code, cb) {
 function apply(cb) {
     cb = cb || function() {};
 
-    if (record.deploy) {
-        server.call(record.deploy, function () {
-            applyAssigns();
-        })
-    } else {
-        applyAssigns();
-    }
-
-    function applyAssigns() {
+    server.call(record.deploy, function () {
         var count = 0;
         _.each(_.keys(record.assigns), function (heroId) {
             server.call(record.assigns[heroId], function (rs) {
@@ -112,12 +104,16 @@ function apply(cb) {
                 }
             })
         });
-    }
+    })
 }
 
 function init() {
     log.main('Strategy initialization: loading current deploy and soldier assigments...');
     if (ready) { log.main('Strategy was already initialized.'); return; }
+    reloadDeploy();
+}
+
+function reloadDeploy() {
     var rq = [
         {"HeroSet_GetInfo_Req": {"characterId": null }},
         {"Hero_GetInfo_Req": {"characterId": null }}

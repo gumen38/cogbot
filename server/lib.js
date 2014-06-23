@@ -1,5 +1,6 @@
 server = require("./server");
 settings = require("./settings");
+log = require("./log");
 
 module.exports = {
     getItemInfo: function(itemId, cb) {
@@ -22,6 +23,7 @@ module.exports = {
         if( !settings.get().maximizeEnabled ) { cb(); return; }
         var rq = {"Hero_DeploySoldierAllMax_Req": {"characterId": null}};
         server.call(rq, function(rs){
+            log.main("Maximized soldiers");
             cb && cb();
         });
     }

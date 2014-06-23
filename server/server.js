@@ -83,11 +83,11 @@ var call = function (requestOrBatch, cb) {
             cb(response);
         });
         rs.on('error', function(msg){
-            log.error(msg);
+            log.debug(msg);
         })
 
     }).on('error', function(msg){
-        log.main(msg);
+        log.debug(msg);
     });
     httpRq.write(body);
     httpRq.end();

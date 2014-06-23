@@ -67,8 +67,6 @@ module.exports = {
 
     prepareForPoint: function (point, cb, safe) {
 
-        if( hadSafe ) { hadSafe = false; cb(); return; }
-
         if (!mapReady()) { cb(); return; }
 
         var p = get(point);
@@ -79,7 +77,20 @@ module.exports = {
                 lib.maximizeSoldiers(cb);
             });
             return;
-        } else if (p.type == 'bs') {
+        } else {
+            cb(); return;
+        }
+    },
+    earlyPrepareForPoint: function (point, cb, safe) {
+
+        if( hadSafe ) { hadSafe = false; cb(); return; }
+
+        if (!mapReady()) { cb(); return; }
+
+        var p = get(point);
+        if (p.visited == 1) { cb(); return; }
+
+        if (p.type == 'bs') {
 
             var code = strategy.getCode(true, p.monsterId, false);
 

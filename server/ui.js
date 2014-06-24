@@ -5,11 +5,14 @@ var settings = require('./settings.js');
 var strategy = require('./strategy.js');
 var log = require('./log.js');
 var events = require('./events');
+var abyss = require('./abyss');
+var bot = require('./bot');
 
 var components = {
     log: '',
     strategy: '',
-    settings: ''
+    settings: '',
+    bot: ''
 }
 var template = _.template(fs.readFileSync(__dirname + '/ui/template.html').toString());
 
@@ -30,6 +33,7 @@ function render() {
 events.on('strategy-update', function(html){ components.strategy = html; render();});
 events.on('log-update', function(html){ components.log = html; render();});
 events.on('settings-update', function(html){components.settings = html; render();});
+events.on('bot-update', function(html){components.bot = html; render();});
 
 var socket = null;
 io.on('connection', function (_socket) {
@@ -40,8 +44,10 @@ io.on('connection', function (_socket) {
         log.main("Updated settings ", data);
     });
     socket.on('save-strategy', function (target) {
-        strategy.scheduleSave(target);
-        log.main("Strategy saving was scheduled, for ", target);
+        strategy.saveStrategy(target, target == 'abyss' ? abyss.getCode() : null);
+    });
+    socket.on('bot-abyss', function (endRoom) {
+        bot.autoAbyss(endRoom);
     });
     socket.on('hotfix', function (data) {
         log.main("Hotfixing strategy ", data);

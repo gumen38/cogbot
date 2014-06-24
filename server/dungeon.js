@@ -99,7 +99,6 @@ module.exports = {
             }
 
             if (settings.get().load.atBoss) {
-                if (settings.get().load.defaultBoss) code = 'default';
                 strategy.loadRecord(code, function () {
                     lib.maximizeSoldiers(cb);
                 });

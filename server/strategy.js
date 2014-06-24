@@ -73,8 +73,18 @@ function loadRecord(code, cb) {
     if (settings.get().load.disabled) { log.main('Strategy was NOT loaded: all loading was disabled'); cb(); return; }
 
     var recordJson;
-    try { recordJson = fs.readFileSync(__dirname + '/strategies/' + code, 'utf8'); } catch (e) {
-        log.main('Strategy ' + code + ' was not found, loading will be cancelled.'); cb(); return;
+    try {
+        recordJson = fs.readFileSync(__dirname + '/strategies/' + code, 'utf8');
+    } catch (e) {
+        log.main('Strategy ' + code + ' was not found, loading default.');
+        try {
+            recordJson = fs.readFileSync(__dirname + '/strategies/default', 'utf8');
+            code = "default";
+            strategyCode = code;
+        } catch (e) {
+            log.main('Strategy default was not found, loading cancelled.');
+            cb(); return;
+        }
     }
     if( previousRecordJson && previousRecordJson == recordJson ) {
         if (previousRecordJson == recordJson) { log.main('Strategy ' + code + ' was loaded but not applied: current strategy is same.'); cb(); return; }
@@ -146,13 +156,17 @@ events.on('reconnect', function(){
 
 
 var saveInfo;
-function scheduleSave(type) {
-    scheduled = type;
-    if( type == 'default' || type == 'wboss' ){
-        saveRecord(type, type);
+function saveStrategy(type, code) {
+    if( type == 'dboss' ){
+        scheduled = type;
+        saveInfo = "Current strategy will be saved on next dungeon boss battle";
         refreshUi();
+    } else if ( type == 'abyss' ){
+        saveRecord(code);
+        saveInfo = "Current strategy was saved for next abyss battle";
     } else {
-        saveInfo = "Current strategy will be saved on next " + (type=='boss'?'dungeon boss':'abyss room') + " battle";
+        saveInfo = "Current strategy was saved for " + type;
+        saveRecord(type);
         refreshUi();
     }
 }
@@ -163,6 +177,6 @@ module.exports = {
     recordDeploy: recordDeploy,
     saveRecord: saveRecord,
     loadRecord: loadRecord,
-    scheduleSave: scheduleSave,
+    saveStrategy: saveStrategy,
     getSchedule: function(){ return scheduled; }
 }

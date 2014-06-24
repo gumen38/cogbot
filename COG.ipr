@@ -30,7 +30,7 @@
     <option name="formatter" value="ECLIPSE" />
     <option name="id" value="1391781159409" />
     <option name="name" value="default" />
-    <option name="pathToConfigFileJava" value="C:/Work/KEG/egov-prototype1/formatting-rules.xml" />
+    <option name="pathToConfigFileJava" value="$PROJECT_DIR$/../KEG/egov-prototype1/formatting-rules.xml" />
     <option name="selectedJavaProfile" value="Egov Prototype Guidelines" />
   </component>
   <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false" />

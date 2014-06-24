@@ -9,45 +9,31 @@ return '<span class="checker-box"><span model="' + path + '" class="checker ' + 
     <legend>CogBot Settings <span class="minimize">[+/-]</span></legend>
     <fieldset class="collapsible">
         <legend><span class="hint" hint="110">Loading</span> settings</legend>
+        Disable all loading: <%=checker('load.disabled')%><br/>
         <table>
-            Disable all loading: <%=checker('load.disabled')%>
             <tr>
                 <th>Load on...</th>
                 <th><span class="hint" hint="0">Enabled</span></th>
-                <th><span class="hint" hint="1">Default</span></th>
-                <th><span class="hint" hint="2">Safe</span></th>
             </tr>
             <tr>
                 <td>Normal battle</td>
                 <td><%=checker('load.atBattle')%></td>
-                <td>always</td>
-                <td>n/a</td>
             </tr>
             <tr>
                 <td>World Boss</td>
                 <td><%=checker('load.atWboss')%></td>
-                <td><%=checker('load.defaultWboss')%></td>
-                <td>n/a</td>
             </tr>
             <tr>
                 <td>Dungeon boss</td>
                 <td><%=checker('load.atBoss')%></td>
-                <td><%=checker('load.defaultBoss')%></td>
-                <td><%=checker('load.safeBoss')%></td>
             </tr>
             <tr>
                 <td>Abyss room</td>
                 <td><%=checker('load.atAbyss')%></td>
-                <td><%=checker('load.defaultAbyss')%></td>
-                <td><%=checker('load.safeAbyss')%></td>
             </tr>
         </table>
         <div class="hint-info" hint="0">Automatically deploy heroes and assign soldiers.<br/>
             WARNING: game will show wrong deploy/soldiers, but during battle you will see real deploy/soldiers
-        </div>
-        <div class="hint-info" hint="1">Use Default strategy ALWAYS</div>
-        <div class="hint-info" hint="2">(Abyss) ON:Autoload on enter OFF:Autoload on attack<br/>
-            (Dungeon Boss) ON:Autoload on boss click, OFF:Autoload on attack
         </div>
         <div class="hint-info" hint="110">
             Automatic loading of saved strategy (deploy and soldier assigns) on battles.
@@ -76,5 +62,15 @@ return '<span class="checker-box"><span model="' + path + '" class="checker ' + 
             WARNING: game will show wrong army stack size, but during battle you will see real stack size<br/>
             PS: Fuck VIP!
         </div>
+    </fieldset>
+    <fieldset class="collapsible">
+        <legend>Other settings</legend>
+        <table>
+            <caption></caption>
+            <tr>
+                <td>Hide ads and kongregate's stuff</td>
+                <td><a href="#" class='btn' id="purge">Purge</a></td>
+            </tr>
+        </table>
     </fieldset>
 </fieldset>

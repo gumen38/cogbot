@@ -21,17 +21,12 @@ module.exports = {
 
     'PurgatoryAbyss_GetInfo_Res': function(rs, cb){
         abyss.updateLocation(rs);
-        settings.get().load.safeAbyss && abyss.prepareForFight(rs);
+        abyss.prepareForFight(rs);
         cb();
     },
 
     'PurgatoryAbyss_Challenge_Res': function(rs, cb, fullRs){
         abyss.updateLocation(fullRs.Object_Change_Notify_characterPurgatoryAbyss.attrs);
-        settings.get().load.safeAbyss && abyss.prepareForFight(rs);
         cb();
-    },
-
-    'Adventure_MapPreMove_Req': function(rs, cb){
-        settings.get().load.safeBoss && dungeon.prepareForPoint(rs.point);
     }
 }

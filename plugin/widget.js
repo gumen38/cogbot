@@ -61,6 +61,16 @@ if( !window.cogbotloaded ) (function() {
             $('.hint-info[hint=' + $(this).attr('hint') + ']').hide();
         });
 
+        $("#purge").unbind('click').bind('click', function(e){
+            $(".game_details_outer").remove();
+            $(".game_page_wrap").remove();
+            $(".footer").remove();
+            $(".gamepage_header_outer").remove();
+        });
+
+        $("#botAbyss").unbind('click').bind('click', function(e){
+            fire('botAbyss', $("#endRoom"));
+        })
     }
 
     function setProperty(obj, prop, val) {
@@ -72,5 +82,7 @@ if( !window.cogbotloaded ) (function() {
         } else
             obj[prop[0]] = val;
     }
+
+
 })();
 window.cogbotloaded = true;

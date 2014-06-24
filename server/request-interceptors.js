@@ -15,7 +15,7 @@ module.exports = {
     },
     'WorldBossBattle_Challenge_Req': function(rq, cb) {
         if( settings.get().load.atWboss ){
-            strategy.loadRecord(settings.get().load.defaultWboss ? 'default': 'wboss', function(){
+            strategy.loadRecord('wboss', function(){
                 lib.maximizeSoldiers(cb);
             })
         } else {

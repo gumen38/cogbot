@@ -1,0 +1,16 @@
+<fieldset id="abyss">
+    <legend>Purgatory Abyss<span class="minimize">[+/-]</span></legend>
+    <div class="main collapsible">
+        <div>
+            <b>Next room: <%=nextStorey%>/<%=1+(nextRoom-1)%25%></b>
+            <li><a class="btn" id="save-abyss" href="#">Save current strategy for next abyss room</a>  </li>
+        </div>
+        <div>
+            <a class='btn' id="abyss-auto">Auto Mode</a>
+            to <input type="number" id="abyss-end-room"/>
+        </div>
+        <div>
+            <b><%=statusMsg%></b>
+        </div>
+    </div>
+</fieldset>

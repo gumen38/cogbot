@@ -20,7 +20,7 @@ module.exports = {
     },
 
     maximizeSoldiers: function(cb) {
-        if( !settings.get().maximizeEnabled ) { cb(); return; }
+        if( !settings.get().maximize.enabled ) { cb(); return; }
         var rq = {"Hero_DeploySoldierAllMax_Req": {"characterId": null}};
         server.call(rq, function(rs){
             log.main("Maximized soldiers");

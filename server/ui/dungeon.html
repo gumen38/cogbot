@@ -1,0 +1,31 @@
+<%
+        var pos = pos, grid = grid;
+        function renderCell(x, y){
+            if( pos.x == x && pos.y == y ) return '@';
+            var cell = grid[x][y];
+            if( cell==null ) return ".";
+            if( cell.visited ) return "_";
+            if( cell.type=='bs' ) return "B";
+            if( cell.type=='mo' ) return "&";
+            if( cell.type=='ev' ) return "?";
+            if( cell.type=='rs' ) return "+";
+        }
+%>
+
+<fieldset id="dungeon">
+    <legend>Dungeon<span class="minimize">[+/-]</span></legend>
+    <div><%=location%></div>
+    <div>
+        <table>
+            <% for( var y = 0; y < 9; y++ ) { %>
+            <tr>
+                <% for( var y = 0; y < 9; y++ ) { %>
+                    <td><%=renderCell(x, y)%></td>
+                <% } %>
+            </tr>
+            <% } %>
+        </table>
+    </div>
+    <div><%=stateMsg%></div>
+    <div><a class="btn" id="save-dung" href="#">Save formation at next dungeon boss</a> </div>
+</fieldset>

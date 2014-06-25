@@ -4,7 +4,7 @@ url = require('url');
 log = require('./log');
 server = require("./server");
 
-module.exports = {
+module.exports = _.extend(module.exports || (module.exports = {}), {
 
     start: function () {
 
@@ -54,4 +54,4 @@ module.exports = {
             departureProcessor.pipe(proxy, {end: true});
         }).listen(3333);
     }
-};
+});

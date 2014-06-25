@@ -1,61 +1,46 @@
-var app = require('http').createServer(handler);
+var app = require('http').createServer(function(rq, rs) {rs.writeHead(200);rs.end();});
 var io = require('socket.io')(app);
 var fs = require('fs');
-var settings = require('./settings.js');
-var strategy = require('./strategy.js');
-var log = require('./log.js');
-var events = require('./events');
-var abyss = require('./abyss');
-var bot = require('./bot');
-
-var components = {
-    log: '',
-    strategy: '',
-    settings: '',
-    bot: ''
-}
-var template = _.template(fs.readFileSync(__dirname + '/ui/template.html').toString());
-
-log.main("Starting CogBot admin panel injector service at localhost:3334");
 app.listen(3334);
 
-function handler(req, res) {
-    res.writeHead(200);
-    res.end();
-}
-
-function render() {
-    if (socket) {
-        socket.emit('update-view', template(components));
-    }
-}
-
-events.on('strategy-update', function(html){ components.strategy = html; render();});
-events.on('log-update', function(html){ components.log = html; render();});
-events.on('settings-update', function(html){components.settings = html; render();});
-events.on('bot-update', function(html){components.bot = html; render();});
+var components = {
+    settings: require('./settings.js'),
+    strategy: require('./strategy.js'),
+    abyss: require('./abyss'),
+    dungeon: require('./abyss'),
+    log: require('./log.js')
+};
+var template = _.template(fs.readFileSync(__dirname + '/ui/template.html').toString());
+var templates = {
+    settings: _.template(fs.readFileSync(__dirname + '/ui/settings.html').toString()),
+    strategy: _.template(fs.readFileSync(__dirname + '/ui/strategy.html').toString()),
+    abyss: _.template(fs.readFileSync(__dirname + '/ui/abyss.html').toString()),
+    dungeon: _.template(fs.readFileSync(__dirname + '/ui/dungeon.html').toString()),
+    log: _.template(fs.readFileSync(__dirname + '/ui/log.html').toString())
+};
+var views = {
+    settings: '',
+    strategy: '',
+    abyss: '',
+    dungeon: '',
+    log: ''
+};
 
 var socket = null;
-io.on('connection', function (_socket) {
-    socket = _socket;
-    events.emit('reconnect');
-    socket.on('save-settings', function (data) {
-        settings.update(data);
-        log.main("Updated settings ", data);
+io.on('connection', function () {
+    socket = arguments[0];
+    socket.on('ui-action', function (componentId, data) {
+        components[componentId].control(data);
     });
-    socket.on('save-strategy', function (target) {
-        strategy.saveStrategy(target, target == 'abyss' ? abyss.getCode() : null);
-    });
-    socket.on('bot-abyss', function (endRoom) {
-        bot.autoAbyss(endRoom);
-    });
-    socket.on('hotfix', function (data) {
-        log.main("Hotfixing strategy ", data);
-        strategy.loadRecord("default");
-    });
-    log.debug("Connected");
+    log.main("Connected to admin panel.");
 });
+io.on('disconnect', function() { log.debug("Disconnected from admin panel.");});
 
-io.on('disconnect', function() {
-    log.debug("Disconnected");
+log.main("Starting CogBot admin panel injector service at localhost:3334");
+
+module.exports = _.extend(module.exports || (module.export = {}), {
+    update: function(componentId){
+        views[componentId] = templates[componentId](components[componentId].model());
+        if (socket) socket.emit('update-view', template(views));
+    }
 });

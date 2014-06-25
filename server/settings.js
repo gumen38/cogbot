@@ -30,7 +30,7 @@ module.exports = {
         return result;
     },
 
-    update: update
+    control: control
 };
 
 function merge(old, neu) {

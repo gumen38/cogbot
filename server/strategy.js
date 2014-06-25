@@ -10,14 +10,9 @@ var ready = false;
 var record = {};
 var changed = false;
 var loaded = false;
-var scheduled = false;
 var heroDetails = {};
 var strategyCode = "";
 var soldierNames = JSON.parse(fs.readFileSync("./server/soldiers.json", "utf8"));
-
-function getStrategyCode(isDungeon, monsterId, isAbyss, roomId, storeyId) {
-    return (isDungeon ? 'D' + monsterId : '') + (isAbyss ? 'A' + storeyId + '-' + roomId : '');
-}
 
 function recordDeploy(rs) {
     if (!ready) return;
@@ -141,34 +136,7 @@ function reloadDeploy() {
             heroDetails[hero.id] = { name: hero.name };
         });
         ready = true;
-        refreshUi();
     })
-}
-
-
-events.on('server-ready', init);
-function refreshUi(){
-    events.emit('strategy-update', template({ saveInfo: saveInfo, record: record, heroDetails: heroDetails, soldierNames: soldierNames, ready: ready, loaded: loaded, changed: changed, strategyCode: strategyCode }));
-}
-events.on('reconnect', function(){
-    refreshUi();
-});
-
-
-var saveInfo;
-function saveStrategy(type, code) {
-    if( type == 'dboss' ){
-        scheduled = type;
-        saveInfo = "Current strategy will be saved on next dungeon boss battle";
-        refreshUi();
-    } else if ( type == 'abyss' ){
-        saveRecord(code);
-        saveInfo = "Current strategy was saved for next abyss battle";
-    } else {
-        saveInfo = "Current strategy was saved for " + type;
-        saveRecord(type);
-        refreshUi();
-    }
 }
 
 module.exports = {
@@ -178,5 +146,16 @@ module.exports = {
     saveRecord: saveRecord,
     loadRecord: loadRecord,
     saveStrategy: saveStrategy,
-    getSchedule: function(){ return scheduled; }
+    model: function(){
+        return { saveInfo: saveInfo, record: record, heroDetails: heroDetails, soldierNames: soldierNames, ready: ready, loaded: loaded, changed: changed, strategyCode: strategyCode };
+    },
+    control: function(data){
+        if( data.save ){
+            if( data.save == 'wboss' ) { saveRecord('wboss'); }
+            if( data.save == 'default' ) { saveRecord('default'); }
+        }
+        if( data.load ){
+            if( data.load == 'default' ) { loadRecord('default'); }
+        }
+    }
 }

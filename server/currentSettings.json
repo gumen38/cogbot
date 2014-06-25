@@ -1,20 +1,13 @@
 {
     "load": {
-        "disabled": false,
-        "atBattle": true,
-        "atWboss": true,
-        "defaultWboss": false,
-        "atBoss": true,
-        "defaultBoss": false,
-        "safeBoss": true,
-        "atAbyss": true,
-        "defaultAbyss": false,
-        "safeAbyss": true
+        "enabled": true
     },
     "save": {
-        "disabled": false
+        "enabled": true
     },
-    "maximizeEnabled": true,
+    "maximize": {
+        "enabled": true
+    },
     "minimize": {
         "settings": true,
         "log": true,

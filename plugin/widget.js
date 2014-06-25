@@ -22,7 +22,7 @@ if( !window.cogbotloaded ) (function() {
     }
 
     function bindHandlers() {
-        $("#settings .checker").unbind('click').on('click', function () {
+        $("#cogbot_panel .checker").unbind('click').on('click', function () {
 
             if ($(this).hasClass('checked')) {
                 $(this).removeClass('checked');
@@ -36,19 +36,37 @@ if( !window.cogbotloaded ) (function() {
             var property = $(this).attr('model');
             if (!property) return;
             setProperty(model, property, value);
-
-            fire('save-settings', model);
+            fire('settings', model);
         });
 
-        $("#save a").unbind('click').on('click', function (e) {
+        $("#save-abyss").unbind('click').on('click', function (e) {
             e.preventDefault();
-            fire('save-strategy', $(this).attr('model'));
+            fire("abyss", {save:{}});
         });
 
-        $("#load a").unbind('click').on('click', function (e) {
+        $("#save-default").unbind('click').on('click', function (e) {
             e.preventDefault();
-            fire('hotfix', $(this).attr('model'));
+            fire("strategy", {save: 'default'});
         });
+
+        $("#save-wboss").unbind('click').on('click', function (e) {
+            e.preventDefault();
+            fire("strategy", {save: 'wboss'});
+        });
+
+        $("#save-dung").unbind('click').on('click', function (e) {
+            e.preventDefault();
+            fire("dungeon", {"schedule":{}});
+        });
+
+        $("#load-default").unbind('click').on('click', function (e) {
+            e.preventDefault();
+            fire('strategy', {load: 'default'});
+        });
+
+        $("#botAbyss").unbind('click').bind('click', function(e){
+            fire('abyss', { auto: $("#endRoom").value() });
+        })
 
         $(".minimize").unbind('click').on('click', function (e) {
             e.preventDefault();
@@ -68,9 +86,6 @@ if( !window.cogbotloaded ) (function() {
             $(".gamepage_header_outer").remove();
         });
 
-        $("#botAbyss").unbind('click').bind('click', function(e){
-            fire('botAbyss', $("#endRoom"));
-        })
     }
 
     function setProperty(obj, prop, val) {

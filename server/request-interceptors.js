@@ -28,6 +28,9 @@ module.exports = {
     'Adventure_MapPreMove_Req': function(rq, cb) {
         dungeon.enter(rq.point, cb, true);
     },
+    'Adventure_QuitProgress_Res': function(rq, cb){
+        dungeon.reset();
+    },
     'HeroSet_SetTroopStrategy_Req': function(rq, cb, fullRq){
         strategy.recordDeploy(fullRq);
         cb();

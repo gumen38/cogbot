@@ -4,17 +4,17 @@ url = require('url');
 log = require('./log');
 server = require("./server");
 
-module.exports = _.extend(module.exports || (module.exports = {}), {
+_.extend(module.exports, {
 
     start: function () {
 
-        log.main("Starting action proxy on localhost:3333...");
-        log.main("Warning: FoxyProxy should be configured to proxy only *do.php* requests to localhost:3333");
+        log.info("Starting action proxy on localhost:3333...");
+        log.info("Warning: FoxyProxy should be configured to proxy only *do.php* requests to localhost:3333");
 
         http.createServer(function (clientRequest, clientResponse) {
 
             if (clientRequest.url != "http://m1-kongregate.callofgods.com/php/do.php") {
-                log.main("FoxyProxy is misconfigured. Wrong url: " + clientRequest.url);
+                log.info("FoxyProxy is misconfigured. Wrong url: " + clientRequest.url);
             }
 
             clientRequest.headers['accept-encoding'] = 'utf-8';

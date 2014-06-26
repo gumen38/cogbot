@@ -1,31 +1,51 @@
 <%
-        var pos = pos, grid = grid;
+        var ps = pos, gr = grid;
         function renderCell(x, y){
-            if( pos.x == x && pos.y == y ) return '@';
-            var cell = grid[x][y];
-            if( cell==null ) return ".";
-            if( cell.visited ) return "_";
+            if( ps.x == x && ps.y == y ) return '@';
+            var cell = gr[x][y];
+            if( cell==null ) return "&nbsp;";
+            if( cell.visited ) return ".";
             if( cell.type=='bs' ) return "B";
             if( cell.type=='mo' ) return "&";
             if( cell.type=='ev' ) return "?";
-            if( cell.type=='rs' ) return "+";
+            if( cell.type=='re' ) return "$";
+            if( cell.type=='it' ) return "#";
+            if( cell.type=='ex' ) return ">";
+            if( cell.type=='en' ) return "<";
+
         }
 %>
 
+        <style>
+            #dungeon-map {
+            font-family: monospace;
+            font-size: 12px;
+            line-height: 10px;
+            letter-spacing: 4px;
+            font-weight: 900;
+            }
+        </style>
+
 <fieldset id="dungeon">
     <legend>Dungeon<span class="minimize">[+/-]</span></legend>
-    <div><%=location%></div>
-    <div>
-        <table>
-            <% for( var y = 0; y < 9; y++ ) { %>
-            <tr>
+    <% if( started && location ) { %>
+        <div><%=location.city%> <%=location.difficulty%> <%=location.level%></div>
+        <div>
+            <table id="dungeon-map">
                 <% for( var y = 0; y < 9; y++ ) { %>
-                    <td><%=renderCell(x, y)%></td>
+                <tr>
+                    <% for( var x = 0; x < 9; x++ ) { %>
+                        <td><%=renderCell(x, y)%></td>
+                    <% } %>
+                </tr>
                 <% } %>
-            </tr>
-            <% } %>
-        </table>
-    </div>
+            </table>
+        </div>
+        <% if ( boss != null ) { %>
+            <div>Strategy for boss <%=boss%> <a class="btn" id="save-dung" href="#"><%= haveStrategy ? 'Overwrite' : 'Create' %></a></div>
+        <% } %>
+    <% } else { %>
+        <div>Not entered a dungeon</div>
+    <% } %>
     <div><%=stateMsg%></div>
-    <div><a class="btn" id="save-dung" href="#">Save formation at next dungeon boss</a> </div>
 </fieldset>

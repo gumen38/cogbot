@@ -1,22 +1,24 @@
 var lib = require('./lib');
 var server = require('./server');
 var strategy = require('./strategy');
-var settings = require('./strategy');
+var settings = require('./settings');
 var log = require('./log');
+var ui = require('./ui');
 
+var started = false;
 var statusMsg = "";
 function status(msg) {
     log.info(msg);
     statusMsg = msg;
+    ui.update('abyss');
 }
 
-var currentRoom, currentStorey, nextRoom, nextStorey;
+var nextRoom, nextStorey;
 function updateLocation(rs) {
-    currentRoom = rs.roomId;
-    currentStorey = rs.storeyRoom;
+    started = true;
     nextRoom = rs.nextRoomId;
     nextStorey = rs.nextStorey;
-    status("Abyss location changed: current/next room/storey are " + currentRoom + "/" + nextRoom + " " + currentStorey + "/" + nextStorey);
+    status("Abyss location changed: storey/room are " + nextStorey + " / " + ((nextRoom-1)%25+1));
 }
 
 function getStrategyCode() {
@@ -26,13 +28,13 @@ function getStrategyCode() {
 function doRoom(cb) {
     status("Now doing auto-mode abyss room/storey: " + nextRoom + "/" + nextStorey);
     status("Preparing room formation/soldiers setup.");
-    strategy.loadRecord(getStrategyCode(), function () {
+    strategy.loadRecord(strategy.haveStrategy(getStrategyCode())?getStrategyCode():"default", function () {
         status("Maximizing assigned soldiers stacks sizes");
         lib.maximizeSoldiers(function () {
             status("Initiating challenge sequence");
             server.call({"PurgatoryAbyss_Challenge_Req": {"auto": 0, "speedUp": 0, "characterId": null, "speedUpType": 0}}, function (rs) {
                 status("Finishing challenge sequence");
-                updateLocation(rs);
+                updateLocation(rs.Object_Change_Notify_characterPurgatoryAbyss.attrs);
                 server.call({"Battle_Finish_Req": {"characterId": null}}, function () {
                     status("Room is finished.");
                     cb(rs);
@@ -48,35 +50,46 @@ function auto(endRoom) {
         status('Error: bad end room');
         return;
     }
+    if(_.isString(endRoom) ) endRoom = parseInt(endRoom);
+
 
     doRoom(function (rs) {
-        if (rs.PurgatoryAbyss_Challenge_Req.result.record.winner != 'attacker') {
+        if (rs.PurgatoryAbyss_Challenge_Res.result.record.winner != 'attacker') {
             status('Battle was lost. Stopping auto-abyss.');
             return;
         }
-        if (abyss.getRoom() < endRoom) {
+        if (nextRoom < endRoom) {
             status('Battle was won. Continuing auto-abyss.');
-            goAbyss(endRoom)
+            auto(endRoom)
         } else {
             status('Abyss end room reached, stopping');
         }
     });
 }
 
-_.extend(module.exports || (module.exports = {}), {
-
+_.extend(module.exports, {
+    reset: function(){},
     onRoomChange: function (rs, cb) {
         updateLocation(rs);
-        settings.get().load.abyss && strategy.loadRecord(getStrategyCode(), function () {
+        if( settings.get().load.enabled ) {
+            strategy.loadRecord(getStrategyCode(), function () {
+                lib.maximizeSoldiers(cb);
+            });
+        } else {
             lib.maximizeSoldiers(cb);
-        });
+        }
     },
     auto: auto,
     model: function () {
         return {
             statusMsg: statusMsg,
             nextRoom: nextRoom,
-            nextStorey: nextStorey
+            nextStorey: nextStorey,
+            started: started
         };
+    },
+    control: function(opts){
+        opts.save && strategy.saveRecord(getStrategyCode());
+        opts.auto && auto(opts.auto);
     }
 });

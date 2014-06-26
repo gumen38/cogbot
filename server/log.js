@@ -1,9 +1,9 @@
 var fs = require("fs");
-var ui = require("./events");
+var ui = require("./ui");
 var template = _.template(fs.readFileSync(__dirname + '/ui/log.html').toString());
 
 var info = [];
-module.exports = _.extend(module.exports || (module.export = {}), {
+_.extend(module.exports, {
 
     info: function (msg) {
         console.log(msg);

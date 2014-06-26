@@ -1,6 +1,7 @@
 
 <fieldset id="current">
     <legend>Current strategy</legend>
+    <div><b><%=statusMsg%></b></div>
     <%
         var rec = record, det = heroDetails, sol = soldierNames;//underscore visibility scope trick
         function info(code){
@@ -36,7 +37,6 @@
             <li><a class="btn" id="save-default" model="default" href="#">Save now as Default Strategy</a></li>
             <li><a class="btn" id="save-wboss" model="wboss" href="#">Save now for World Boss</a>       </li>
         </ul>
-        <div><%=saveInfo%></div>
         <div class="hint-info" hint="400">Will save current attack formation and assigned soldiers (for ALL heroes).</div>
 </fieldset>
 <% } %>
@@ -47,6 +47,7 @@
     <% if( loaded ) { %>
     <div>Strategy <%=strategyCode%> was automatically loaded</div>
     <% } %>
-    <div><a class="btn" id="hotfix.default" href="#" id="load-default">Apply Default Strategy</a></div>
+    <div><a class="btn" href="#" id="load-default">Apply Default Strategy</a></div>
 </fieldset>
 <% } %>
+

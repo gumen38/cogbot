@@ -3,6 +3,14 @@ var strategy = require('./strategy');
 var settings = require("./settings");
 var server = require("./server");
 var log = require('./log');
+var ui = require('./ui');
+
+var statusMsg = "";
+function status(msg) {
+    log.info(msg);
+    statusMsg = msg;
+    ui.update('dungeon');
+}
 
 function Cell(code, obj) {
     var result;
@@ -16,14 +24,29 @@ function Cell(code, obj) {
             visited: obj.a && obj.a.p || obj.p,
             monsterId: obj.a && obj.a.mId,
             mapId: obj.a && obj.a.mapId,
-            x: result.x, y: result.y
+            x: result.x,
+            y: result.y
         }
     }
     return result;
 }
 
 function loadChanges(obj) {
-    _.each(_.keys(obj), function (key) { if (/p\d\d/.test(key)) { grid[mapPos.x][mapPos.y] = new Cell(key, obj[key]); } })
+    if( !obj ) return;
+    p = new Cell(obj.point);
+    _.each(_.keys(obj), function (key) { if (/p\d\d/.test(key)) { var cell = new Cell(key, obj[key]); grid[cell.x][cell.y] = cell;} })
+}
+
+function findBoss(){
+    if( !grid ) return null;
+    for (var x = 0; x < 9; x++) {
+        for (var y = 0; y < 9; y++) {
+            if( grid[x] && grid[x][y] && grid[x][y].type == 'bs' ){
+                return grid[x][y].monsterId;
+            }
+        }
+    }
+    return null;
 }
 
 function get(point) {
@@ -31,7 +54,7 @@ function get(point) {
 }
 
 function getLocation() {
-    if (!map) return "unknown";
+    if (!map) return null;
     var city = {
         909: "Shrine of Elements (lvl 90)"
     }[map.cityId];
@@ -41,27 +64,27 @@ function getLocation() {
         3: 'Hell',
         4: 'Fantasy'
     }[map.difficulty];
-    var room = map.mapId.toString().substr(map.cityId.toString().length);
+    var level = map.mapId.toString().substr(map.cityId.toString().length);
     return {
         city: city,
         difficulty: difficulty,
-        room: room
+        level: level
     }
 }
 
 
 function update(updatedMap) {
     if (!map) {
-        stateMsg = "Dungeon map was not loaded, reloading dungeon map...";
+        status("Dungeon map was not loaded, reloading dungeon map...");
         server.call({"Adventure_QuitProgress_Req": {"characterId": null, "save": 1}}, function (rs) {
             if (!rs.Adventure_GetInfo_Res.retMsg == "SUCCESS") {
-                stateMsg = "Unable to reload dungeon map, probably dungeon was not started.";
+                status("Unable to reload dungeon map, probably dungeon was not started.");
             } else {
                 server.call({"Adventure_ContinueProgress_Req": {"characterId": null}}, function (rs2) {
                     if (!rs.Adventure_ContinueProgress_Res.retMsg == "SUCCESS") {
-                        stateMsg = "Unable to reload dungeon map, probably dungeon was not started.";
+                        status("Unable to reload dungeon map, probably dungeon was not started.");
                     } else {
-                        stateMsg = "Dungeon map was reloaded.";
+                        status("Dungeon map was reloaded.");
                         init(rs2.Adventure_ContinueProgress_Res.map);
                     }
                 })
@@ -69,13 +92,16 @@ function update(updatedMap) {
         });
     } else {
         loadChanges(updatedMap);
+        status("Dungeon info updated.");
     }
 }
 
 function init(newMap) {
     map = newMap;
     reset();
-    loadChanges(map)
+    loadChanges(map);
+    started = true;
+    status("Entered a dungeon");
 }
 
 function reset() {
@@ -83,10 +109,10 @@ function reset() {
         grid[x] = [];
         for (var y = 0; y < 9; y++) grid[x][y] = null;
     }
-    stateMsg = "Dungeon was reset";
+    status("Dungeon was reset");
 }
 
-function getStrategyCode(isDungeon, monsterId) {
+function getStrategyCode(monsterId) {
     return 'D' + monsterId;
 }
 
@@ -96,9 +122,10 @@ var grid = [];
 var p = null;
 var stateMsg = '';
 var saveScheduled = false;
+var started = false;
 
-module.exports = {
-
+_.extend(module.exports, {
+    reset: function(){ map = null; reset(); started = false;},
     init: init,
     update: update,
     enter: function (point, cb, early) {
@@ -110,23 +137,32 @@ module.exports = {
             strategy.loadRecord('default', function () {lib.maximizeSoldiers(cb);});
         } else if (p.type == 'bs' && early) {
             var code = getStrategyCode(p.monsterId);
-            if (!settings.get().save.disabled && saveScheduled) {
-                strategy.saveRecord(code);
-                lib.maximizeSoldiers(cb);
-            } else {
-                if (settings.get().load.dungeon) {
+                if (settings.get().load.enabled) {
                     strategy.loadRecord(code, function () {
                         lib.maximizeSoldiers(cb);
                     });
                 } else {
                     lib.maximizeSoldiers(cb);
                 }
-            }
         } else {
             cb();
         }
     },
     model: function(){
-        return { stateMsg: stateMsg, location: getLocation(), pos: p, grid: grid };
+        var boss = findBoss();
+        return {
+            haveStrategy: boss && strategy.haveStrategy(getStrategyCode(boss)),
+            boss: boss,
+            started: started && map!=null && p!=null,
+            stateMsg: stateMsg,
+            location: getLocation(),
+            pos: p,
+            grid: grid };
+    },
+    control: function(opts){
+        if( opts.save && findBoss()!=null && settings.get().save.enabled ){
+            strategy.saveRecord(getStrategyCode(findBoss()));
+            lib.maximizeSoldiers(cb);
+        }
     }
-};
+});

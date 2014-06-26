@@ -1,76 +1,24 @@
 <%
-var model = _model;
+var m = model;
 function getProperty(obj, prop) { prop = prop.split('.'); while( prop.length!=0 ){obj = obj[prop[0]];prop = prop.slice(1);}; return obj;}
-function checker(path){ var checked = getProperty(model, path);
+function checker(path){ var checked = getProperty(m, path);
 return '<span class="checker-box"><span model="' + path + '" class="checker ' + (checked?'checked':'') + '"></span></span>';}
 %>
 
 <fieldset id="settings">
     <legend>CogBot Settings <span class="minimize">[+/-]</span></legend>
-    <fieldset class="collapsible">
-        <legend><span class="hint" hint="110">Loading</span> settings</legend>
-        Disable all loading: <%=checker('load.disabled')%><br/>
-        <table>
-            <tr>
-                <th>Load on...</th>
-                <th><span class="hint" hint="0">Enabled</span></th>
-            </tr>
-            <tr>
-                <td>Normal battle</td>
-                <td><%=checker('load.atBattle')%></td>
-            </tr>
-            <tr>
-                <td>World Boss</td>
-                <td><%=checker('load.atWboss')%></td>
-            </tr>
-            <tr>
-                <td>Dungeon boss</td>
-                <td><%=checker('load.atBoss')%></td>
-            </tr>
-            <tr>
-                <td>Abyss room</td>
-                <td><%=checker('load.atAbyss')%></td>
-            </tr>
-        </table>
-        <div class="hint-info" hint="0">Automatically deploy heroes and assign soldiers.<br/>
+    <div class="collapsible">
+        <div>Enable <span class="hint" hint="110">auto-load</span> <%=checker('load.enabled')%></div>
+        <div class="hint-info" hint="110">Automatically deploy heroes and assign soldiers.<br/>
             WARNING: game will show wrong deploy/soldiers, but during battle you will see real deploy/soldiers
         </div>
-        <div class="hint-info" hint="110">
-            Automatic loading of saved strategy (deploy and soldier assigns) on battles.
-        </div>
-    </fieldset>
-    <fieldset class="collapsible">
-        <legend><span class="hint" hint="111">Saving</span> settings</legend>
-        <table>
-            Disable all saving: <%=checker('save.disabled')%>
-        </table>
-        <div class="hint-info" hint="111">When you change deploy and/or soldier assigns, CogBot will
-            ask you if you want to save new deploy and assigns for specific type of battle.
-        </div>
-    </fieldset>
-    <fieldset class="collapsible">
-        <legend>Maximize settings</legend>
-        <table>
-            <caption></caption>
-            <tr>
-                <td><span class="hint" hint="4">Enable auto-maximize</span></td>
-                <td><%=checker('maximizeEnabled')%></td>
-            </tr>
-        </table>
-        <div class="hint-info" hint="4">Maximize soldiers automatically<br/>
+        <div>Enable <span class="hint" hint="111">saving</span> <%=checker('save.enabled')%></div>
+        <div class="hint-info" hint="111">Use this setting to protect your saved strategies from overriding.</div>
+        <div><span class="hint" hint="4">Enable auto-maximize</span><%=checker('maximize.enabled')%></div>
+        <div class="hint-info" hint="4">Maximize soldiers automatically like in VIP mode<br/>
             INFO: Applies to all Dungeon, Abyss, Normal and World Boss attacks.<br/>
             WARNING: game will show wrong army stack size, but during battle you will see real stack size<br/>
-            PS: Fuck VIP!
         </div>
-    </fieldset>
-    <fieldset class="collapsible">
-        <legend>Other settings</legend>
-        <table>
-            <caption></caption>
-            <tr>
-                <td>Hide ads and kongregate's stuff</td>
-                <td><a href="#" class='btn' id="purge">Purge</a></td>
-            </tr>
-        </table>
-    </fieldset>
+        <div>Hide ads and kongregate's stuff <a href="#" class='btn' id="purge">Purge</a></div>
+    </div>
 </fieldset>

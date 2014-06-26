@@ -3,7 +3,7 @@ mkdirp = require('mkdirp');
 server = require('./server');
 settings = require('./settings');
 log = require('./log');
-events = require('./events');
+ui = require('./ui');
 
 var template = _.template(fs.readFileSync(__dirname + '/ui/strategy.html').toString());
 var ready = false;
@@ -14,36 +14,39 @@ var heroDetails = {};
 var strategyCode = "";
 var soldierNames = JSON.parse(fs.readFileSync("./server/soldiers.json", "utf8"));
 
+var statusMsg = "";
+function status(msg) {
+    log.info(msg);
+    statusMsg = msg;
+    ui.update('strategy');
+}
+
+
 function recordDeploy(rs) {
     if (!ready) return;
-    log.main('Strategy updated.');
     record.deploy = rs;
     changed = true;
-    refreshUi();
+    status('Strategy updated.');
 }
 
 function recordAssign(rs) {
     if (!ready) return;
-    log.main('Strategy  updated.');
-     cleanup();
+    cleanup();
     record.assigns[rs.Hero_DeploySoldier_Req.id] = rs;
     changed = true;
-    refreshUi();
+    status('Strategy updated.');
 }
 
 function saveRecord(code) {
     if (!ready) return;
-    if( settings.get().save.disabled ) { log.main('Strategy was NOT saved: all saving was disabled'); return; }
-
+    if( settings.get().save.disabled ) { status('Strategy was NOT saved: all saving was disabled'); return; }
     mkdirp(__dirname + '/strategies/');
-
     var exists = fs.existsSync(__dirname + '/strategies/' + code);
-    if( exists ) log.main("Strategy " + code + " exists, it will be overwritten.");
-
+    if( exists ) status("Strategy " + code + " exists, it will be overwritten.");
     cleanup();
     fs.writeFileSync(__dirname + '/strategies/' + code, JSON.stringify(record), 'utf8');
-    saveInfo = "Current strategy was saved as \'" + code + "\' strategy";
-    log.main(saveInfo);
+    previousRecordJson = null;
+    status("Current strategy was saved as \'" + code + "\' strategy");
 }
 
 function cleanup() {
@@ -65,31 +68,31 @@ function loadRecord(code, cb) {
     strategyCode = code;
 
     if (!ready) return;
-    if (settings.get().load.disabled) { log.main('Strategy was NOT loaded: all loading was disabled'); cb(); return; }
+    if (settings.get().load.disabled) { status('Strategy was NOT loaded: all loading was disabled'); cb(); return; }
 
     var recordJson;
     try {
         recordJson = fs.readFileSync(__dirname + '/strategies/' + code, 'utf8');
     } catch (e) {
-        log.main('Strategy ' + code + ' was not found, loading default.');
+        status('Strategy ' + code + ' was not found, loading default.');
         try {
             recordJson = fs.readFileSync(__dirname + '/strategies/default', 'utf8');
             code = "default";
             strategyCode = code;
         } catch (e) {
-            log.main('Strategy default was not found, loading cancelled.');
+            status('Strategy default was not found, loading cancelled.');
             cb(); return;
         }
     }
     if( previousRecordJson && previousRecordJson == recordJson ) {
-        if (previousRecordJson == recordJson) { log.main('Strategy ' + code + ' was loaded but not applied: current strategy is same.'); cb(); return; }
+        if (previousRecordJson == recordJson) { status('Strategy ' + code + ' was loaded but not applied: current strategy is same.'); cb(); return; }
     }
     previousRecordJson = recordJson;
 
     record = JSON.parse(recordJson);
-    if( !record ) { log.main('Strategy was NOT loaded: can\'t read strategy record from file'); cb(); return; }
+    if( !record ) { status('Strategy was NOT loaded: can\'t read strategy record from file'); cb(); return; }
 
-    log.main('Applying strategy ' + code);
+    status('Applying strategy ' + code);
     apply(cb);
 }
 
@@ -101,10 +104,9 @@ function apply(cb) {
         _.each(_.keys(record.assigns), function (heroId) {
             server.call(record.assigns[heroId], function (rs) {
                 if (++count == _.keys(record.assigns).length) {
-                    log.main('Strategy was applied');
                     changed = false;
                     loaded = true;
-                    refreshUi();
+                    status('Strategy was applied');
                     cb();
                 }
             })
@@ -113,8 +115,8 @@ function apply(cb) {
 }
 
 function init() {
-    log.main('Strategy initialization: loading current deploy and soldier assigments...');
-    if (ready) { log.main('Strategy was already initialized.'); return; }
+    status('Strategy module initialization: loading current deploy and soldier assigments...');
+    if (ready) { status('Strategy module was already initialized.'); return; }
     reloadDeploy();
 }
 
@@ -136,18 +138,21 @@ function reloadDeploy() {
             heroDetails[hero.id] = { name: hero.name };
         });
         ready = true;
+        status('Strategy module initialized.');
     })
 }
 
-module.exports = {
-    getCode: getStrategyCode,
+_.extend(module.exports, {
+    init: init,
     recordAssign: recordAssign,
     recordDeploy: recordDeploy,
     saveRecord: saveRecord,
     loadRecord: loadRecord,
-    saveStrategy: saveStrategy,
+    haveStrategy: function(code){
+        try { fs.readFileSync(__dirname + '/strategies/' + code, 'utf8'); return true; } catch(e) { return false; }
+    },
     model: function(){
-        return { saveInfo: saveInfo, record: record, heroDetails: heroDetails, soldierNames: soldierNames, ready: ready, loaded: loaded, changed: changed, strategyCode: strategyCode };
+        return { statusMsg: statusMsg, record: record, heroDetails: heroDetails, soldierNames: soldierNames, ready: ready, loaded: loaded, changed: changed, strategyCode: strategyCode };
     },
     control: function(data){
         if( data.save ){
@@ -158,4 +163,4 @@ module.exports = {
             if( data.load == 'default' ) { loadRecord('default'); }
         }
     }
-}
+})

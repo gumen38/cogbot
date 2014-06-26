@@ -27,5 +27,10 @@ module.exports = {
     'PurgatoryAbyss_Challenge_Res': function(rs, cb, fullRs){
         abyss.onRoomChange(fullRs.Object_Change_Notify_characterPurgatoryAbyss.attrs);
         cb();
+    },
+
+    'PurgatoryAbyss_Reset_Res': function(rs, cb, fullRs){
+        abyss.reset();
+        abyss.onRoomChange(fullRs.Object_Change_Notify_characterPurgatoryAbyss.attrs);
     }
 }

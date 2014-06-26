@@ -4,7 +4,8 @@ var http = require("http");
 var url = require('url');
 var log = require('./log');
 var strategy = require('./strategy');
-var events = require('./events');
+var dungeon = require('./dungeon');
+var abyss = require('./abyss');
 var session = null;
 var headers = null;
 
@@ -109,8 +110,11 @@ var interceptRequest = function (request, cb) {
     var sessionBefore = session;
     var rq = parseRequest(request);
 
-    if( sessionBefore==null && session!=null ) events.emit('server-ready');
-    if( sessionBefore!=null && session!=sessionBefore) events.emit('server-reset');
+    if( sessionBefore==null && session!=null || sessionBefore!=null && session!=sessionBefore) {
+        strategy.init();
+        dungeon.reset();
+        abyss.reset();
+    }
 
     var intercepts = [];
     _.each(_.keys(rq), function (name) {
@@ -153,11 +157,11 @@ var interceptResponse = function (response, cb) {
 };
 
 
-module.exports = {
+_.extend(module.exports, {
     parseRequest: parseRequest,
     parseResponse: parseResponse,
     call: call,
     captureHeaders: captureHeaders,
     interceptRequest: interceptRequest,
     interceptResponse: interceptResponse
-}
+})

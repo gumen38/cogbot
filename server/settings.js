@@ -1,28 +1,16 @@
 fs = require('fs');
-events = require('./events');
-
+ui = require('./ui');
 var settings = JSON.parse(fs.readFileSync(__dirname+'/currentSettings.json', 'utf8'));
 var template = _.template(fs.readFileSync(__dirname + '/ui/settings.html').toString());
 
 function update(newSettings){
     var result = merge(settings, newSettings);
     fs.writeFileSync(__dirname+'/currentSettings.json', JSON.stringify(result, undefined, 4), 'utf8');
-    refreshUi();
-}
-
-events.on('server-ready', function(){
-    refreshUi();
-});
-events.on('reconnect', function(){
-    refreshUi();
-});
-
-function refreshUi(){
-    events.emit('settings-update', template({ _model: settings }));
+    ui.update('settings');
 }
 
 
-module.exports = {
+_.extend(module.exports, {
 
     get: function(){
         var result = {};
@@ -30,8 +18,13 @@ module.exports = {
         return result;
     },
 
-    control: control
-};
+    control: function(params){
+        update(params);
+    },
+    model: function(){
+        return { model: settings };
+    }
+});
 
 function merge(old, neu) {
     for (var prop in neu)

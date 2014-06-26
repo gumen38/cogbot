@@ -18,7 +18,7 @@ if( !window.cogbotloaded ) (function() {
     });
 
     function fire(code, data) {
-        socket.emit(code, data);
+        socket.emit("ui-action", { code: code, data: data});
     }
 
     function bindHandlers() {
@@ -56,7 +56,7 @@ if( !window.cogbotloaded ) (function() {
 
         $("#save-dung").unbind('click').on('click', function (e) {
             e.preventDefault();
-            fire("dungeon", {"schedule":{}});
+            fire("dungeon", {"save":{}});
         });
 
         $("#load-default").unbind('click').on('click', function (e) {
@@ -64,9 +64,9 @@ if( !window.cogbotloaded ) (function() {
             fire('strategy', {load: 'default'});
         });
 
-        $("#botAbyss").unbind('click').bind('click', function(e){
-            fire('abyss', { auto: $("#endRoom").value() });
-        })
+        $("#abyss-auto").unbind('click').bind('click', function(e){
+            fire('abyss', { auto: $("#abyss-end-room").val() });
+        });
 
         $(".minimize").unbind('click').on('click', function (e) {
             e.preventDefault();

@@ -84,7 +84,7 @@ function loadRecord(code, cb) {
             cb(); return;
         }
     }
-    if( previousRecordJson && previousRecordJson == recordJson ) {
+    if( !changed &&  previousRecordJson && previousRecordJson == recordJson ) {
         if (previousRecordJson == recordJson) { status('Strategy ' + code + ' was loaded but not applied: current strategy is same.'); cb(); return; }
     }
     previousRecordJson = recordJson;

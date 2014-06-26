@@ -8,8 +8,13 @@
             var hero = rec.deploy.HeroSet_SetTroopStrategy_Req.attackTroopStrategy[code];
             if( hero == -1 ) return "N/A";
             if( !det[hero] ) return "None";
-            var soldierId = rec.assigns[hero].Hero_DeploySoldier_Req.soldierId;
-            var soldierName = soldierId == 0 ? 'none' : (sol[soldierId] ? sol[soldierId] : soldierId);
+
+            var soldierName = "-";
+            if( rec.assigns[hero] ) {
+                var soldierId = rec.assigns[hero].Hero_DeploySoldier_Req.soldierId;
+                soldierName = soldierId == 0 ? 'none' : (sol[soldierId] ? sol[soldierId] : soldierId);
+            }
+
             return det[hero].name + "<br/>[" + soldierName + "]";
         }
 %>
@@ -50,4 +55,3 @@
     <div><a class="btn" href="#" id="load-default">Apply Default Strategy</a></div>
 </fieldset>
 <% } %>
-

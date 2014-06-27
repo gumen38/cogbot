@@ -159,6 +159,9 @@ _.extend(module.exports, {
             pos: p,
             grid: grid };
     },
+    auto: function(){
+
+    },
     control: function(opts){
         if( opts.save && findBoss()!=null && settings.get().save.enabled ){
             strategy.saveRecord(getStrategyCode(findBoss()));

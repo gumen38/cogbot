@@ -2,6 +2,7 @@ dungeon = require("./dungeon");
 abyss = require("./abyss");
 strategy = require("./strategy");
 settings = require("./settings");
+task = require("./task");
 module.exports = {
 
     'Adventure_MapMove_Res': function(rs, cb, fullRs){
@@ -32,5 +33,10 @@ module.exports = {
     'PurgatoryAbyss_Reset_Res': function(rs, cb, fullRs){
         abyss.reset();
         abyss.onRoomChange(fullRs.Object_Change_Notify_characterPurgatoryAbyss.attrs);
+    },
+
+    global: function(rs, cb, fullRs){
+        task.detect(rs, fullRs);
+        cb();
     }
 }

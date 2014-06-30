@@ -134,15 +134,15 @@ _.extend(module.exports, {
         if (p.visited == 1) { cb(); return; }
 
         if ( (p.type == 'mo' || p.type == 'ev') && !early) {
-            strategy.loadRecord('default', function () {lib.maximizeSoldiers(cb);});
+            strategy.loadRecord('default', function () {strategy.maximizeSoldiers(cb);});
         } else if (p.type == 'bs' && early) {
             var code = getStrategyCode(p.monsterId);
                 if (settings.get().load.enabled) {
                     strategy.loadRecord(code, function () {
-                        lib.maximizeSoldiers(cb);
+                        strategy.maximizeSoldiers(cb);
                     });
                 } else {
-                    lib.maximizeSoldiers(cb);
+                    strategy.maximizeSoldiers(cb);
                 }
         } else {
             cb();
@@ -165,7 +165,7 @@ _.extend(module.exports, {
     control: function(opts){
         if( opts.save && findBoss()!=null && settings.get().save.enabled ){
             strategy.saveRecord(getStrategyCode(findBoss()));
-            lib.maximizeSoldiers(cb);
+            strategy.maximizeSoldiers(cb);
         }
     }
 });

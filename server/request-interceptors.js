@@ -9,19 +9,19 @@ module.exports = {
     'Battle_AttackMonster_Req': function(rq, cb){
         if( settings.get().load.atBattle ) {
             strategy.loadRecord('default', function() {
-                lib.maximizeSoldiers(cb);
+                strategy.maximizeSoldiers(cb);
             });
         } else {
-            lib.maximizeSoldiers(cb);
+            strategy.maximizeSoldiers(cb);
         }
     },
     'WorldBossBattle_Challenge_Req': function(rq, cb) {
         if( settings.get().load.atWboss ){
             strategy.loadRecord('wboss', function(){
-                lib.maximizeSoldiers(cb);
+                strategy.maximizeSoldiers(cb);
             })
         } else {
-            lib.maximizeSoldiers(cb);
+            strategy.maximizeSoldiers(cb);
         }
     },
     'Adventure_MapMove_Req': function(rq, cb){
@@ -48,6 +48,9 @@ module.exports = {
     'City_NpcTaskFinish_Req': function(rq, cb, fullRq){
         //task.saveFinish(rq);
         cb();
+    },
+    'PurgatoryAbyss_Challenge_Req': function(rq, cb){
+        abyss.prepare(cb);
     },
     global: function(rq, cb, fullRq){
         task.saveRq(rq, fullRq);

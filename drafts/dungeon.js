@@ -157,7 +157,7 @@ module.exports = {
         if(p.p != 1 && p.t=='mo' || p.t=='ev' || p.t=='bs' ) {
 
             if( settings.get().dungeon.disableAutodeploy ){
-                lib.maximizeSoldiers(cb);
+                strategy.maximizeSoldiers(cb);
             } else {
                 var code = strategy.getCode(true, p.mId, false);
                 if(p.t != 'bs' && settings.get().dungeon.alwaysDefaultStrategyOnTrash ) {
@@ -166,7 +166,7 @@ module.exports = {
                     strategy.saveRecord(code);
                 }
                 strategy.loadRecord(code, function(){
-                    lib.maximizeSoldiers(cb);
+                    strategy.maximizeSoldiers(cb);
                 });
             }
         } else {

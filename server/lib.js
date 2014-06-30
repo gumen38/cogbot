@@ -17,17 +17,6 @@ _.extend(module.exports,{
             var hero = _.find(session.getRs('Hero_GetInfo_Res').heroes, function(hero){ return hero.id == heroId; });
             cb(hero);
         }, true);
-    },
-
-    maximizeSoldiers: function(cb) {
-        if( !settings.get().maximize.enabled ) { cb(); return; }
-        var rq = {"Hero_DeploySoldierAllMax_Req": {"characterId": null}};
-        server.call(rq, function(rs){
-            log.info("Maximized soldiers");
-            cb && cb();
-        });
     }
 
-
-}
-)
+})

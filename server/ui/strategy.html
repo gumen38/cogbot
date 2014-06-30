@@ -23,6 +23,7 @@
     <tr><td><%= info('11') %></td><td><%= info('12') %></td><td><%= info('13') %></td><td><%= info('14') %></td></tr>
     <tr><td><%= info('21') %></td><td><%= info('22') %></td><td><%= info('23') %></td><td><%= info('24') %></td></tr>
 </table>
+<% if( depleted ) { %><div style="font-weight:900; font-size: 14px; color:red">!!!Soldiers depleted!!!<br/> <%=depleted%></div><% } %>
 <% } else { %>
         <div>Capturing session... <span class="hint" hint="400">(?)</span></div>
         <div class="hint-info" hint="400">The CogBot Server is waiting for requests from game to game server</br>

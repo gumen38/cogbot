@@ -63,7 +63,7 @@ var call = function (requestOrBatch, cb) {
     };
 
     var body = JSON.stringify(wrapper);
-    log.debug(wrapper);
+    log.debug(body);
 
     headers['content-length'] = body.length + '';
     var opts = {

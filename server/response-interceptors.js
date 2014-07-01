@@ -3,6 +3,7 @@ abyss = require("./abyss");
 strategy = require("./strategy");
 settings = require("./settings");
 task = require("./task");
+inventory = require("./inventory");
 server = require("./server");
 module.exports = {
 
@@ -40,6 +41,11 @@ module.exports = {
 
     'PreResource_Recruit_Res': function(rs, cb){
         strategy.resetDepleted();
+        cb();
+    },
+
+    'Item_GetInfo_Res': function(rs, cb){
+        inventory.read(rs);
         cb();
     },
 

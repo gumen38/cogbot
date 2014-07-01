@@ -4,19 +4,31 @@ strategy = require("./strategy");
 settings = require("./settings");
 task = require("./task");
 server = require("./server");
+inventory = require("./inventory");
 module.exports = {
 
-    'characterAdventureMap': function(msg, cb){
-        dungeon.update(msg.attrs);
+    'Object_Change_Notify.characterAdventureMap': function(msg, cb){
+        dungeon.update(msg);
         cb();
     },
 
-    'characterPurgatoryAbyss': function(msg, cb){
-        abyss.onRoomChange(msg.attrs);
+    'Object_Change_Notify.characterPurgatoryAbyss': function(msg, cb){
+        abyss.onRoomChange(msg);
         cb();
     },
 
-    'characterResource': function(msg, cb){
+    'Object_Change_Notify.characterResource': function(msg, cb){
+        strategy.assertSoldiers(msg);
+        cb();
+    },
 
+    'Object_Create_Notify.characterItem': function(msg, cb){
+        inventory.itemAdded(msg);
+        cb();
+    },
+
+    'Object_Delete_Notify.characterItem': function(msg, cb){
+        inventory.reload();
+        cb();
     }
 }

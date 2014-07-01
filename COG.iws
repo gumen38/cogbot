@@ -2,10 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="58514c26-2693-4612-94d0-0d71f2b5bc06" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/COG.ipr" afterPath="$PROJECT_DIR$/COG.ipr" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/ddd.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/ui/inventory.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/inventory.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/COG.iws" afterPath="$PROJECT_DIR$/COG.iws" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/dungeon.js" afterPath="$PROJECT_DIR$/server/dungeon.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/message-interceptors.js" afterPath="$PROJECT_DIR$/server/message-interceptors.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/response-interceptors.js" afterPath="$PROJECT_DIR$/server/response-interceptors.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/server.js" afterPath="$PROJECT_DIR$/server/server.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/ui/settings.html" afterPath="$PROJECT_DIR$/server/ui/settings.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/settings.js" afterPath="$PROJECT_DIR$/server/settings.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/strategy.js" afterPath="$PROJECT_DIR$/server/strategy.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/ui/template.html" afterPath="$PROJECT_DIR$/server/ui/template.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/ui.js" afterPath="$PROJECT_DIR$/server/ui.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plugin/widget.js" afterPath="$PROJECT_DIR$/plugin/widget.js" />
     </list>
     <ignored path="COG.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -69,19 +79,115 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="strategy.js" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/server/strategy.js">
+      <file leaf-file-name="response-interceptors.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/response-interceptors.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="194" column="39" selection-start="7470" selection-end="7486" vertical-scroll-proportion="1.2318182" vertical-offset="2756" max-vertical-offset="3978">
+            <state line="46" column="41" selection-start="1229" selection-end="1229" vertical-scroll-proportion="0.0" vertical-offset="614" max-vertical-offset="1037">
+              <folding>
+                <marker date="1404229720999" expanded="true" signature="1228:1277" placeholder="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="server.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/server/server.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="32" column="0" selection-start="1185" selection-end="1185" vertical-scroll-proportion="-0.27868852" vertical-offset="663" max-vertical-offset="3281">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="server.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/server.js">
+      <file leaf-file-name="message-interceptors.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/message-interceptors.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="81" column="43" selection-start="2627" selection-end="2627" vertical-scroll-proportion="0.0" vertical-offset="869" max-vertical-offset="3264">
+            <state line="32" column="5" selection-start="836" selection-end="836" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="663">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="inventory.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/inventory.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="30" column="0" selection-start="577" selection-end="577" vertical-scroll-proportion="0.0" vertical-offset="292" max-vertical-offset="1037">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ddd.json" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/ddd.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="914" column="38" selection-start="30361" selection-end="30361" vertical-scroll-proportion="0.0" vertical-offset="5102" max-vertical-offset="146812">
+              <folding>
+                <element signature="e#41#1919#0" expanded="false" />
+                <element signature="e#1931#2466#0" expanded="false" />
+                <element signature="e#2472#5436#0" expanded="false" />
+                <element signature="e#5442#8102#0" expanded="false" />
+                <element signature="e#8108#8961#0" expanded="false" />
+                <element signature="e#8967#10449#0" expanded="false" />
+                <element signature="e#10455#10616#0" expanded="false" />
+                <element signature="e#10663#10781#0" expanded="false" />
+                <element signature="e#10829#12040#0" expanded="false" />
+                <element signature="e#12088#12181#0" expanded="false" />
+                <element signature="e#12305#13289#0" expanded="false" />
+                <element signature="e#13307#14292#0" expanded="false" />
+                <element signature="e#14310#15441#0" expanded="false" />
+                <element signature="e#15459#16444#0" expanded="false" />
+                <element signature="e#16462#17447#0" expanded="false" />
+                <element signature="e#17465#18449#0" expanded="false" />
+                <element signature="e#18467#19450#0" expanded="false" />
+                <element signature="e#19468#20448#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="inventory.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/ui/inventory.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="3" column="21" selection-start="206" selection-end="206" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="221">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/settings.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="23" column="0" selection-start="630" selection-end="630" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="816">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="widget.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/plugin/widget.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="93" column="38" selection-start="3173" selection-end="3173" vertical-scroll-proportion="0.0" vertical-offset="935" max-vertical-offset="1972">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/ui/settings.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="22" column="0" selection-start="1520" selection-end="1520" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="527">
+              <folding>
+                <marker date="1404230273214" expanded="true" signature="617:796" placeholder="..." />
+                <marker date="1404230273214" expanded="true" signature="1158:1422" placeholder="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ui.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/ui.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="35" column="0" selection-start="1296" selection-end="1296" vertical-scroll-proportion="0.0" vertical-offset="229" max-vertical-offset="986">
               <folding />
             </state>
           </provider>
@@ -100,9 +206,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/logic/session.js" />
-        <option value="$PROJECT_DIR$/run.bat" />
-        <option value="$PROJECT_DIR$/server/rqlib.js" />
         <option value="$PROJECT_DIR$/server/request-interceptors" />
         <option value="$PROJECT_DIR$/ui/page.html" />
         <option value="$PROJECT_DIR$/ui/app.js" />
@@ -128,13 +231,8 @@
         <option value="$PROJECT_DIR$/circulardeptest/main.js" />
         <option value="$PROJECT_DIR$/main.js" />
         <option value="$PROJECT_DIR$/server/ui/log.html" />
-        <option value="$PROJECT_DIR$/server/ui/template.html" />
-        <option value="$PROJECT_DIR$/server/settings.js" />
-        <option value="$PROJECT_DIR$/server/ui/settings.html" />
         <option value="$PROJECT_DIR$/server/log.js" />
         <option value="$PROJECT_DIR$/server/ui/abyss.html" />
-        <option value="$PROJECT_DIR$/server/ui.js" />
-        <option value="$PROJECT_DIR$/plugin/widget.js" />
         <option value="$PROJECT_DIR$/server/ui/dungeon.html" />
         <option value="$PROJECT_DIR$/server/soldiers.json" />
         <option value="$PROJECT_DIR$/circulardeptest/b.js" />
@@ -142,15 +240,23 @@
         <option value="$PROJECT_DIR$/server/task.js" />
         <option value="$PROJECT_DIR$/server/ui/strategy.html" />
         <option value="$PROJECT_DIR$/drafts/dungeon.js" />
-        <option value="$PROJECT_DIR$/server/dungeon.js" />
         <option value="$PROJECT_DIR$/server/lib.js" />
         <option value="$PROJECT_DIR$/server/request-interceptors.js" />
         <option value="$PROJECT_DIR$/server/abyss.js" />
         <option value="$PROJECT_DIR$/server/proxy.js" />
-        <option value="$PROJECT_DIR$/server/response-interceptors.js" />
-        <option value="$PROJECT_DIR$/server/message-interceptors.js" />
+        <option value="$PROJECT_DIR$/server/dungeon.js" />
         <option value="$PROJECT_DIR$/server/server.js" />
+        <option value="$PROJECT_DIR$/server/ui.js" />
         <option value="$PROJECT_DIR$/server/strategy.js" />
+        <option value="$PROJECT_DIR$/server/ui/template.html" />
+        <option value="$PROJECT_DIR$/server/ddd.json" />
+        <option value="$PROJECT_DIR$/server/response-interceptors.js" />
+        <option value="$PROJECT_DIR$/plugin/widget.js" />
+        <option value="$PROJECT_DIR$/server/ui/settings.html" />
+        <option value="$PROJECT_DIR$/server/ui/inventory.html" />
+        <option value="$PROJECT_DIR$/server/settings.js" />
+        <option value="$PROJECT_DIR$/server/inventory.js" />
+        <option value="$PROJECT_DIR$/server/message-interceptors.js" />
       </list>
     </option>
   </component>
@@ -265,6 +371,24 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ui" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="COG" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="COG" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="plugin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -318,21 +442,21 @@
     <property name="options.searchVisible" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="FullScreen" value="false" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="222" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="219" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="231" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="228" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="238" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="235" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="917" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="905" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder3" value="3" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="238" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="237" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder0" value="0" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="226" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="225" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="233" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="232" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="911" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="906" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
@@ -585,7 +709,7 @@
       <workItem from="1404119340047" duration="10527000" />
       <workItem from="1404134606458" duration="32000" />
       <workItem from="1404222390316" duration="2144000" />
-      <workItem from="1404226209564" duration="859000" />
+      <workItem from="1404226209564" duration="4750000" />
     </task>
     <task id="LOCAL-00001" summary="Moved from dropbox">
       <created>1403253943340</created>
@@ -615,11 +739,15 @@
       <created>1404224365698</created>
       <updated>1404224365698</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="too lazy to write a message again">
+      <created>1404227083517</created>
+      <updated>1404227083517</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="344166000" />
+    <option name="totallyTimeSpent" value="348057000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1022" extended-state="0" />
@@ -631,17 +759,19 @@
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="CheckStyle" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28650442" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5033186" sideWeight="0.9096459" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24668142" sideWeight="0.9096459" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4616228" sideWeight="0.09035409" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33628318" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2202454" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2202454" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30973452" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Regex" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -650,38 +780,37 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28650442" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="IntelliTail" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.48451328" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4616228" sideWeight="0.09035409" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32939634" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33628318" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22527473" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39364034" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2202454" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30973452" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="CheckStyle" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32539684" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34210527" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28650442" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.5033186" sideWeight="0.9096459" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Regex" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
@@ -707,39 +836,18 @@
     <MESSAGE value="few drafts" />
     <MESSAGE value="-Added 'soldiers depleted' check and alert message. Works with abyss &amp; maximize (+dungeons). Have several issues, because now data is gathered by reactive way, need implement proactive way to make it reliable.&#10;-Made proactive deploy/assign verification + no assign is called if its already same.&#10;" />
     <MESSAGE value="too lazy to write a message" />
-    <option name="LAST_COMMIT_MESSAGE" value="too lazy to write a message" />
+    <MESSAGE value="too lazy to write a message again" />
+    <option name="LAST_COMMIT_MESSAGE" value="too lazy to write a message again" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="202" />
+      <option name="time" value="213" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/server/log.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="0" selection-start="355" selection-end="380" vertical-scroll-proportion="0.0" vertical-offset="187" max-vertical-offset="476" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/strategy.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="142" column="0" selection-start="4774" selection-end="4774" vertical-scroll-proportion="0.0" vertical-offset="1960" max-vertical-offset="2720">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/drafts/dungeon.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="161" column="36" selection-start="5217" selection-end="5217" vertical-scroll-proportion="0.0" vertical-offset="2453" max-vertical-offset="3077" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/ui/template.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/ui/template.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
@@ -815,11 +923,6 @@
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/plugin/popup.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/socket.io/node_modules/socket.io-client/node_modules/engine.io-client/node_modules/ws/test/testserver.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="14" column="2" selection-start="375" selection-end="375" vertical-scroll-proportion="0.26862302" vertical-offset="0" max-vertical-offset="3162" />
@@ -845,11 +948,6 @@
         <state line="141" column="0" selection-start="7387" selection-end="7387" vertical-scroll-proportion="0.0" vertical-offset="2223" max-vertical-offset="14739" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/ui/log.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="42" selection-start="122" selection-end="122" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="170" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/currentSettings.json">
       <provider selected="true" editor-type-id="text-editor">
         <state line="7" column="13" selection-start="97" selection-end="105" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="391">
@@ -857,24 +955,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/ui/settings.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="10" selection-start="1530" selection-end="1530" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="510" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/log.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="16" column="6" selection-start="408" selection-end="408" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="476" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/settings.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="35" selection-start="690" selection-end="690" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="782" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/ui/template.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="111" column="21" selection-start="2200" selection-end="2202" vertical-scroll-proportion="-6.64" vertical-offset="1721" max-vertical-offset="3485" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server/ui/abyss.html">
@@ -882,19 +965,9 @@
         <state line="10" column="40" selection-start="457" selection-end="471" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="442" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/ui.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="51" selection-start="1440" selection-end="1440" vertical-scroll-proportion="0.0" vertical-offset="399" max-vertical-offset="935" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/ui/dungeon.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="5" column="43" selection-start="200" selection-end="200" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="969" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/plugin/widget.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="58" column="34" selection-start="1882" selection-end="1882" vertical-scroll-proportion="0.0" vertical-offset="816" max-vertical-offset="1853" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server/soldiers.json">
@@ -936,23 +1009,9 @@
         <state line="168" column="28" selection-start="5551" selection-end="5551" vertical-scroll-proportion="0.0" vertical-offset="2458" max-vertical-offset="3077" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/dungeon.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="167" column="20" selection-start="4861" selection-end="4861" vertical-scroll-proportion="0.0" vertical-offset="2373" max-vertical-offset="2992">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/lib.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="21" column="2" selection-start="721" selection-end="721" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="459" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/request-interceptors.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="57" column="5" selection-start="1688" selection-end="1688" vertical-scroll-proportion="0.0" vertical-offset="631" max-vertical-offset="1105">
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server/abyss.js">
@@ -969,30 +1028,145 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/message-interceptors.js">
+    <entry file="file://$PROJECT_DIR$/server/strategies/default">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="0" selection-start="464" selection-end="464" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="459">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="410">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/response-interceptors.js">
+    <entry file="file://$PROJECT_DIR$/plugin/popup.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="0" selection-start="1151" selection-end="1151" vertical-scroll-proportion="0.0" vertical-offset="57" max-vertical-offset="935">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="289">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/server.js">
+    <entry file="file://$PROJECT_DIR$/server/request-interceptors.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="81" column="43" selection-start="2627" selection-end="2627" vertical-scroll-proportion="0.0" vertical-offset="869" max-vertical-offset="3264">
+        <state line="34" column="6" selection-start="1055" selection-end="1055" vertical-scroll-proportion="0.0" vertical-offset="318" max-vertical-offset="1105">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/dungeon.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="111" column="33" selection-start="3282" selection-end="3282" vertical-scroll-proportion="0.0" vertical-offset="2120" max-vertical-offset="2992">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/ui/log.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="0" selection-start="0" selection-end="158" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="170">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server/strategy.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="194" column="39" selection-start="7470" selection-end="7486" vertical-scroll-proportion="1.2318182" vertical-offset="2756" max-vertical-offset="3978">
+        <state line="7" column="0" selection-start="159" selection-end="159" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3995">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/ui/template.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="188" column="13" selection-start="3840" selection-end="3840" vertical-scroll-proportion="0.0" vertical-offset="3075" max-vertical-offset="3502">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/response-interceptors.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="46" column="41" selection-start="1229" selection-end="1229" vertical-scroll-proportion="0.0" vertical-offset="614" max-vertical-offset="1037">
+          <folding>
+            <marker date="1404229720999" expanded="true" signature="1228:1277" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plugin/widget.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="93" column="38" selection-start="3173" selection-end="3173" vertical-scroll-proportion="0.0" vertical-offset="935" max-vertical-offset="1972">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/ui/settings.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="0" selection-start="1520" selection-end="1520" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="527">
+          <folding>
+            <marker date="1404230273214" expanded="true" signature="617:796" placeholder="..." />
+            <marker date="1404230273214" expanded="true" signature="1158:1422" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/settings.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="0" selection-start="630" selection-end="630" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="816">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/ui/inventory.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="21" selection-start="206" selection-end="206" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="221">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/ddd.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="914" column="38" selection-start="30361" selection-end="30361" vertical-scroll-proportion="0.0" vertical-offset="5102" max-vertical-offset="146812">
+          <folding>
+            <element signature="e#41#1919#0" expanded="false" />
+            <element signature="e#1931#2466#0" expanded="false" />
+            <element signature="e#2472#5436#0" expanded="false" />
+            <element signature="e#5442#8102#0" expanded="false" />
+            <element signature="e#8108#8961#0" expanded="false" />
+            <element signature="e#8967#10449#0" expanded="false" />
+            <element signature="e#10455#10616#0" expanded="false" />
+            <element signature="e#10663#10781#0" expanded="false" />
+            <element signature="e#10829#12040#0" expanded="false" />
+            <element signature="e#12088#12181#0" expanded="false" />
+            <element signature="e#12305#13289#0" expanded="false" />
+            <element signature="e#13307#14292#0" expanded="false" />
+            <element signature="e#14310#15441#0" expanded="false" />
+            <element signature="e#15459#16444#0" expanded="false" />
+            <element signature="e#16462#17447#0" expanded="false" />
+            <element signature="e#17465#18449#0" expanded="false" />
+            <element signature="e#18467#19450#0" expanded="false" />
+            <element signature="e#19468#20448#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/ui.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="0" selection-start="1296" selection-end="1296" vertical-scroll-proportion="0.0" vertical-offset="229" max-vertical-offset="986">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/inventory.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="0" selection-start="577" selection-end="577" vertical-scroll-proportion="0.0" vertical-offset="292" max-vertical-offset="1037">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/message-interceptors.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="5" selection-start="836" selection-end="836" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="663">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="0" selection-start="1185" selection-end="1185" vertical-scroll-proportion="-0.27868852" vertical-offset="663" max-vertical-offset="3281">
           <folding />
         </state>
       </provider>

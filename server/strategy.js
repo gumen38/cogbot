@@ -5,7 +5,6 @@ settings = require('./settings');
 log = require('./log');
 ui = require('./ui');
 
-var template = _.template(fs.readFileSync(__dirname + '/ui/strategy.html').toString());
 var ready = false;
 var record = {};
 var changed = false;
@@ -13,6 +12,7 @@ var loaded = false;
 var heroDetails = {};
 var strategyCode = "";
 var depleted = null;
+var inventoryFull = false;
 var soldierNames = JSON.parse(fs.readFileSync("./server/soldiers.json", "utf8"));
 
 var statusMsg = "";
@@ -115,6 +115,7 @@ function apply(cb) {
 
                 if( assigns[heroId].Hero_DeploySoldier_Req.soldierId != record.assigns[heroId].Hero_DeploySoldier_Req.soldierId ){
                     status('Assign for hero ' + heroDetails[heroId].name + ' was changed, applying...');
+                    record.assigns[heroId].Hero_DeploySoldier_Req.soldierCount = 1;
                     server.call(record.assigns[heroId], function(rs, msgs) {
                         if( rs && rs.Hero_DeploySoldier_Res.retMsg == "CHARACTER_SOLDIER_NOT_ENOUGH" ){
                             depleted = soldierNames[solId] ? soldierNames[solId] : solId;

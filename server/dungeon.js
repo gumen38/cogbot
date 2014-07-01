@@ -109,7 +109,7 @@ function reset() {
         grid[x] = [];
         for (var y = 0; y < 9; y++) grid[x][y] = null;
     }
-    status("Dungeon was reset");
+    status("Dungeon was restarted");
 }
 
 function getStrategyCode(monsterId) {

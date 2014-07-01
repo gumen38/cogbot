@@ -23,15 +23,16 @@ var parseRequest = function (requestJson) {
 
 var parseResponse = function (responseJson) {
     var result = {
-        data: {},
-        msgs: {}
+        data: {}
     };
     _.each(JSON.parse(responseJson), function (responseEntry) {
         var responseEntryName = _.keys(responseEntry)[0];
         result.data[responseEntryName] = responseEntry[responseEntryName];
         if (responseEntryName == 'Notify' && responseEntry.Notify.msgs) {
             _.each(responseEntry.Notify.msgs, function (message) {
-                result.msgs[_.keys(message)[0]] = message;
+                var notifyName = _.keys(message)[0];
+                var entryName = notifyName + "." + message[notifyName].className;
+                result[entryName] = message[notifyName].attrs;
             });
         }
     });

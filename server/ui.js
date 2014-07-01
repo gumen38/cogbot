@@ -9,7 +9,8 @@ var components = {
     strategy: require('./strategy.js'),
     abyss: require('./abyss'),
     dungeon: require('./dungeon'),
-    log: require('./log.js')
+    log: require('./log.js'),
+    inventory: require('./inventory.js')
 };
 var template = _.template(fs.readFileSync(__dirname + '/ui/template.html').toString());
 var templates = {
@@ -17,14 +18,16 @@ var templates = {
     strategy: _.template(fs.readFileSync(__dirname + '/ui/strategy.html').toString()),
     abyss: _.template(fs.readFileSync(__dirname + '/ui/abyss.html').toString()),
     dungeon: _.template(fs.readFileSync(__dirname + '/ui/dungeon.html').toString()),
-    log: _.template(fs.readFileSync(__dirname + '/ui/log.html').toString())
+    log: _.template(fs.readFileSync(__dirname + '/ui/log.html').toString()),
+    inventory: _.template(fs.readFileSync(__dirname + '/ui/inventory.html').toString())
 };
 var views = {
     settings: '',
     strategy: '',
     abyss: '',
     dungeon: '',
-    log: ''
+    log: '',
+    inventory: ''
 };
 var socket = null;
 

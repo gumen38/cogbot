@@ -1,7 +1,7 @@
 if( !window.cogbotloaded ) (function() {
 
     $('#cogbot_panel').remove();
-    $('body').append('<div id="cogbot_panel"></div>');
+    $('body').append('<div id="cogbot_panel">CogBot server is not available at localhost:3333</div>');
 
     var panel = $("#cogbot_panel");
     var socket = io('http://localhost:3334');
@@ -87,7 +87,11 @@ if( !window.cogbotloaded ) (function() {
         });
 
         $("#open").unbind('click').bind('click', function(e){
-            fire('settings', { open: {} });
+            fire('inventory', { open: {} });
+        });
+
+        $("#reloadinv").unbind('click').bind('click', function(e){
+            fire('inventory', { reload: {} });
         });
     }
 

@@ -22,7 +22,6 @@ function status(msg) {
     ui.update('strategy');
 }
 
-
 function recordDeploy(rs) {
     if (!ready) return;
     record.deploy = rs;
@@ -31,24 +30,20 @@ function recordDeploy(rs) {
 
 function recordAssign(rs) {
     if (!ready) return;
-    cleanup();
+    normalizeDeploy();
     record.assigns[rs.Hero_DeploySoldier_Req.id] = rs;
     status('Strategy updated.');
 }
 
 function saveRecord(code) {
     if (!ready) return;
-    if( settings.get().save.disabled ) { status('Strategy was NOT saved: all saving was disabled'); return; }
     mkdirp(__dirname + '/strategies/');
-    var exists = fs.existsSync(__dirname + '/strategies/' + code);
-    if( exists ) status("Strategy " + code + " exists, it will be overwritten.");
-    cleanup();
-    fs.writeFileSync(__dirname + '/strategies/' + code, JSON.stringify(record), 'utf8');
-    status("Current strategy was saved as \'" + code + "\' strategy");
+    if( fs.existsSync(__dirname + '/strategies/' + code) ) status("Strategy " + code + " exists, it will be overwritten.");
+    normalizeDeploy();
+    fs.writeFileSync(__dirname + '/strategies/' + code, JSON.stringify(record), 'utf8'); status("Current strategy was saved as \'" + code + "\' strategy");
 }
 
-function cleanup() {
-
+function normalizeDeploy() {
     var newAssigns = {};
     _.each(_.keys(record.deploy.HeroSet_SetTroopStrategy_Req.attackTroopStrategy), function(key) {
         var heroId = record.deploy.HeroSet_SetTroopStrategy_Req.attackTroopStrategy[key];
@@ -60,54 +55,47 @@ function cleanup() {
 
 }
 
-var previousRecordJson = null ;
 function loadRecord(code, cb) {
+    if (!ready) return;
     cb = cb || function() {};
     strategyCode = code;
 
-    if (!ready) return;
-    if (settings.get().load.disabled) { status('Strategy was NOT loaded: all loading was disabled'); cb(); return; }
-
     var recordJson;
     try {
-        recordJson = fs.readFileSync(__dirname + '/strategies/' + code, 'utf8');
+        recordJson = fs.readFileSync(__dirname + '/strategies/' + strategyCode, 'utf8');
     } catch (e) {
-        status('Strategy ' + code + ' was not found, loading default.');
-        try {
-            recordJson = fs.readFileSync(__dirname + '/strategies/default', 'utf8');
-            code = "default";
-            strategyCode = code;
-        } catch (e) {
-            status('Strategy default was not found, loading cancelled.');
+        if( strategyCode != 'default' ){
+            status('Strategy ' + code + ' was not found, loading default.');
+            loadRecord('default', cb);
+        } else {
+            status('Strategy load FAILED: default strategy record not found.');
             cb(); return;
         }
     }
     record = JSON.parse(recordJson);
-    if( !record ) { status('Strategy was NOT loaded: can\'t read strategy record from file'); cb(); return; }
-    status('Applying strategy ' + code);
+    if( !record ) { status('Strategy load FAILED: can\'t read strategy file record'); cb(); return; }
+
     apply(cb);
 }
 
 function apply(cb) {
     cb = cb || function() {};
+    status('Applying strategy ' + strategyCode);
 
-    var rq = [
-        {"HeroSet_GetInfo_Req": {"characterId": null }},
-        {"Hero_GetInfo_Req": {"characterId": null }}
-    ];
+    var rq = [{"HeroSet_GetInfo_Req": {"characterId": null }},{"Hero_GetInfo_Req": {"characterId": null }}];
 
-    status('Synchronizing deploy data...');
+    status('Synchronizing formation...');
     server.call(rq, function (rs) {
         if( !_.isEqual(record.deploy.HeroSet_SetTroopStrategy_Req.attackTroopStrategy, rs.HeroSet_GetInfo_Res.attackTroopStrategy ) &&
             record.deploy.HeroSet_SetTroopStrategy_Req.attackTroopStrategyId == rs.HeroSet_GetInfo_Res.attackTroopStrategyId ){
             status('Deploy was changed, applying...');
-            server.call(record.deploy, assign)
+            server.call(record.deploy, assign);
         } else {
             assign();
         }
 
         function assign() {
-            status('Syncing assigns...');
+            status('Synchronizing assigns...');
             var assigns = {};
             _.each(rs.Hero_GetInfo_Res.heroes, function (hero) {
                 assigns[hero.id] = {"Hero_DeploySoldier_Req": {"id": hero.id, "soldierId": hero.soldierId, "soldierCount": hero.soldierCount }};
@@ -198,17 +186,13 @@ function maximizeSoldiers(cb) {
     });
 }
 
-function assertSoldiers(rs){
-    status('Asserting soldiers stack change..');
-    if( rs && rs.Object_Change_Notify_characterResource ) {
-        _.each(rs.Object_Change_Notify_characterResource.attrs.soldiers, function(soldier){
-            //todo dont check undeployed heroes
-            if( soldier.undeployed == 0 ){
-                depleted = soldierNames[soldier.id] ? soldierNames[soldier.id] : soldier.id;
-                status('Soldiers depleted');
-            }
-        })
-    }
+function assertSoldiers(msg) {
+    _.each(msg.attrs.soldiers, function (soldier) {
+        if (soldier.undeployed == 0 && soldier.deployed > 0) {
+            depleted = soldierNames[soldier.id] ? soldierNames[soldier.id] : soldier.id;
+            status('Soldiers depleted: ' + depleted);
+        }
+    })
 }
 
 _.extend(module.exports, {

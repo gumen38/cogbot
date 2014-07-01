@@ -1,5 +1,6 @@
 var requestInterceptors = require('./request-interceptors');
 var responseInterceptors = require('./response-interceptors');
+var messageInterceptors = require('./message-interceptors');
 var http = require("http");
 var url = require('url');
 var log = require('./log');
@@ -9,31 +10,28 @@ var abyss = require('./abyss');
 var session = null;
 var headers = null;
 
-var parseRequest = function (rq) {
-    rq = JSON.parse(rq);
-    session = rq.session;
+var parseRequest = function (requestJson) {
+    var request = JSON.parse(requestJson);
+    session = request.session;
     var result = {};
-    _.each(rq.body, function (el) {
-        var name = _.keys(el)[0];
-        result[name] = el[name];
+    _.each(request.body, function (requestEntry) {
+        var requestEntryName = _.keys(requestEntry)[0];
+        result[requestEntryName] = requestEntry[requestEntryName];
     });
     return result;
 };
 
-var parseResponse = function (rs) {
-    rs = JSON.parse(rs);
-    var result = {};
-    _.each(rs, function (el) {
-        var name = _.keys(el)[0];
-        result[name] = el[name];
-        if (name == 'Notify' && el.Notify.msgs) {
-            _.each(el.Notify.msgs, function (msgEl) {
-                var msgName = _.keys(msgEl)[0];
-                var saveName = msgName;
-                if( msgName == 'Object_Change_Notify' ) {
-                    saveName = msgName + '_' +  msgEl[msgName].className;
-                }
-                result[saveName] = msgEl[msgName];
+var parseResponse = function (responseJson) {
+    var result = {
+        data: {},
+        msgs: {}
+    };
+    _.each(JSON.parse(responseJson), function (responseEntry) {
+        var responseEntryName = _.keys(responseEntry)[0];
+        result.data[responseEntryName] = responseEntry[responseEntryName];
+        if (responseEntryName == 'Notify' && responseEntry.Notify.msgs) {
+            _.each(responseEntry.Notify.msgs, function (message) {
+                result.msgs[_.keys(message)[0]] = message;
             });
         }
     });
@@ -96,7 +94,6 @@ var call = function (requestOrBatch, cb) {
 };
 
 var captureHeaders = function (_headers) {
-
     headers = {};
     _.each(_.keys(_headers), function(key){
         headers[key] = _headers[key];
@@ -139,11 +136,11 @@ var interceptResponse = function (response, cb) {
 
     var rs = parseResponse(response);
     var intercepts = [];
-    _.each(_.keys(rs), function (name) {
+    _.each(_.keys(rs.data), function (name) {
         if (responseInterceptors[name]) {
             intercepts.push({
                 interceptor: responseInterceptors[name],
-                obj: rs[name]
+                obj: rs.data[name]
             })
         }
     });
@@ -152,8 +149,30 @@ var interceptResponse = function (response, cb) {
     _.each(intercepts, function (intercept) {
         intercept.interceptor(intercept.obj, function () {
             if (++count == intercepts.length) cb();
-        }, rs)
-    })
+        }, rs.data)
+    });
+};
+
+var interceptMessages = function (response, cb) {
+    cb = cb || function() {};
+
+    var rs = parseResponse(response);
+    var intercepts = [];
+    _.each(_.keys(rs.msgs), function (name) {
+        if (messageInterceptors[name]) {
+            intercepts.push({
+                interceptor: messageInterceptors[name],
+                obj: rs.msgs[name]
+            })
+        }
+    });
+    if( intercepts.length == 0 ) { cb(); return; }
+    var count = 0;
+    _.each(intercepts, function (intercept) {
+        intercept.interceptor(intercept.obj, function () {
+            if (++count == intercepts.length) cb();
+        })
+    });
 };
 
 
@@ -163,5 +182,6 @@ _.extend(module.exports, {
     call: call,
     captureHeaders: captureHeaders,
     interceptRequest: interceptRequest,
-    interceptResponse: interceptResponse
+    interceptResponse: interceptResponse,
+    interceptMessages: interceptMessages
 })

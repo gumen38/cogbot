@@ -6,10 +6,9 @@ task = require("./task");
 server = require("./server");
 module.exports = {
 
-    'Adventure_MapMove_Res': function(rs, cb, fullRs){
-        dungeon.update(fullRs.Object_Change_Notify_characterAdventureMap.attrs);
-        cb();
-    },
+//    'Adventure_MapMove_Res': function(rs, cb, fullRs){
+//        cb();
+//    },
 
     'Adventure_GetMapInfo_Res': function(rs, cb){
         dungeon.init(rs.map);
@@ -28,14 +27,14 @@ module.exports = {
     },
 
     'PurgatoryAbyss_Challenge_Res': function(rs, cb, fullRs){
-        abyss.onRoomChange(fullRs.Object_Change_Notify_characterPurgatoryAbyss.attrs);
+//        abyss.onRoomChange(fullRs.Object_Change_Notify_characterPurgatoryAbyss.attrs);
         strategy.assertSoldiers(fullRs);
         cb();
     },
 
     'PurgatoryAbyss_Reset_Res': function(rs, cb, fullRs){
         abyss.reset();
-        abyss.onRoomChange(fullRs.Object_Change_Notify_characterPurgatoryAbyss.attrs);
+//        abyss.onRoomChange(fullRs.Object_Change_Notify_characterPurgatoryAbyss.attrs);
         abyss.prepare(cb);
     },
 

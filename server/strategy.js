@@ -96,42 +96,46 @@ function apply(cb) {
 
         function assign() {
             status('Synchronizing assigns...');
+
             var assigns = {};
             _.each(rs.Hero_GetInfo_Res.heroes, function (hero) {
                 assigns[hero.id] = {"Hero_DeploySoldier_Req": {"id": hero.id, "soldierId": hero.soldierId, "soldierCount": hero.soldierCount }};
             });
 
-            var count = 0;
+            _.each(_.keys(record.assigns), function (heroId, index) {
 
-            function checkEnd(heroId, rs, solId){
-                if( rs && rs.Hero_DeploySoldier_Res.retMsg == "CHARACTER_SOLDIER_NOT_ENOUGH" ){
-                    depleted = soldierNames[solId] ? soldierNames[solId] : solId;
-                    status('Not enough soldiers');
-                    cb();
-                } else if( rs && heroId && rs.Object_Change_Notify_characterHero && rs.Object_Change_Notify_characterHero.id == heroId ){
-                    var soldierId = rs.Object_Change_Notify_characterHero.attrs.soldierId;
-                    var soldierInfo = _.find(rs.Object_Change_Notify_characterResource.attrs.soldiers, function(soldier){ return soldier.id == soldierId;})
-                    if( soldierInfo && soldierInfo.undeployed == 0 ){
-                        depleted = soldierNames[soldierId] ? soldierNames[soldierId] : soldierId;
-                        status('Soldiers depleted');
-                        cb();
-                    }
-                } else {
-                    depleted = null;
-                    if (++count == _.keys(record.assigns).length) {
+                function checkEnd() {
+                    if (index == (_.keys(record.assigns).length-1) ){
                         changed = false;
                         loaded = true;
                         status('Strategy was applied');
                         cb();
                     }
                 }
-            }
 
-            _.each(_.keys(record.assigns), function (heroId) {
                 if( assigns[heroId].Hero_DeploySoldier_Req.soldierId != record.assigns[heroId].Hero_DeploySoldier_Req.soldierId ){
                     status('Assign for hero ' + heroDetails[heroId].name + ' was changed, applying...');
-                    server.call(record.assigns[heroId], function(rs) { checkEnd(heroId, rs, record.assigns[heroId].Hero_DeploySoldier_Req.soldierId); })
-                } else  checkEnd();
+                    server.call(record.assigns[heroId], function(rs, msgs) {
+                        if( rs && rs.Hero_DeploySoldier_Res.retMsg == "CHARACTER_SOLDIER_NOT_ENOUGH" ){
+                            depleted = soldierNames[solId] ? soldierNames[solId] : solId;
+                            status('Not enough soldiers');
+                            cb();
+                        } else if( rs  && msgs.characterHero && msgs.characterResource && msgs.characterHero.id == heroId ){
+                            var soldierId = msgs.characterHero.attrs.soldierId;
+                            var soldierInfo = _.find(msgs.characterResource.attrs.soldiers, function(soldier){ return soldier.id == soldierId;});
+                            if( soldierInfo && soldierInfo.undeployed == 0 && soldier.deployed > 0){
+                                depleted = soldierNames[soldierId] ? soldierNames[soldierId] : soldierId;
+                                status('Soldiers depleted');
+                                cb();
+                            }
+                        } else {
+                            depleted = null;
+                        }
+                        checkEnd();
+                    })
+                } else {
+                    checkEnd();
+                }
             });
         }
     })

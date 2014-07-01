@@ -79,7 +79,7 @@ var call = function (requestOrBatch, cb) {
         rs.on('end', function(){
             log.debug(body);
             var response = parseResponse(body);
-            cb(response);
+            cb(response.data, response.msgs);
         });
         rs.on('error', function(msg){
             log.debug(msg);

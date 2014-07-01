@@ -46,6 +46,16 @@ _.extend(module.exports, {
                 log.debug(requestData);
                 var _this = this;
                 server.interceptRequest(requestData, function(){
+
+
+//                    if( requestData.indexOf('Arena_ChallengeFight_Req')>0 ) {
+//                        var js = JSON.parse(requestData);
+//                        js.body[0].Arena_ChallengeFight_Req.characterId = 131297;
+//                        requestData = JSON.stringify(js);
+//                        console.log("LALALA");
+//                        console.log(requestData);
+//                    }
+
                     _this.queue(requestData);
                     _this.emit('end');
                 })

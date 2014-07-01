@@ -120,8 +120,8 @@ function apply(cb) {
                     depleted = soldierNames[solId] ? soldierNames[solId] : solId;
                     status('Not enough soldiers');
                     cb();
-                } else if( rs && heroId && rs.Object_Change_Notify_characterHero.id == heroId ){
-                    var soldierId = rs.Object_Change_Notify_characterHero.attrs.soldierId
+                } else if( rs && heroId && rs.Object_Change_Notify_characterHero && rs.Object_Change_Notify_characterHero.id == heroId ){
+                    var soldierId = rs.Object_Change_Notify_characterHero.attrs.soldierId;
                     var soldierInfo = _.find(rs.Object_Change_Notify_characterResource.attrs.soldiers, function(soldier){ return soldier.id == soldierId;})
                     if( soldierInfo && soldierInfo.undeployed == 0 ){
                         depleted = soldierNames[soldierId] ? soldierNames[soldierId] : soldierId;

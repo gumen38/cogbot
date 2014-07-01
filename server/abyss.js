@@ -26,6 +26,10 @@ function getStrategyCode() {
 }
 
 function doRoom(cb) {
+    if( !nextRoom || !nextStorey ) {
+        status('Please reload abyss, no data');
+        return;
+    }
     status("Now doing auto-mode abyss room/storey: " + nextRoom + "/" + nextStorey);
     status("Preparing room formation/soldiers setup.");
 

@@ -19,7 +19,14 @@ _.extend(module.exports, {
     },
 
     control: function(params){
-        update(params);
+        if( params.open ) {
+            server.call({"Arena_ChallengeFight_Req":{"characterId":57055}}, function(rs){
+                console.log(rs);
+            });
+        } else {
+
+            update(params);
+        }
     },
     model: function(){
         return { model: settings };

@@ -86,6 +86,9 @@ if( !window.cogbotloaded ) (function() {
             $(".gamepage_header_outer").remove();
         });
 
+        $("#open").unbind('click').bind('click', function(e){
+            fire('settings', { open: {} });
+        });
     }
 
     function setProperty(obj, prop, val) {

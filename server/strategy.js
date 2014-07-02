@@ -67,6 +67,7 @@ function loadRecord(code, cb) {
         if( strategyCode != 'default' ){
             status('Strategy ' + code + ' was not found, loading default.');
             loadRecord('default', cb);
+            return;
         } else {
             status('Strategy load FAILED: default strategy record not found.');
             cb(); return;
@@ -86,8 +87,7 @@ function apply(cb) {
 
     status('Synchronizing formation...');
     server.call(rq, function (rs) {
-        if( !_.isEqual(record.deploy.HeroSet_SetTroopStrategy_Req.attackTroopStrategy, rs.HeroSet_GetInfo_Res.attackTroopStrategy ) &&
-            record.deploy.HeroSet_SetTroopStrategy_Req.attackTroopStrategyId == rs.HeroSet_GetInfo_Res.attackTroopStrategyId ){
+        if( !_.isEqual(record.deploy.HeroSet_SetTroopStrategy_Req.attackTroopStrategy, rs.HeroSet_GetInfo_Res.attackTroopStrategy )){
             status('Deploy was changed, applying...');
             server.call(record.deploy, assign);
         } else {
@@ -192,7 +192,8 @@ function maximizeSoldiers(cb) {
 }
 
 function assertSoldiers(msg) {
-    _.each(msg.attrs.soldiers, function (soldier) {
+    if( !msg ) return;
+    _.each(msg.soldiers, function (soldier) {
         if (soldier.undeployed == 0 && soldier.deployed > 0) {
             depleted = soldierNames[soldier.id] ? soldierNames[soldier.id] : soldier.id;
             status('Soldiers depleted: ' + depleted);

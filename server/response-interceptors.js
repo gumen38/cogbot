@@ -29,7 +29,7 @@ module.exports = {
 
     'PurgatoryAbyss_Challenge_Res': function(rs, cb, fullRs){
 //        abyss.onRoomChange(fullRs.Object_Change_Notify_characterPurgatoryAbyss.attrs);
-        strategy.assertSoldiers(fullRs);
+//        strategy.assertSoldiers(fullRs);
         cb();
     },
 

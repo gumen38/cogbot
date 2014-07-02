@@ -38,10 +38,10 @@ function doRoom(cb) {
         status("Maximizing assigned soldiers stacks sizes");
         strategy.maximizeSoldiers(function () {
             status("Initiating challenge sequence");
-            server.call({"PurgatoryAbyss_Challenge_Req": {"auto": 0, "speedUp": 0, "characterId": null, "speedUpType": 0}}, function (rs) {
-                strategy.assertSoldiers(rs);
+            server.call({"PurgatoryAbyss_Challenge_Req": {"auto": 0, "speedUp": 0, "characterId": null, "speedUpType": 0}}, function (rs, msgs) {
+                strategy.assertSoldiers(msgs['Object_Change_Notify.characterResource']);
                 status("Finishing challenge sequence");
-                updateLocation(rs.Object_Change_Notify_characterPurgatoryAbyss.attrs);
+                updateLocation(msgs['Object_Change_Notify.characterPurgatoryAbyss']);
                 server.call({"Battle_Finish_Req": {"characterId": null}}, function () {
                     status("Room is finished.");
                     cb(rs);
@@ -77,13 +77,13 @@ function auto(endRoom) {
             status('Battle was lost. Stopping auto-abyss.');
             return;
         }
-        if (nextRoom < endRoom) {
+        if (nextRoom <= endRoom) {
             status('Battle was won. Continuing auto-abyss.');
             if( strategy.isDepleted() ){
                 status("Not enough soldiers, stopping");
-                cb();
+            } else {
+                auto(endRoom)
             }
-            auto(endRoom)
         } else {
             status('Abyss end room reached, stopping');
         }

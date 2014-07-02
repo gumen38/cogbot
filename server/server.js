@@ -23,7 +23,8 @@ var parseRequest = function (requestJson) {
 
 var parseResponse = function (responseJson) {
     var result = {
-        data: {}
+        data: {},
+        msgs: {}
     };
     _.each(JSON.parse(responseJson), function (responseEntry) {
         var responseEntryName = _.keys(responseEntry)[0];
@@ -32,7 +33,7 @@ var parseResponse = function (responseJson) {
             _.each(responseEntry.Notify.msgs, function (message) {
                 var notifyName = _.keys(message)[0];
                 var entryName = notifyName + "." + message[notifyName].className;
-                result[entryName] = message[notifyName].attrs;
+                result.msgs[entryName] = message[notifyName].attrs;
             });
         }
     });

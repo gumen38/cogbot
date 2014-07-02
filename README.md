@@ -4,6 +4,11 @@ CogBot - a Call of Gods game bot
 What it does
 ------------
 
+_Version 0.3_
+1. Automatic Abyss crawler
+2. Better dungeon feedback
+3. Removed some options
+
 _Version 0.2_  
 1. Automatic 'Maximize soldiers'.  
 2. Automatic formation/soldiers loading.  

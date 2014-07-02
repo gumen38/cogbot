@@ -64,6 +64,10 @@ I dont yet know how to fix it, because i don't know how to tell flash client to 
 If i figure it out, it will be fixed.
 2. Session capture can be done directly from chrome plugin, but it's unsafe to let plugin watch cookies. At this moment
 CogBot captures session from proxied game requests, but it requires at least one game request.
+3. Server is hardcoded - I plan to add server switch.
+4. Don't use my strategy files - it contains hardcode for my chars & heroes.
+5. Hardcoded character ids - plan to fix it soon.
+
 
 Support project
 ---------------

@@ -4,7 +4,7 @@ log = require("./log");
 
 _.extend(module.exports,{
     getItemInfo: function(itemId, cb) {
-        var rq = {"Item_GetInfo_Req": {"type": -1, "characterId": 38729}};
+        var rq = {"Item_GetInfo_Req": {"type": -1, "characterId": settings.get().characterId}};
         server.call(rq, function(rs){
             var item = _.find(rs.Item_GetInfo_Res.items, function (item) {return item.itemId = itemId});
             cb(item);

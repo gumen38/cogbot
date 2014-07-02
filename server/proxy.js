@@ -13,7 +13,7 @@ _.extend(module.exports, {
 
         http.createServer(function (clientRequest, clientResponse) {
 
-            if (clientRequest.url != "http://m1-kongregate.callofgods.com/php/do.php") {
+            if (clientRequest.url != settings.get().player.actionUrl ) {
                 log.info("FoxyProxy is misconfigured. Wrong url: " + clientRequest.url);
             }
 

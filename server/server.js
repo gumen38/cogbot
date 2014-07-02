@@ -67,8 +67,8 @@ var call = function (requestOrBatch, cb) {
 
     headers['content-length'] = body.length + '';
     var opts = {
-        path: 'http://m1-kongregate.callofgods.com/php/do.php',
-        hostname: url.parse('http://m1-kongregate.callofgods.com/php/do.php').host,
+        path: settings.get().player.actionUrl,
+        hostname: url.parse(settings.get().player.actionUrl).host,
         port: 80,
         method: 'POST',
         headers: headers

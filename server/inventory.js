@@ -32,7 +32,7 @@ function read(rs){
 }
 
 function reload(cb){
-    server.call({"Item_GetInfo_Req":{"type":-1,"characterId":38729}}, function(rs){
+    server.call({"Item_GetInfo_Req":{"type":-1,"characterId":settings.get().characterId}}, function(rs){
         read(rs.Item_GetInfo_Res);
         cb && cb();
     })

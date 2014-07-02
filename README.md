@@ -66,6 +66,7 @@ If i figure it out, it will be fixed.
 CogBot captures session from proxied game requests, but it requires at least one game request.
 3. Don't use my strategy files - it contains hardcode for my chars & heroes.
 4. CharacterId and server path are hardcoded in currentSettings.json now, need manual fix. Plan to put it to settings widget.
+5. Installation guide is not very clear. I plan to make a screenshot series with installation steps and make installation easier.
 
 
 Support project

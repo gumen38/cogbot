@@ -93,6 +93,10 @@ if( !window.cogbotloaded ) (function() {
         $("#reloadinv").unbind('click').bind('click', function(e){
             fire('inventory', { reload: {} });
         });
+
+        $("#auto-dung").unbind('click').bind('click', function(e){
+            fire('dungeon', { auto: {} });
+        });
     }
 
     function setProperty(obj, prop, val) {

@@ -12,7 +12,7 @@
             var soldierName = "-";
             if( rec.assigns[hero] ) {
                 var soldierId = rec.assigns[hero].Hero_DeploySoldier_Req.soldierId;
-                soldierName = soldierId == 0 ? 'none' : (sol[soldierId] ? sol[soldierId] : soldierId);
+                soldierName = soldierId == 0 ? 'none' : (sol[soldierId] ? sol[soldierId].name : soldierId);
             }
 
             return det[hero].name + "<br/>[" + soldierName + "]";

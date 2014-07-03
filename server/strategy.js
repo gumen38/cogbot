@@ -13,7 +13,7 @@ var heroDetails = {};
 var strategyCode = "";
 var depleted = null;
 var inventoryFull = false;
-var soldierNames = JSON.parse(fs.readFileSync("./server/soldiers.json", "utf8"));
+var soldiersData = JSON.parse(fs.readFileSync("./server/soldiers.json", "utf8"));
 
 var statusMsg = "";
 function status(msg) {
@@ -102,42 +102,52 @@ function apply(cb) {
                 assigns[hero.id] = {"Hero_DeploySoldier_Req": {"id": hero.id, "soldierId": hero.soldierId, "soldierCount": hero.soldierCount }};
             });
 
+            var atLeastOneAssignChanged = false;
             _.each(_.keys(record.assigns), function (heroId, index) {
-
-                function checkEnd() {
-                    if (index == (_.keys(record.assigns).length-1) ){
-                        changed = false;
-                        loaded = true;
-                        status('Strategy was applied');
-                        cb();
-                    }
-                }
 
                 if( assigns[heroId].Hero_DeploySoldier_Req.soldierId != record.assigns[heroId].Hero_DeploySoldier_Req.soldierId ){
                     status('Assign for hero ' + heroDetails[heroId].name + ' was changed, applying...');
-                    record.assigns[heroId].Hero_DeploySoldier_Req.soldierCount = 1;
+                    var rsHero = _.find(rs.Hero_GetInfo_Res.heroes, function(hero){ return hero.id == heroId });
+
+                    var soldierData = soldiersData[record.assigns[heroId].Hero_DeploySoldier_Req.soldierId];
+                    if( !soldierData || !soldierData.size) {
+                        log.info("WARNING: Soldier " + record.assigns[heroId].Hero_DeploySoldier_Req.soldierId + " size is not defined. Using size 3.");
+                    }
+                    var soldierSize = soldierData ? soldierData.size : 3;
+
+                    record.assigns[heroId].Hero_DeploySoldier_Req.soldierCount = ~~(rsHero.soldierCount / soldierSize);
+                    atLeastOneAssignChanged = true;
                     server.call(record.assigns[heroId], function(rs, msgs) {
                         if( rs && rs.Hero_DeploySoldier_Res.retMsg == "CHARACTER_SOLDIER_NOT_ENOUGH" ){
-                            depleted = soldierNames[solId] ? soldierNames[solId] : solId;
+                            depleted = soldiersData[solId] ? soldiersData[solId].name : solId;
                             status('Not enough soldiers');
                             cb();
                         } else if( rs  && msgs.characterHero && msgs.characterResource && msgs.characterHero.id == heroId ){
                             var soldierId = msgs.characterHero.attrs.soldierId;
                             var soldierInfo = _.find(msgs.characterResource.attrs.soldiers, function(soldier){ return soldier.id == soldierId;});
                             if( soldierInfo && soldierInfo.undeployed == 0 && soldier.deployed > 0){
-                                depleted = soldierNames[soldierId] ? soldierNames[soldierId] : soldierId;
+                                depleted = soldiersData[soldierId] ? soldiersData[soldierId].name : soldierId;
                                 status('Soldiers depleted');
                                 cb();
                             }
                         } else {
                             depleted = null;
                         }
-                        checkEnd();
+                        if (index == (_.keys(record.assigns).length-1) ){
+                            changed = false;
+                            loaded = true;
+                            status('Soldiers were assigned');
+                            cb();
+                        }
                     })
-                } else {
-                    checkEnd();
                 }
             });
+            if( !atLeastOneAssignChanged ){
+                changed = false;
+                loaded = true;
+                status('Soldiers assign were not changed');
+                cb();
+            }
         }
     })
 }
@@ -180,7 +190,7 @@ function maximizeSoldiers(cb) {
             var soldierId = rs.Object_Change_Notify_characterHero.attrs.soldierId;
             var soldierInfo = _.find(rs.Object_Change_Notify_characterResource.attrs.soldiers, function(soldier){ return soldier.id == soldierId;});
             if( soldierInfo && soldierInfo.undeployed == 0 ){
-                depleted = soldierNames[soldierId] ? soldierNames[soldierId] : soldierId;
+                depleted = soldiersData[soldierId] ? soldiersData[soldierId].name : soldierId;
                 status('Soldiers depleted');
                 cb && cb();
                 return;
@@ -195,7 +205,7 @@ function assertSoldiers(msg) {
     if( !msg ) return;
     _.each(msg.soldiers, function (soldier) {
         if (soldier.undeployed == 0 && soldier.deployed > 0) {
-            depleted = soldierNames[soldier.id] ? soldierNames[soldier.id] : soldier.id;
+            depleted = soldiersData[soldier.id] ? soldiersData[soldier.id].name : soldier.id;
             status('Soldiers depleted: ' + depleted);
         }
     })
@@ -214,7 +224,7 @@ _.extend(module.exports, {
         try { fs.readFileSync(__dirname + '/strategies/' + code, 'utf8'); return true; } catch(e) { return false; }
     },
     model: function(){
-        return { statusMsg: statusMsg, record: record, heroDetails: heroDetails, soldierNames: soldierNames, ready: ready, depleted: depleted, loaded: loaded, changed: changed, strategyCode: strategyCode };
+        return { statusMsg: statusMsg, record: record, heroDetails: heroDetails, soldierNames: soldiersData, ready: ready, depleted: depleted, loaded: loaded, changed: changed, strategyCode: strategyCode };
     },
     control: function(data){
         if( data.save ){

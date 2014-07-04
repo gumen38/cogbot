@@ -1,0 +1,276 @@
+[
+            {
+                "Adventure_MapMove_Req": {
+                    "point": 86,
+                }
+            },
+        {
+            "Adventure_MapMove_Res": {
+                "point": 86,
+                "type": "ex",
+                "result": [],
+                "ret": 0,
+                "retMsg": "SUCCESS",
+                "serialNo": 189
+            }
+        },
+        {
+    [
+                        "Object_Change_Notify": {
+                            "className": "characterAdventureMap",
+                            "id": 543940,
+                            "attrs": {
+                                "point": 86,
+                                "moveToPoint": 0
+                            }
+                        }
+                    },
+                    {
+                        "Object_Change_Notify": {
+                            "className": "characterAdventureMap",
+                            "id": 543970,
+                            "attrs": {
+                                "point": 85,
+                                "moveToPoint": 0
+                            }
+                        }
+                    },
+                    {
+                        "Object_Change_Notify": {
+                            "className": "characterAdventure",
+                            "id": 38729,
+                            "attrs": {
+                                "mapId": 9092
+                            }
+                        }
+                    }
+}
+    ]
+    ,
+    {
+        "session": "l09nclqacpht2b2mb593h4f726",
+        "body": [
+            {
+                "Adventure_GetMapInfo_Req": {
+                    "mapId": 9092,
+                    "characterId": null,
+                    "serialNo": 194
+                }
+            }
+        ]
+    }
+    ,
+    [
+        {
+            "Adventure_GetMapInfo_Res": {
+                "map": {
+                    "id": 543970,
+                    "cityId": 909,
+                    "mapId": 9092,
+                    "difficulty": 2,
+                    "point": 85,
+                    "moveToPoint": 0,
+                    "p22": {
+                        "t": "ev",
+                        "p": 1,
+                        "a": {
+                            "t": "mo",
+                            "p": 1,
+                            "a": {
+                                "mId": "4620914"
+                            }
+                        }
+                    },
+                    "p23": {
+                        "t": "mo",
+                        "p": 1,
+                        "a": {
+                            "mId": "4620915"
+                        }
+                    },
+                    "p24": {
+                        "t": "bl",
+                        "p": 1
+                    },
+                    "p25": {
+                        "t": "re",
+                        "p": 1,
+                        "a": {
+                            "rId": "89040"
+                        }
+                    },
+                    "p26": {
+                        "t": "mo",
+                        "p": 1,
+                        "a": {
+                            "mId": "4620914"
+                        }
+                    },
+                    "p27": {
+                        "t": "mo",
+                        "p": 0,
+                        "a": {
+                            "mId": "4620913"
+                        }
+                    },
+                    "p32": {
+                        "t": "bl",
+                        "p": 1
+                    },
+                    "p33": {
+                        "t": "bl",
+                        "p": 1
+                    },
+                    "p34": {
+                        "t": "it",
+                        "p": 1,
+                        "a": {
+                            "rId": "80239"
+                        }
+                    },
+                    "p35": {
+                        "t": "bl",
+                        "p": 1
+                    },
+                    "p36": {
+                        "t": "mo",
+                        "p": 1,
+                        "a": {
+                            "mId": "4620912"
+                        }
+                    },
+                    "p37": {
+                        "t": "bl",
+                        "p": 0
+                    },
+                    "p43": {
+                        "t": "bl",
+                        "p": 1
+                    },
+                    "p44": {
+                        "t": "ev",
+                        "p": 1,
+                        "a": {
+                            "t": "mo",
+                            "p": 1,
+                            "a": {
+                                "mId": "4620912"
+                            }
+                        }
+                    },
+                    "p45": {
+                        "t": "mo",
+                        "p": 1,
+                        "a": {
+                            "mId": "4620911"
+                        }
+                    },
+                    "p46": {
+                        "t": "bl",
+                        "p": 1
+                    },
+                    "p47": {
+                        "t": "ev",
+                        "p": 0
+                    },
+                    "p53": {
+                        "t": "bs",
+                        "p": 1,
+                        "a": {
+                            "mId": "4620903"
+                        }
+                    },
+                    "p54": {
+                        "t": "mo",
+                        "p": 1,
+                        "a": {
+                            "mId": "4620915"
+                        }
+                    },
+                    "p55": {
+                        "t": "ex",
+                        "p": 1,
+                        "a": {
+                            "mapId": 9091
+                        }
+                    },
+                    "p56": {
+                        "t": "mo",
+                        "p": 1,
+                        "a": {
+                            "mId": "4620914"
+                        }
+                    },
+                    "p57": {
+                        "t": "it",
+                        "p": 0,
+                        "a": {
+                            "rId": "80239"
+                        }
+                    },
+                    "p64": {
+                        "t": "bl",
+                        "p": 1
+                    },
+                    "p65": {
+                        "t": "re",
+                        "p": 0,
+                        "a": {
+                            "rId": "89040"
+                        }
+                    },
+                    "p66": {
+                        "t": "mo",
+                        "p": 0,
+                        "a": {
+                            "mId": "4620914"
+                        }
+                    },
+                    "p72": {
+                        "t": "re",
+                        "p": 1,
+                        "a": {
+                            "rId": "89040"
+                        }
+                    },
+                    "p73": {
+                        "t": "bl",
+                        "p": 1
+                    },
+                    "p74": {
+                        "t": "mo",
+                        "p": 1,
+                        "a": {
+                            "mId": "4620912"
+                        }
+                    },
+                    "p75": {
+                        "t": "bl",
+                        "p": 1
+                    },
+                    "p76": {
+                        "t": "mo",
+                        "p": 0,
+                        "a": {
+                            "mId": "4620915"
+                        }
+                    },
+                    "p83": {
+                        "t": "mo",
+                        "p": 1,
+                        "a": {
+                            "mId": "4620914"
+                        }
+                    },
+                    "p85": {
+                        "t": "en",
+                        "p": 1
+                    }
+                },
+                "ret": 0,
+                "retMsg": "SUCCESS",
+                "serialNo": 194
+            }
+        }
+    ]
+]

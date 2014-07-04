@@ -45,7 +45,7 @@ var call = function (requestOrBatch, cb) {
     cb = cb || function() {};
 
     if( headers == null ) {
-        log.error("Session was not yet captured. Execute at least one game operation (for example, maximize soldiers) so CogBot can capture session from the request.");
+        log.info("Session was not yet captured. Execute at least one game operation (for example, maximize soldiers) so CogBot can capture session from the request.");
         return;
     }
 

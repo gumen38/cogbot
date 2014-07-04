@@ -65,6 +65,7 @@ if( !window.cogbotloaded ) (function() {
         });
 
         $("#abyss-auto").unbind('click').bind('click', function(e){
+            e.preventDefault();
             fire('abyss', { auto: $("#abyss-end-room").val() });
         });
 
@@ -74,12 +75,15 @@ if( !window.cogbotloaded ) (function() {
         });
 
         $(".hint").unbind('mouseenter').unbind('mouseleave').hover(function () {
+            e.preventDefault();
             $('.hint-info[hint=' + $(this).attr('hint') + ']').show();
         }, function () {
+            e.preventDefault();
             $('.hint-info[hint=' + $(this).attr('hint') + ']').hide();
         });
 
         $("#purge").unbind('click').bind('click', function(e){
+            e.preventDefault();
             $(".game_details_outer").remove();
             $(".game_page_wrap").remove();
             $(".footer").remove();
@@ -87,14 +91,17 @@ if( !window.cogbotloaded ) (function() {
         });
 
         $("#open").unbind('click').bind('click', function(e){
+            e.preventDefault();
             fire('inventory', { open: {} });
         });
 
         $("#reloadinv").unbind('click').bind('click', function(e){
+            e.preventDefault();
             fire('inventory', { reload: {} });
         });
 
         $("#auto-dung").unbind('click').bind('click', function(e){
+            e.preventDefault();
             fire('dungeon', { auto: {} });
         });
     }

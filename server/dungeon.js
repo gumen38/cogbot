@@ -115,6 +115,7 @@ function reset() {
         grid[x] = [];
         for (var y = 0; y < 9; y++) grid[x][y] = null;
     }
+    path = null;
     status("Dungeon was restarted");
 }
 
@@ -134,13 +135,14 @@ var path = null;
 function autoTillExit() {
     autoOn = true;
     var index;
+
     function findUnexplored() {
         var result = null, minLengthSqr = 1000;
         for (var x = 0; x < 9; x++) for (var y = 0; y < 9; y++) {
-            if (grid[x][y] && grid[x][y].visited == 0) {
+            if (grid[x][y] && grid[x][y].visited == 0 && grid[x][y].type != 'ex' ) {
                 var dx = p.x - x, dy = p.y - y;
-                var lengthSqr = dx*dx + dy*dy;
-                if( lengthSqr < minLengthSqr ) {
+                var lengthSqr = dx * dx + dy * dy;
+                if (lengthSqr < minLengthSqr) {
                     minLengthSqr = lengthSqr;
                     result = grid[x][y];
                 }
@@ -148,7 +150,11 @@ function autoTillExit() {
         }
         return result;
     }
-    function findExit() { for (var x = 0; x < 9; x++) for (var y = 0; y < 9; y++) if (grid[x][y] && grid[x][y].type == 'ex') return grid[x][y]; return null; }
+
+    function findExit() {
+        for (var x = 0; x < 9; x++) for (var y = 0; y < 9; y++) if (grid[x][y] && grid[x][y].type == 'ex') return grid[x][y];
+        return null;
+    }
 
     function buildPathTo(to, avoidExit) {
 
@@ -156,15 +162,15 @@ function autoTillExit() {
 
         var path = [];
 
-        function continueStraightPath(pathObj, dest){
+        function continueStraightPath(pathObj, dest) {
             log.debug("CALL: continueStraightPath(" + pathObj + ", " + dest + ") ");
-            var lastPathElem = pathObj[pathObj.length-1];
+            var lastPathElem = pathObj[pathObj.length - 1];
             var t = { x: lastPathElem.x, y: lastPathElem.y };
-            while(t.x != dest.x || t.y != dest.y){
+            while (t.x != dest.x || t.y != dest.y) {
 
                 var dx = dest.x - t.x;
                 var dy = dest.y - t.y;
-                if( Math.abs(dx) > Math.abs(dy) ){
+                if (Math.abs(dx) > Math.abs(dy)) {
                     dx = dx > 0 ? 1 : -1;
                     dy = 0;
                 } else {
@@ -179,9 +185,9 @@ function autoTillExit() {
             log.debug("RESULT: continueStraightPath: " + pathObj);
         }
 
-        function straightenPath(fromIndex){
+        function straightenPath(fromIndex) {
             log.debug("CALL: straightenPath(" + fromIndex + ") " + path);
-            if( path.length >= fromIndex + 1) path = path.slice(0, fromIndex + 1);
+            if (path.length >= fromIndex + 1) path = path.slice(0, fromIndex + 1);
             continueStraightPath(path, to);
             log.debug("RESULT: straightenPath(" + fromIndex + ") " + path);
         }
@@ -191,69 +197,88 @@ function autoTillExit() {
         straightenPath(0);
 
         //this will find first blocked cell in path
-        function getBlockIndex(){
+        function getBlockIndex() {
             log.debug("CALL: getBlockIndex()");
-            for( var index in path ) {
-                if( grid[path[index].x][path[index].y] == null ){
+            for (var index = 0; index < path.length; index++) {
+                if (grid[path[index].x][path[index].y] == null || ( grid[path[index].x][path[index].y].type == 'ex' && avoidExit)) {
                     log.debug("RESULT: getBlockIndex() " + index);
                     return index;
                 }
             }
+            for (var i = 0; i < path.length; i++) {
+                for (var j = i; j < path.length; j++) {
+                    if (i == j) continue;
+                    if (path[i].x == path[j].x && path[i].y == path[j].y) {
+                        return j;
+                    }
+                }
+            }
+
             log.debug("RESULT: getBlockIndex() -1");
             return -1;
         }
 
         //remove blocked cells
-        var limit = 0;
-        while( true ){
+        var limit = 0, pathFound = false;
+        while (true && !pathFound) {
             log.debug("Path search loop: " + path);
 
             //find next blocking cell
             var blockIndex = getBlockIndex();
-            if( blockIndex == -1 ) break;//no more blocking cells - path complete
-            if( limit++ > 1000 ) { status("Path search lock detected"); return null; }
+            if (blockIndex == -1) break;//no more blocking cells - path complete
+            if (limit++ > 1000) {
+                status("Path search lock detected");
+                return [];
+            }
             log.debug("Path blockcell: " + blockIndex + " , " + path[blockIndex]);
 
 
             var pathCell = path[blockIndex];//current blocking cell
             var radius = 1;//scan radius
             var minTestDistanceLengthSqr = 1000, nearestUnblockCandidate = null;//used to find best unblocked cell
-            while( true ){
+            while (true) {
                 log.debug("Path blockcell deblocking");
-                for(var testDx = -radius; testDx == radius; testDx ++ ) {
-                    for( var textDy = -radius; textDy == radius; textDy ++ ){
+                for (var testDx = -radius; testDx <= radius; testDx++) {
+                    for (var textDy = -radius; textDy <= radius; textDy++) {
 
-                        if( testDx == 0 && textDy == 0 ) continue; //blocked cell itself
-                        if( Math.abs(testDx)!=radius || Math.abs(textDy)!=radius ) continue; //we scan only edge
+                        if (testDx == 0 && textDy == 0) continue; //blocked cell itself
+                        if (!(Math.abs(testDx) == radius || Math.abs(textDy) == radius)) continue; //we scan only edge
 
                         var testCell = { x: pathCell.x + testDx, y: pathCell.y + textDy };//the test cell
                         log.debug("Path blockcell deblocking: testing cell " + testCell);
 
-                        var isConnected = _.find(path, function(pathElem, index){
-                            if( index >= blockIndex ) return false;
+                        if (testCell.x < 0 || testCell.x > 8 || testCell.y < 0 || testCell.y > 8) continue; //Test cell outside of area
+
+
+                        var isConnected = _.find(path, function (pathElem, index) {
+                            if (index >= blockIndex) return false;
                             var connectionDelta = {
                                 dx: Math.abs(pathElem.x - testCell.x),
                                 dy: Math.abs(pathElem.y - testCell.y)
                             };
                             return connectionDelta.dx == 1 && connectionDelta.dy == 0 || connectionDelta.dx == 0 && connectionDelta.dy == 1;
-                        }) == null;
+                        }) != null;
                         log.debug("Path blockcell deblocking: testing cell connected to path: " + isConnected);
-                        if( !isConnected ) continue;//if test cell is not connected with unblocked path elements, it can't be next path element
+                        if (!isConnected) continue;//if test cell is not connected with unblocked path elements, it can't be next path element
 
-                        var indexOnPath = _.find(path, function(pathElem){ return pathElem.x == testCell.x && pathElem.y == testCell.y });
+                        var indexOnPath = _.find(path, function (pathElem) {
+                            return pathElem.x == testCell.x && pathElem.y == testCell.y
+                        });
+                        if (indexOnPath) indexOnPath = _.indexOf(path, indexOnPath);
                         log.debug("Path blockcell deblocking: testing cell vs unblocked path: indexOnPath=" + indexOnPath + " blockIndex=" + blockIndex);
-                        if( indexOnPath >=0 && indexOnPath <= blockIndex ) continue; // test cell is already on unblocked path
+                        if (indexOnPath >= 0 && indexOnPath <= blockIndex) continue; // test cell is already on unblocked path
 
-                        var isBlock = grid[testCell.x][testCell.y] == null;
+
+                        var isBlock = grid[testCell.x][testCell.y] == null || ( grid[testCell.x][testCell.y].type == 'ex' && avoidExit);
                         log.debug("Path blockcell deblocking: testing cell is blocked? " + isBlock);
-                        if( isBlock ) continue; // text cell is blocked
+                        if (isBlock) continue; // text cell is blocked
 
                         //for all unblocked cells, which are connected to the path (at any place at the unblocked path)
                         //we choose nearest to the destination on the given edge (i.e. radius)
                         //it may be worth to check on next radiuses too, but thats should be enough to find path
                         var testDistanceDelta = { dx: to.x - testCell.x, dy: to.y - testCell.y };
-                        var testDistanceLengthSqr = testDistanceDelta.dx*testDistanceDelta.dx + testDistanceDelta.dy + testDistanceDelta.dy;
-                        if( testDistanceLengthSqr < minTestDistanceLengthSqr ) {
+                        var testDistanceLengthSqr = testDistanceDelta.dx * testDistanceDelta.dx + testDistanceDelta.dy * testDistanceDelta.dy;
+                        if (testDistanceLengthSqr < minTestDistanceLengthSqr) {
                             minTestDistanceLengthSqr = testDistanceLengthSqr;
                             nearestUnblockCandidate = testCell;
                         }
@@ -261,56 +286,70 @@ function autoTillExit() {
                     }
                 }
 
-                if( nearestUnblockCandidate ){
+                if (nearestUnblockCandidate) {
                     log.debug("Path blockcell unblock canditate found: " + nearestUnblockCandidate);
                     path[blockIndex] = nearestUnblockCandidate;
                     straightenPath(blockIndex);
-                    deloop();
-                    shortcuts();
+                    //deloop();
+                    //shortcuts();
+
+                    if (!_.find(path, function (p) {
+                        return grid[p.x][p.y] == null
+                    })) {
+                        deloop();
+                    }
+
+                    pathFound = getBlockIndex() == -1;
                     break;
                 }
-                radius ++;
+                radius++;
             }
         }
 
-        function deloop(){
+        function deloop() {
             log.debug("Path delooping, path: " + path);
-            for( var i = 0; i < path.length; i++ ){
-                for( var j = 0; j < path.length; j++ ){
-                    if( j<=i ) continue;
-                    if( path[i].x == path[j].x && path[i].y == path[j].y ){
+            for (var i = 0; i < path.length; i++) {
+                for (var j = 0; j < path.length; j++) {
+                    if (j <= i) continue;
+                    if (path[i].x == path[j].x && path[i].y == path[j].y) {
                         log.debug("Path loop detected: path[" + i + "]=" + path[i] + " vs path[" + j + "]=" + path[j]);
-                        path = _.union(path.slice(0, i), path.slice(j));
+                        path = _.union(path.slice(0, i + 2), path.slice(j + 1));
                     }
                 }
             }
         }
 
-        function shortcuts(){
+        function shortcuts() {
             log.debug("Path shortcutting, path: " + path);
             var detectedShortcuts = false;
-            for( var i = 0; i < path.length; i++ ){
-                for( var j = 0; j < path.length; j++ ){
-                    if( j<=i ) continue;
+            for (var i = 0; i < path.length; i++) {
+                for (var j = 0; j < path.length; j++) {
+                    if (j <= i) continue;
 
-                    var shortcutTestPath = [ {x: path[i].x, y: path[i].y } ];
+                    var shortcutTestPath = [
+                        {x: path[i].x, y: path[i].y }
+                    ];
                     continueStraightPath(shortcutTestPath, {x: path[j].x, y: path[j].y });
-                    for( var q = 0; q < shortcutTestPath.length; q++ ){
-                        if( grid[shortcutTestPath[q].x][shortcutTestPath[q].y] == null ){
+                    if (shortcutTestPath.length <= 3) continue;
+
+                    for (var q = 0; q < shortcutTestPath.length; q++) {
+                        if (grid[shortcutTestPath[q].x][shortcutTestPath[q].y] == null) {
                             shortcutTestPath = null;
                             break;
                         }
                     }
                     log.debug("Path shortcut found: " + shortcutTestPath);
 
-                    if( shortcutTestPath ){
+                    if (shortcutTestPath) {
                         detectedShortcuts = true;
-                        path = _.union(path.slice(0, i), shortcutTestPath.slice(1, shortcutTestPath.length-1), path.slice(j));
+                        path = _.union(path.slice(0, i), shortcutTestPath.slice(1, shortcutTestPath.length - 1), path.slice(j));
                     }
                 }
             }
             log.debug("Path shortcuts detected: " + detectedShortcuts);
-            if( detectedShortcuts ){ shortcuts() }
+            if (detectedShortcuts) {
+                shortcuts()
+            }
         }
 
         return path.slice(1);
@@ -320,8 +359,8 @@ function autoTillExit() {
         ui.update('dungeon');
         if (path) {
             var to = path[index];
-            enter(to, function(){
-                if( strategy.isDepleted() ) {
+            enter(to, function () {
+                if (strategy.isDepleted()) {
                     status('Soldiers depleted, stopping');
                     return;
                 }
@@ -331,7 +370,7 @@ function autoTillExit() {
             var unexplored = findUnexplored();
             if (unexplored) {
                 path = buildPathTo(unexplored, true);
-                if( path.length == 0 ){
+                if (path.length == 0) {
                     log.info("Found path of 0 length, stopping.");
                     autoOn = false;
                     return;
@@ -341,7 +380,7 @@ function autoTillExit() {
             } else {
                 var exit = findExit();
                 path = buildPathTo(exit, false);
-                if( path.length == 0 ){
+                if (path.length == 0) {
                     log.info("Found path of 0 length, stopping.");
                     autoOn = false;
                     return;
@@ -352,10 +391,11 @@ function autoTillExit() {
         }
     }
 
+    var prevRs = null;
     function doStep(to) {
         ui.update('dungeon');
 
-        if( grid[to.x][to.y].type == 'mo' || grid[to.x][to.y].type == 'bs' ) {
+        if ((grid[to.x][to.y].type == 'mo' || grid[to.x][to.y].type == 'bs') && grid[to.x][to.y].visited == 0) {
             server.call({"Adventure_MapPreMove_Req": {"point": parseInt((to.y + 1) + "" + (to.x + 1)), "characterId": null}}, function (rs, msgs) {
                 move();
             });
@@ -364,19 +404,37 @@ function autoTillExit() {
         }
 
         function move() {
+            if (grid[to.x][to.y].type == 'ex') {
+                var kpoksf = 334;
+            }
             server.call({"Adventure_MapMove_Req": {"point": parseInt((to.y + 1) + "" + (to.x + 1)), "characterId": null}}, function (rs, msgs) {
 
                 if (rs.Adventure_MapMove_Res.retMsg != 'SUCCESS') {
-                    autoOn = false;
                     status("BAD RESPONSE");
+
+                    if( rs.Adventure_MapMove_Res.point && prevRs && prevRs.Adventure_MapMove_Res && prevRs.Adventure_MapMove_Res.point){
+                        path = null;
+                        p = new Cell(prevRs.Adventure_MapMove_Res.point);
+                        doCrawl();
+                    }
+                    return;
+                }
+                prevRs = rs;
+
+                p = new Cell(rs.Adventure_MapMove_Res.point);
+
+                if (rs.Adventure_MapMove_Res.type == 'ex') {
+                    status('New dungeon level');
+                    reset();
+                    p = new Cell(msgs['Object_Change_Notify.characterAdventureMap'].point);
+                    autoOn = false;
+                    server.call({ "Adventure_GetMapInfo_Req": {"mapId": msgs['Object_Change_Notify.characterAdventure'].mapId }}, function (rs1, msgs1) {
+                       init(rs1.Adventure_GetMapInfo_Res.map);
+                    });
                     return;
                 }
 
-                if (rs.Adventure_MapMove_Res.result && rs.Adventure_MapMove_Res.result.record && rs.Adventure_MapMove_Res.result.record.winner != 'attacker') {
-                    autoOn = false;
-                    status("LOST FIGHT");
-                    return;
-                }
+
 
                 update(msgs['Object_Change_Notify.characterAdventureMap']);
 
@@ -384,8 +442,29 @@ function autoTillExit() {
                     path = null;
                 }
 
-                if( rs.Adventure_MapMove_Res.result.record || rs.Adventure_MapMove_Res.result.innerResult) {
-                    server.call({"Battle_Finish_Req": {"characterId": null}}, function(rs, msgs) {
+
+                if (rs.Adventure_MapMove_Res.result.record || rs.Adventure_MapMove_Res.result.innerResult) {
+
+                    if (rs.Adventure_MapMove_Res.result && rs.Adventure_MapMove_Res.result.record) {
+
+                        if (rs.Adventure_MapMove_Res.result.record.winner != 'attacker') {
+                            autoOn = false;
+                            status("LOST FIGHT");
+                            return;
+                        } else {
+                            if( msgs['Object_Change_Notify.characterResource'] ) {
+                                strategy.assertSoldiers(msgs['Object_Change_Notify.characterResource']);
+                                if (strategy.isDepleted()) {
+                                    path = null;
+                                    p = new Cell(prevRs.Adventure_MapMove_Res.point);
+                                    autoOn = false;
+                                    status('Stopped - no soldiers');
+                                }
+                            }
+                        }
+                    }
+
+                    server.call({"Battle_Finish_Req": {"characterId": null}}, function (rs, msgs) {
                         doCrawl();
                     });
                 } else {
@@ -401,6 +480,11 @@ function autoTillExit() {
 function enter(point, cb, early) {
 
     p = get(point);
+    if( !p ) {
+        status("Dungeon must be reloaded to activate dungeon bot.");
+        cb();
+    }
+
     if (p.visited == 1) {
         cb();
         return;

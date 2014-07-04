@@ -321,8 +321,12 @@ function autoTillExit() {
         if (path) {
             var to = path[index];
             enter(to, function(){
+                if( strategy.isDepleted() ) {
+                    status('Soldiers depleted, stopping');
+                    return;
+                }
                 doStep(path[index]);
-            }, to.type == 'bs');
+            }, grid[to.x][to.y].type == 'bs');
         } else {
             var unexplored = findUnexplored();
             if (unexplored) {
@@ -336,7 +340,7 @@ function autoTillExit() {
                 doCrawl();
             } else {
                 var exit = findExit();
-                path = buildPathTo(unexplored, false);
+                path = buildPathTo(exit, false);
                 if( path.length == 0 ){
                     log.info("Found path of 0 length, stopping.");
                     autoOn = false;
@@ -350,22 +354,45 @@ function autoTillExit() {
 
     function doStep(to) {
         ui.update('dungeon');
-        server.call({"Adventure_MapMove_Req": {"optional": null, "point": parseInt(to.y + "" + to.x), "characterId": null}}, function (rs) {
 
-            if (rs.data.Adventure_MapMove_Res.result.winner != 'attacker') {
-                autoOn = false;
-                status("LOST FIGHT");
-                return;
-            }
+        if( grid[to.x][to.y].type == 'mo' || grid[to.x][to.y].type == 'bs' ) {
+            server.call({"Adventure_MapPreMove_Req": {"point": parseInt((to.y + 1) + "" + (to.x + 1)), "characterId": null}}, function (rs, msgs) {
+                move();
+            });
+        } else {
+            move();
+        }
 
-            update(rs.msgs.Object_Change_Notify.characterAdventureMap);
+        function move() {
+            server.call({"Adventure_MapMove_Req": {"point": parseInt((to.y + 1) + "" + (to.x + 1)), "characterId": null}}, function (rs, msgs) {
 
-            if (index++ == path.length - 1) {
-                path = null;
-            }
+                if (rs.Adventure_MapMove_Res.retMsg != 'SUCCESS') {
+                    autoOn = false;
+                    status("BAD RESPONSE");
+                    return;
+                }
 
-            doCrawl();
-        })
+                if (rs.Adventure_MapMove_Res.result && rs.Adventure_MapMove_Res.result.record && rs.Adventure_MapMove_Res.result.record.winner != 'attacker') {
+                    autoOn = false;
+                    status("LOST FIGHT");
+                    return;
+                }
+
+                update(msgs['Object_Change_Notify.characterAdventureMap']);
+
+                if (index++ == path.length - 1) {
+                    path = null;
+                }
+
+                if( rs.Adventure_MapMove_Res.result.record || rs.Adventure_MapMove_Res.result.innerResult) {
+                    server.call({"Battle_Finish_Req": {"characterId": null}}, function(rs, msgs) {
+                        doCrawl();
+                    });
+                } else {
+                    doCrawl();
+                }
+            })
+        }
     }
 
     doCrawl();

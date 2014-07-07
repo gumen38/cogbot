@@ -20,7 +20,23 @@ _.extend(module.exports, {
 
     control: function(params){
 
+        if( params.wboss ) {
+
+            function rep() {
+                log.info('Wboss attack attempt...');
+                ui.update('settings');
+                server.call({"WorldBossBattle_Challenge_Req": {"characterId": null}}, function (rs) {
+                    if (rs.WorldBossBattle_Challenge_Res.retMsg == 'WORLD_BOSS_BATTLE_IS_NOT_BEGIN') {
+                        rep();
+                    }
+                });
+            }
+
+            rep();
+
+        } else {
             update(params);
+        }
 
     },
     model: function(){

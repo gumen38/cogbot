@@ -104,6 +104,11 @@ if( !window.cogbotloaded ) (function() {
             e.preventDefault();
             fire('dungeon', { auto: {} });
         });
+
+        $("#wboss").unbind('click').bind('click', function(e){
+            e.preventDefault();
+            fire('settings', { wboss: {} });
+        });
     }
 
     function setProperty(obj, prop, val) {

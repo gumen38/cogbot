@@ -1,11 +1,15 @@
 {
-    "11000424": { "size": 1, "name": "Tramp Master"     },
-    "11000307": { "size": 1, "name": "Phantom Archer"   },
-    "11000306": { "size": 1, "name": "Deathbringer"     },
-    "11000423": { "size": 2, "name": "Cateran Cavalier" },
-    "11000427": { "size": 1, "name": "Kisses of Death"  },
-    "11000430": { "size": 3, "name": "Fire Elements"    },
-    "11000452": { "size": 1, "name": "Siren Archers"    },
-    "11000429": { "size": 1, "name": "Water Elements"   },
-    "11000453": { "size": 2, "name": "Dark Knights"     }
+    "11000424": { "size": 1, "name": "Tramp Master"    },
+    "11000307": { "size": 1, "name": "Phantom Archer"  },
+    "11000306": { "size": 1, "name": "Deathbringer"    },
+    "11000423": { "size": 2, "name": "Cateran Cavalier"},
+    "11000427": { "size": 1, "name": "Kisses of Death" },
+    "11000430": { "size": 3, "name": "Fire Elements"   },
+    "11000452": { "size": 1, "name": "Siren Archers"   },
+    "11000429": { "size": 1, "name": "Water Elements"  },
+    "11000453": { "size": 2, "name": "Dark Knights"    },
+    "11000426": { "size": 1, "name": "Bark Monsters"   },
+    "11000308": { "size": 2, "name": "Stygian Knights" },
+    "11000455": { "size": 3, "name": "Griffins"        },
+    "11000454": { "size": 3, "name": "Occultists"      }
 }

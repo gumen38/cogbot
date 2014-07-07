@@ -5,24 +5,24 @@ var log = require('./log');
 app.listen(3334);
 
 var components = {
-    settings: require('./settings.js'),
+    utility: require('./utility.js'),
     strategy: require('./strategy.js'),
     abyss: require('./abyss'),
     dungeon: require('./dungeon'),
     log: require('./log.js'),
     inventory: require('./inventory.js')
 };
-var template = _.template(fs.readFileSync(__dirname + '/ui/template.html').toString());
+var template = _.template(fs.readFileSync(__dirname + '/templates/template.html').toString());
 var templates = {
-    settings: _.template(fs.readFileSync(__dirname + '/ui/settings.html').toString()),
-    strategy: _.template(fs.readFileSync(__dirname + '/ui/strategy.html').toString()),
-    abyss: _.template(fs.readFileSync(__dirname + '/ui/abyss.html').toString()),
-    dungeon: _.template(fs.readFileSync(__dirname + '/ui/dungeon.html').toString()),
-    log: _.template(fs.readFileSync(__dirname + '/ui/log.html').toString()),
-    inventory: _.template(fs.readFileSync(__dirname + '/ui/inventory.html').toString())
+    utility: _.template(fs.readFileSync(__dirname + '/templates/utility.html').toString()),
+    strategy: _.template(fs.readFileSync(__dirname + '/templates/strategy.html').toString()),
+    abyss: _.template(fs.readFileSync(__dirname + '/templates/abyss.html').toString()),
+    dungeon: _.template(fs.readFileSync(__dirname + '/templates/dungeon.html').toString()),
+    log: _.template(fs.readFileSync(__dirname + '/templates/log.html').toString()),
+    inventory: _.template(fs.readFileSync(__dirname + '/templates/inventory.html').toString())
 };
 var views = {
-    settings: '',
+    utility: '',
     strategy: '',
     abyss: '',
     dungeon: '',
@@ -43,9 +43,14 @@ _.extend(module.exports, {
             socket.on('ui-action', function (data) {
                 components[data.code].control(data.data);
             });
+            socket.on('error', function() {
+                socket.destroy();
+            });
             log.info("Connected to admin panel.");
         });
         io.on('disconnect', function() { log.debug("Disconnected from admin panel.");});
+
+
         log.info("Starting CogBot admin panel injector service at localhost:3334");
         _.each(_.keys(components), function(componentId){ update(componentId); })
     },

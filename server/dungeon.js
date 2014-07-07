@@ -1,6 +1,5 @@
 var lib = require('./lib');
 var strategy = require('./strategy');
-var settings = require("./settings");
 var server = require("./server");
 var log = require('./log');
 var ui = require('./ui');
@@ -123,6 +122,25 @@ function getStrategyCode(monsterId) {
     return 'D' + monsterId;
 }
 
+function findUnexplored() {
+    var result = null, minLengthSqr = 1000;
+    for (var x = 0; x < 9; x++) for (var y = 0; y < 9; y++) {
+        if (grid[x][y] && grid[x][y].visited == 0 && grid[x][y].type != 'ex' ) {
+            var dx = p.x - x, dy = p.y - y;
+            var lengthSqr = dx * dx + dy * dy;
+            if (lengthSqr < minLengthSqr) {
+                minLengthSqr = lengthSqr;
+                result = grid[x][y];
+            }
+        }
+    }
+    return result;
+}
+
+function findCell() {
+    for (var x = 0; x < 9; x++) for (var y = 0; y < 9; y++) if (grid[x][y] && grid[x][y].type == 'ex') return grid[x][y];
+    return null;
+}
 
 var map = null;
 var grid = [];
@@ -133,28 +151,10 @@ var autoOn = false;
 var crawlPos = null;
 var path = null;
 function autoTillExit() {
+    autos = 0;
     autoOn = true;
     var index;
 
-    function findUnexplored() {
-        var result = null, minLengthSqr = 1000;
-        for (var x = 0; x < 9; x++) for (var y = 0; y < 9; y++) {
-            if (grid[x][y] && grid[x][y].visited == 0 && grid[x][y].type != 'ex' ) {
-                var dx = p.x - x, dy = p.y - y;
-                var lengthSqr = dx * dx + dy * dy;
-                if (lengthSqr < minLengthSqr) {
-                    minLengthSqr = lengthSqr;
-                    result = grid[x][y];
-                }
-            }
-        }
-        return result;
-    }
-
-    function findExit() {
-        for (var x = 0; x < 9; x++) for (var y = 0; y < 9; y++) if (grid[x][y] && grid[x][y].type == 'ex') return grid[x][y];
-        return null;
-    }
 
     function buildPathTo(to, avoidExit) {
 
@@ -368,8 +368,15 @@ function autoTillExit() {
             }, grid[to.x][to.y].type == 'bs');
         } else {
             var unexplored = findUnexplored();
-            if (unexplored) {
-                path = buildPathTo(unexplored, true);
+            var exit = findCell('ex');
+            var bossCell = findCell('bs');
+
+            if( settings.dungeon.fastMode && bossCell && bossCell.visited==0 ){
+                unexplored = bossCell;
+            }
+
+            if (!unexplored || (exit && bossCell && bossCell.visited==1 && settings.dungeon.fastMode==true ) ) {
+                path = buildPathTo(exit, false);
                 if (path.length == 0) {
                     log.info("Found path of 0 length, stopping.");
                     autoOn = false;
@@ -378,8 +385,7 @@ function autoTillExit() {
                 index = 0;
                 doCrawl();
             } else {
-                var exit = findExit();
-                path = buildPathTo(exit, false);
+                path = buildPathTo(unexplored, true);
                 if (path.length == 0) {
                     log.info("Found path of 0 length, stopping.");
                     autoOn = false;
@@ -404,9 +410,6 @@ function autoTillExit() {
         }
 
         function move() {
-            if (grid[to.x][to.y].type == 'ex') {
-                var kpoksf = 334;
-            }
             server.call({"Adventure_MapMove_Req": {"point": parseInt((to.y + 1) + "" + (to.x + 1)), "characterId": null}}, function (rs, msgs) {
 
                 if (rs.Adventure_MapMove_Res.retMsg != 'SUCCESS') {
@@ -427,14 +430,20 @@ function autoTillExit() {
                     status('New dungeon level');
                     reset();
                     p = new Cell(msgs['Object_Change_Notify.characterAdventureMap'].point);
-                    autoOn = false;
                     server.call({ "Adventure_GetMapInfo_Req": {"mapId": msgs['Object_Change_Notify.characterAdventure'].mapId }}, function (rs1, msgs1) {
-                       init(rs1.Adventure_GetMapInfo_Res.map);
+                        init(rs1.Adventure_GetMapInfo_Res.map);
+
+                        if( !settings.dungeon.fastMode ) {
+                            if( findUnexplored() ) doCrawl();
+                        } else {
+                            var bossCell = findCell('bs');
+                            if( bossCell && bossCell.visited == 0 ){
+                                doCrawl();
+                            }
+                        }
                     });
                     return;
                 }
-
-
 
                 update(msgs['Object_Change_Notify.characterAdventureMap']);
 
@@ -477,6 +486,8 @@ function autoTillExit() {
     doCrawl();
 }
 
+var autos = 0;
+
 function enter(point, cb, early) {
 
     p = get(point);
@@ -496,13 +507,9 @@ function enter(point, cb, early) {
         });
     } else if (p.type == 'bs' && early) {
         var code = getStrategyCode(p.monsterId);
-        if (settings.get().load.enabled) {
-            strategy.loadRecord(code, function () {
-                strategy.maximizeSoldiers(cb);
-            });
-        } else {
+        strategy.loadRecord(code, function () {
             strategy.maximizeSoldiers(cb);
-        }
+        });
     } else {
         cb();
     }
@@ -521,7 +528,8 @@ _.extend(module.exports, {
     model: function () {
         var boss = findBoss();
         return {
-            haveStrategy: boss && strategy.haveStrategy(getStrategyCode(boss)),
+            haveStrategy1: boss && strategy.haveStrategy(getStrategyCode(boss)),
+            haveStrategy2: boss && strategy.haveStrategy(getStrategyCode(boss) + 'alt'),
             boss: boss,
             started: started && map != null && p != null,
             stateMsg: stateMsg,
@@ -537,12 +545,15 @@ _.extend(module.exports, {
 
     },
     control: function (opts) {
-        if (opts.save && findBoss() != null && settings.get().save.enabled) {
-            strategy.saveRecord(getStrategyCode(findBoss()));
-            strategy.maximizeSoldiers(cb);
+        if ((opts.save1 || opts.save2) && findBoss() != null) {
+            strategy.saveRecord(getStrategyCode(findBoss()) + (opts.save2 ? 'alt' : ''));
+            strategy.maximizeSoldiers();
         }
         if (opts.auto) {
             autoTillExit();
+        }
+        if (opts.autoStop) {
+            autoOn = false;
         }
     }
 });

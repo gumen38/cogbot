@@ -1,7 +1,6 @@
 dungeon = require("./dungeon");
 abyss = require("./abyss");
 strategy = require("./strategy");
-settings = require("./settings");
 task = require("./task");
 server = require("./server");
 inventory = require("./inventory");

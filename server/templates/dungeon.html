@@ -28,7 +28,6 @@
             #dungeon-map {
             font-family: monospace;
             font-size: 16px;
-            /*line-height: 10px;*/
             letter-spacing: 4px;
             font-weight: 900;
             }
@@ -45,6 +44,7 @@
 
 <fieldset id="dungeon">
     <legend>Dungeon<span class="minimize">[+/-]</span></legend>
+    <div class="main collapsible">
     <% if( started && location ) { %>
         <div><%=location.city%> <%=location.difficulty%> <%=location.level%></div>
         <div>
@@ -59,13 +59,23 @@
             </table>
         </div>
         <% if ( boss != null ) { %>
-            <div>Strategy for boss <%=boss%> <a class="btn" id="save-dung" href="#"><%= haveStrategy ? 'Overwrite' : 'Create' %></a></div>
+            <div>Primary Boss Strategy <%=boss%> <a class="btn" fire="dungeon" args="{save1:{}}"  href="#"><%= haveStrategy1 ? 'Overwrite' : 'Create' %></a></div>
+            <div>Secondary Boss Strategy <%=boss%> <a class="btn" fire="dungeon" args="{save2:{}}"  href="#"><%= haveStrategy2 ? 'Overwrite' : 'Create' %></a></div>
         <% } %>
     <% } else { %>
         <div>Not entered a dungeon</div>
     <% } %>
     <div><%=stateMsg%></div>
     <div>
-        <div>Auto mode <%= aOn ? '' : 'not' %> started <% if(!aOn) { %> <a class="btn" id="auto-dung" href="#">Start</a> <% } %></div>
+        <div>Auto mode </div>
+            <%= aOn ? '' : 'not' %> started
+            <% if(!aOn) { %> <a class="btn" fire="dungeon" args="{autoStart:{}}"  href="#">Start</a> <% } else { %> <a class="btn" iire="dungeon" args="{autoStop:{}}" href="#">Stop</a> <% } %>
+        </div>
+
+        <div><span class="hint" hint="da1">Fast mode: </span> <%= settings.dungeon.fastMode ? 'enabled' : 'disabled' %></div>
+        <div class="hint-info" hint="da1">
+            Edit currentSettings.js, set dungeon.fastMode to true or false. When on, crawler ignores trash if there is an exit to the next dungeon level.
+        </div>
+    </div>
     </div>
 </fieldset>

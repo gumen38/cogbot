@@ -1,13 +1,4 @@
-{
-    "load": {
-        "enabled": true
-    },
-    "save": {
-        "enabled": true
-    },
-    "maximize": {
-        "enabled": true
-    },
+settings = {
     "minimize": {
         "settings": true,
         "log": true,
@@ -18,5 +9,8 @@
     "player": {
         "characterId": 38729,
         "actionUrl": "http://m1-kongregate.callofgods.com/php/do.php"
+    },
+    "dungeon": {
+        "fastMode": true
     }
 }

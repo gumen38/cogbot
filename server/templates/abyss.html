@@ -1,0 +1,25 @@
+<fieldset id="abyss">
+    <legend>Purgatory Abyss<span class="minimize">[+/-]</span></legend>
+    <div class="main collapsible">
+
+        <% if( started ) { %>
+
+            <div>
+                <b>Layer: <%=nextStorey%> Room: <%=1+(nextRoom-1)%25%></b><br/>
+                <div>Room strategy: <a class="btn" fire="abyss" args="{save1:{}}" href="#">Save Primary</a></div><br/>
+                <div>Room strategy: <a class="btn" fire="abyss" args="{save2:{}}" href="#">Save Secondary</a></div>
+            </div>
+            <div>
+                <a class='btn' id="abyss-auto">Auto Mode</a> to <input type="number" id="abyss-end-room" value="<%=endRoom%>"/>
+            </div>
+
+        <% } else { %>
+                <div>Abyss was't started.</div>
+        <% } %>
+
+        <div>
+            <b><%=statusMsg%></b>
+        </div>
+
+    </div>
+</fieldset>

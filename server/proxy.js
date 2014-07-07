@@ -13,7 +13,7 @@ _.extend(module.exports, {
 
         http.createServer(function (clientRequest, clientResponse) {
 
-            if (clientRequest.url != settings.get().player.actionUrl ) {
+            if (clientRequest.url != settings.player.actionUrl ) {
                 log.info("FoxyProxy is misconfigured. Wrong url: " + clientRequest.url);
             }
 

@@ -1,10 +1,9 @@
 server = require("./server");
-settings = require("./settings");
 log = require("./log");
 
 _.extend(module.exports,{
     getItemInfo: function(itemId, cb) {
-        var rq = {"Item_GetInfo_Req": {"type": -1, "characterId": settings.get().characterId}};
+        var rq = {"Item_GetInfo_Req": {"type": -1, "characterId": settings.player.characterId}};
         server.call(rq, function(rs){
             var item = _.find(rs.Item_GetInfo_Res.items, function (item) {return item.itemId = itemId});
             cb(item);

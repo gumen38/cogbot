@@ -1,6 +1,5 @@
 var fs = require("fs");
 var ui = require("./ui");
-var template = _.template(fs.readFileSync(__dirname + '/ui/log.html').toString());
 
 var info = [];
 _.extend(module.exports, {

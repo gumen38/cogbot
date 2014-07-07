@@ -1,15 +1,32 @@
 CogBot - a Call of Gods game bot
 =====================
 
+Disclaimer
+----------
+
+I've made this tool mostly for myself, but trying to make it usable by other people.
+At this moment it's raw alpha, which means it is buggy and unstable.
+It's OK for alpha version.
+When it become stable, i.e. it will be able to do full daily routine without bugs, it is 'stable beta'.
+When it will have all planned features and no bugs, it is 'release'.
+
 What it does
 ------------
 
-_Version 0.3_
+_Version 0.5a_
+1. Removed FoxyProxy due to installation difficulty. Added custom proxy within "CogBot Admin Panel" chrome plugin.
+2. Added secondary -default, -per dungeon boss, -per abyss room strategies support. Handy to manage stuff like 'use barks when short on caterans'.
+
+_Version 0.4a_
+1. Dungeon crawler.
+2. Depleted soldiers notification.
+
+_Version 0.3a_
 1. Automatic Abyss crawler
 2. Better dungeon feedback
 3. Removed some options
 
-_Version 0.2_  
+_Version 0.2a_
 1. Automatic 'Maximize soldiers'.  
 2. Automatic formation/soldiers loading.  
 3. Manual formation/soldiers save.  
@@ -23,21 +40,33 @@ How it works
 ------------
 
 1. It uses node.js server (http://nodejs.org/) which should be installed to run CogBot Server.
-2. It uses CogBot Chrome Plugin to provide user interface (it works as viewport to CogBot Server).
-3. It uses FoxyProxy Chrome Plugin which should proxy \*do.php\* calls to CogBot Server (localhost:3333).  
-It catches internal game requests/responses in order to watch/operate game actions. 
+2. It uses CogBot chrome plugin to a) provide UI b) proxy game requests to CogBot Server.
 
 Installation guide
 ------------------
 
-1. Install node.js
-2. Run run.bat
-3. Install chrome plugin: chrome extensions -> enable developer mode -> install unpacked extension -> point it to /plugin folder
-4. Go to CogBot page
-5. Press CogBot plugin button in chrome
-6. Login and start the game
+*Installing CogBot server*
 
-If it works, you will see you current deploy.
+1. Install node.js
+2. Download CogBot distrib as a zip from github.
+3. Unpack zip somewhere, say c:/cogbot.
+4. Modify actionUrl and characterId in c:/cogbot/server/currentSettings.js. See futher for details.
+5. Run run.bat
+
+*How to get your character id and server url*
+
+1. Open http://www.kongregate.com/games/callofgods/call-of-gods in chrome
+2. Press F12 to open Chrome Developer Tools and go to the network tab. Enable network log.
+3. Reload page and type in filter do.php
+4. Click on first entry.
+5. Find there 'Request URL'. Copy it to your settings (player.actionUrl).
+5. Inspect request details. There will be somewhere field 'characterId'. Copy it to your settings (player.characterId).
+
+*Installing CogBot Admin plugin*
+
+1. Install the plugin: chrome extensions -> enable developer mode -> install unpacked extension -> point it to /plugin folder
+2. Go to CogBot page
+3. Press CogBot plugin button in chrome (a rusty cog icon).
 
 Planned
 -------
@@ -45,20 +74,16 @@ Planned
 Installation comfort:
 
 1. Add runnable built-in Node.js server to make it not neccessary for user to install it.  
-2. Get rid of FoxyProxy (make proxy functionality inside of CogBot Chrome Plugin.  
 
 Planned Important features:
 
-1. Alert when need recruit more soldiers  
-2. Handle situation when CogServer is on maintenance.  
+1. Handle situation when CogServer is on maintenance.
 
 Planned Features:
 
-1. Dungeon auto-crawler (exploring same dungeon 6 times per day is boring).  
-2. Abyss auto-crawler (exploring abyss becomes boring on 3rd day, with exception of when you can do new rooms).  
-3. Auto-manage recruiting and keeping enough soldiers (it's boring micromanagement).  
-4. Daily Auto-routine (typical daily boring must-do stuff like alliance quests and so on).  
-5. Scheduler for timed events like Alliance War/World Boss/2x Super Soldiers recruit/Clash of gods. Should help european players which have totally unbearable AW/WB/CG/2xSS times.  
+1. Auto-manage recruiting and keeping enough soldiers (it's boring micromanagement).
+2. Daily Auto-routine (typical daily boring must-do stuff like alliance quests and so on).
+3. Scheduler for timed events like Alliance War/World Boss/2x Super Soldiers recruit/Clash of gods. Should help european players which have totally unbearable AW/WB/CG/2xSS times.
 
 
 Bugs/Issues
@@ -70,9 +95,7 @@ If i figure it out, it will be fixed.
 2. Session capture can be done directly from chrome plugin, but it's unsafe to let plugin watch cookies. At this moment
 CogBot captures session from proxied game requests, but it requires at least one game request.
 3. Don't use my strategy files - it contains hardcode for my chars & heroes.
-4. CharacterId and server path are hardcoded in currentSettings.json now, need manual fix. Plan to put it to settings widget.
-5. Installation guide is not very clear. I plan to make a screenshot series with installation steps and make installation easier.
-
+4. Installation guide is not very clear. I plan to make a screenshot series with installation steps and make installation easier.
 
 Support project
 ---------------

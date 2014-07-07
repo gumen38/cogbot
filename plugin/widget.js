@@ -1,7 +1,7 @@
 if( !window.cogbotloaded ) (function() {
 
     $('#cogbot_panel').remove();
-    $('body').append('<div id="cogbot_panel">CogBot server is not available at localhost:3333</div>');
+    $('body').append('<div id="cogbot_panel"><div>CogBot server is not available at localhost:3333</div></div>');
 
     var panel = $("#cogbot_panel");
     var socket = io('http://localhost:3334');
@@ -39,29 +39,17 @@ if( !window.cogbotloaded ) (function() {
             fire('settings', model);
         });
 
-        $("#save-abyss").unbind('click').on('click', function (e) {
+        $("[fire]").unbind('click').on('click', function (e) {
             e.preventDefault();
-            fire("abyss", {save:{}});
+            var code = $(this).attr('fire');
+            var args;
+            eval('args = ' + $(this).attr('args'));
+            fire(code, args);
         });
 
         $("#save-default").unbind('click').on('click', function (e) {
             e.preventDefault();
             fire("strategy", {save: 'default'});
-        });
-
-        $("#save-wboss").unbind('click').on('click', function (e) {
-            e.preventDefault();
-            fire("strategy", {save: 'wboss'});
-        });
-
-        $("#save-dung").unbind('click').on('click', function (e) {
-            e.preventDefault();
-            fire("dungeon", {"save":{}});
-        });
-
-        $("#load-default").unbind('click').on('click', function (e) {
-            e.preventDefault();
-            fire('strategy', {load: 'default'});
         });
 
         $("#abyss-auto").unbind('click').bind('click', function(e){
@@ -74,10 +62,10 @@ if( !window.cogbotloaded ) (function() {
             $(this).parent().siblings('.collapsible').toggle();
         });
 
-        $(".hint").unbind('mouseenter').unbind('mouseleave').hover(function () {
+        $(".hint").unbind('mouseenter').unbind('mouseleave').hover(function (e) {
             e.preventDefault();
             $('.hint-info[hint=' + $(this).attr('hint') + ']').show();
-        }, function () {
+        }, function (e) {
             e.preventDefault();
             $('.hint-info[hint=' + $(this).attr('hint') + ']').hide();
         });
@@ -88,26 +76,6 @@ if( !window.cogbotloaded ) (function() {
             $(".game_page_wrap").remove();
             $(".footer").remove();
             $(".gamepage_header_outer").remove();
-        });
-
-        $("#open").unbind('click').bind('click', function(e){
-            e.preventDefault();
-            fire('inventory', { open: {} });
-        });
-
-        $("#reloadinv").unbind('click').bind('click', function(e){
-            e.preventDefault();
-            fire('inventory', { reload: {} });
-        });
-
-        $("#auto-dung").unbind('click').bind('click', function(e){
-            e.preventDefault();
-            fire('dungeon', { auto: {} });
-        });
-
-        $("#wboss").unbind('click').bind('click', function(e){
-            e.preventDefault();
-            fire('settings', { wboss: {} });
         });
     }
 

@@ -1,7 +1,6 @@
 fs = require('fs');
 mkdirp = require('mkdirp');
 server = require('./server');
-settings = require('./settings');
 log = require('./log');
 ui = require('./ui');
 
@@ -32,7 +31,7 @@ function read(rs){
 }
 
 function reload(cb){
-    server.call({"Item_GetInfo_Req":{"type":-1,"characterId":settings.get().characterId}}, function(rs){
+    server.call({"Item_GetInfo_Req":{"type":-1,"characterId":settings.player.characterId}}, function(rs){
         read(rs.Item_GetInfo_Res);
         cb && cb();
     })
@@ -76,7 +75,7 @@ _.extend(module.exports, {
 
             function use(itemId){
                 log.info("Use item " + items[itemId].name);
-                server.call({"Item_Use_Req":{"characterId":settings.get().characterId,"id":itemId,"count":1}}, function(rs){
+                server.call({"Item_Use_Req":{"characterId":settings.player.characterId,"id":itemId,"count":1}}, function(rs){
                     if( rs.Item_Use_Res.retMsg == 'SUCCESS' ) use(itemId);
                 })
             }
@@ -87,7 +86,7 @@ _.extend(module.exports, {
 
             function copper(itemId){
                 log.info("Copper item" + items[itemId].name);
-                server.call({"Item_Sell_Req":{"characterId":settings.get().characterId,"id":itemId,"count":1}}, function(rs){
+                server.call({"Item_Sell_Req":{"characterId":settings.player.characterId,"id":itemId,"count":1}}, function(rs){
                     if( rs.Item_Sell_Res.retMsg == 'SUCCESS' ) copper(itemId);
                 })
             }

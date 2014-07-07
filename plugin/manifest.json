@@ -3,12 +3,15 @@
     "description": "CogBot Admin Panel",
     "version": "1.0",
     "permissions": [
-        "tabs", "http://*/*", "https://*/*", "cookies"
+        "tabs", "http://*/*", "https://*/*", "cookies", "proxy"
     ],
     "browser_action": {
-        "default_title": "Set this page's color.",
-        "default_icon": "icon.png",
-        "default_popup": "popup.html"
+        "default_title": "CogBot Admin Panel.",
+        "default_icon": "images/icon-off.png"
     },
-    "manifest_version": 2
+    "background": {
+        "scripts": ["script.js"]
+    },
+    "manifest_version": 2,
+    "minimum_chrome_version": "21"
 }

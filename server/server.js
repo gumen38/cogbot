@@ -67,8 +67,8 @@ var call = function (requestOrBatch, cb) {
 
     headers['content-length'] = body.length + '';
     var opts = {
-        path: settings.get().player.actionUrl,
-        hostname: url.parse(settings.get().player.actionUrl).host,
+        path: settings.player.actionUrl,
+        hostname: url.parse(settings.player.actionUrl).host,
         port: 80,
         method: 'POST',
         headers: headers
@@ -177,6 +177,9 @@ var interceptMessages = function (response, cb) {
     });
 };
 
+process.on('uncaughtException', function (err) {
+    console.log('Caught exception: ' + err);
+});
 
 _.extend(module.exports, {
     parseRequest: parseRequest,

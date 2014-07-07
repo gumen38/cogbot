@@ -2,27 +2,17 @@ lib = require("./lib");
 dungeon = require("./dungeon");
 abyss = require("./abyss");
 strategy = require("./strategy");
-settings = require("./settings");
-task = require("./task");
 
 module.exports = {
     'Battle_AttackMonster_Req': function(rq, cb){
-        if( settings.get().load.atBattle ) {
-            strategy.loadRecord('default', function() {
-                strategy.maximizeSoldiers(cb);
-            });
-        } else {
+        strategy.loadRecord('default', function() {
             strategy.maximizeSoldiers(cb);
-        }
+        });
     },
     'WorldBossBattle_Challenge_Req': function(rq, cb) {
-        if( settings.get().load.atWboss ){
-            strategy.loadRecord('wboss', function(){
-                strategy.maximizeSoldiers(cb);
-            })
-        } else {
+        strategy.loadRecord('wboss', function(){
             strategy.maximizeSoldiers(cb);
-        }
+        })
     },
     'Adventure_MapMove_Req': function(rq, cb){
         dungeon.enter(rq.point, cb);
@@ -41,20 +31,7 @@ module.exports = {
         strategy.recordAssign(fullRq);
         cb();
     },
-    'City_NpcTaskAccept_Req': function(rq, cb, fullRq){
-        //task.saveAccept(rq);
-        cb();
-    },
-    'City_NpcTaskFinish_Req': function(rq, cb, fullRq){
-        //task.saveFinish(rq);
-        cb();
-    },
     'PurgatoryAbyss_Challenge_Req': function(rq, cb){
         abyss.prepare(cb);
-    },
-    global: function(rq, cb, fullRq){
-        task.saveRq(rq, fullRq);
-        cb();
     }
-
 }

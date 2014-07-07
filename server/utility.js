@@ -1,27 +1,11 @@
 fs = require('fs');
 ui = require('./ui');
-var settings = JSON.parse(fs.readFileSync(__dirname+'/currentSettings.json', 'utf8'));
-var template = _.template(fs.readFileSync(__dirname + '/ui/settings.html').toString());
-
-function update(newSettings){
-    var result = merge(settings, newSettings);
-    fs.writeFileSync(__dirname+'/currentSettings.json', JSON.stringify(result, undefined, 4), 'utf8');
-    ui.update('settings');
-}
-
+server = require('./server');
 
 _.extend(module.exports, {
 
-    get: function(){
-        var result = {};
-        _.extend(result, settings);
-        return result;
-    },
-
     control: function(params){
-
         if( params.wboss ) {
-
             function rep() {
                 log.info('Wboss attack attempt...');
                 ui.update('settings');
@@ -31,16 +15,11 @@ _.extend(module.exports, {
                     }
                 });
             }
-
             rep();
-
-        } else {
-            update(params);
         }
-
     },
     model: function(){
-        return { model: settings };
+        return { model: {} };
     }
 });
 

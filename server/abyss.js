@@ -1,7 +1,6 @@
 var lib = require('./lib');
 var server = require('./server');
 var strategy = require('./strategy');
-var settings = require('./settings');
 var log = require('./log');
 var ui = require('./ui');
 
@@ -14,11 +13,12 @@ function status(msg) {
 }
 
 var nextRoom, nextStorey;
+var endRoom;
 function updateLocation(rs) {
     started = true;
     nextRoom = rs.nextRoomId;
     nextStorey = rs.nextStorey;
-    status("Abyss location changed: storey/room are " + nextStorey + " / " + ((nextRoom-1)%25+1));
+    status("Abyss location changed: storey/room are " + nextStorey + " / " + ((nextRoom - 1) % 25 + 1));
 }
 
 function getStrategyCode() {
@@ -26,15 +26,14 @@ function getStrategyCode() {
 }
 
 function doRoom(cb) {
-    if( !nextRoom || !nextStorey ) {
+    if (!nextRoom || !nextStorey) {
         status('Please reload abyss, no data');
         return;
     }
     status("Now doing auto-mode abyss room/storey: " + nextRoom + "/" + nextStorey);
     status("Preparing room formation/soldiers setup.");
 
-
-    strategy.loadRecord(strategy.haveStrategy(getStrategyCode())?getStrategyCode():"default", function () {
+    strategy.loadRecord(strategy.haveStrategy(getStrategyCode()) ? getStrategyCode() : "default", function () {
         status("Maximizing assigned soldiers stacks sizes");
         strategy.maximizeSoldiers(function () {
             status("Initiating challenge sequence");
@@ -51,22 +50,23 @@ function doRoom(cb) {
     });
 }
 
-function auto(endRoom) {
+function auto() {
+
+
     status("Now starting auto-mode till the room " + endRoom);
     if (!endRoom) {
         status('Error: bad end room');
         return;
     }
-    if( !nextRoom || !nextStorey ){
+    if (!nextRoom || !nextStorey) {
         status('Error: unknown abyss state - re-enter abyss please');
         return;
     }
 
-    if(_.isString(endRoom) ) endRoom = parseInt(endRoom);
+    if (_.isString(endRoom)) endRoom = parseInt(endRoom);
 
 
-
-    if( strategy.isDepleted() ){
+    if (strategy.isDepleted()) {
         status("Not enough soldiers, stopping");
         return;
     }
@@ -79,7 +79,7 @@ function auto(endRoom) {
         }
         if (nextRoom <= endRoom) {
             status('Battle was won. Continuing auto-abyss.');
-            if( strategy.isDepleted() ){
+            if (strategy.isDepleted()) {
                 status("Not enough soldiers, stopping");
             } else {
                 auto(endRoom)
@@ -87,41 +87,41 @@ function auto(endRoom) {
         } else {
             status('Abyss end room reached, stopping');
         }
-
-
     });
 }
 
 _.extend(module.exports, {
-    reset: function(){},
+    reset: function () {
+    },
     onRoomChange: function (rs, cb) {
         updateLocation(rs);
     },
-    prepare: function(cb){
-        if( !nextRoom || !nextStorey ){
+    prepare: function (cb) {
+        if (!nextRoom || !nextStorey) {
             status('Error: unknown abyss state - re-enter abyss please');
             cb();
             return;
         }
-        if( settings.get().load.enabled ) {
-            strategy.loadRecord(getStrategyCode(), function () {
-                strategy.maximizeSoldiers(cb);
-            });
-        } else {
+        strategy.loadRecord(getStrategyCode(), function () {
             strategy.maximizeSoldiers(cb);
-        }
+        });
     },
-    auto: auto,
+    auto: function (_endRoom) {
+        endRoom = _endRoom;
+        auto()
+    },
     model: function () {
         return {
             statusMsg: statusMsg,
             nextRoom: nextRoom,
             nextStorey: nextStorey,
-            started: started
+            started: started,
+            endRoom: endRoom ? endRoom : ""
         };
     },
-    control: function(opts){
-        opts.save && strategy.saveRecord(getStrategyCode());
+    control: function (opts) {
+        opts.save1 && strategy.saveRecord(getStrategyCode());
+        opts.save2 && strategy.saveRecord(getStrategyCode() + 'alt');
         opts.auto && auto(opts.auto);
     }
 });

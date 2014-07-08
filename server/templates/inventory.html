@@ -1,9 +1,14 @@
 <fieldset id="inventory">
     <legend>Inventory<span class="minimize">[+/-]</span></legend>
     <div class="main collapsible">
-        <%= alerts.join("<br/>") + "<br/>Count: " + count %>
+        <div>Count:<%= count %></div>
+        <div><b><%= statusMsg %></b></div>
         <div>Reload count <a class="btn" fire="inventory" args="{reload:{}}">Reload</a></div>
         <div>Open silver/bronze chests <a class="btn" fire="inventory" args="{open:{}}">Open</a></div>
+        <div>Copper trash items <a class="btn" fire="inventory" args="{trash:{}}">Sell</a></div>
+        <% if( soldItem ) { %>
+            <div>You sold an item <b><%=soldItem%></b>. Mark as trash? <a class="btn" href="#" fire="inventory" args="{mark: '<%=soldItem%>'}">Mark</a></div>
+        <% } %>
     </div>
 
 </fieldset>

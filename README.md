@@ -15,6 +15,7 @@ What it does
 
 _Version 0.6a_
 1. Fixed numerous bugs with dungeon/strategy modules.
+2. Added inventory utilites: autoopen bronze/silver/gold boxes (only tier 5 atm), autosell trash, trash learning button.
 
 _Version 0.5a_
 1. Removed FoxyProxy due to installation difficulty. Added custom proxy within "CogBot Admin Panel" chrome plugin.

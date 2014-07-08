@@ -2,6 +2,7 @@ lib = require("./lib");
 dungeon = require("./dungeon");
 abyss = require("./abyss");
 strategy = require("./strategy");
+inventory = require("./inventory");
 
 module.exports = {
     'Battle_AttackMonster_Req': function(rq, cb){
@@ -33,5 +34,10 @@ module.exports = {
     },
     'PurgatoryAbyss_Challenge_Req': function(rq, cb){
         abyss.prepare(cb);
+    },
+
+    'Item_Sell_Req': function(rq, cb){
+        inventory.onItemSold(rq.id);
+        cb();
     }
 }

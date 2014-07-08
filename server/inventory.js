@@ -4,93 +4,112 @@ server = require('./server');
 log = require('./log');
 ui = require('./ui');
 
-var alerts = [];
 var count = 0;
 var max = 90;
+var res = null;
+var soldItem = null;
 
-function itemAdded(msg) {
-    count++;
-    if( count >= max ){
-        alerts.push('Inventory limit reached.');
-    }
-
-    ui.update("inventory");
-}
-
-function read(rs){
-    max = rs.backpackItemCountMax;
-    count = 0;
-    if( rs.items ){
-        _.each(rs.items, function(item){
-            if( item.place==0 ) {
-                count ++;
-            }
-        })
-    }
-    ui.update("inventory");
+var statusMsg = "";
+function status(msg) {
+    log.info(msg);
+    statusMsg = msg;
+    ui.update('inventory');
 }
 
 function reload(cb){
     server.call({"Item_GetInfo_Req":{"type":-1,"characterId":settings.player.characterId}}, function(rs){
-        read(rs.Item_GetInfo_Res);
+        res = rs.Item_GetInfo_Res;
+        max = res.backpackItemCountMax;
+        count = 0;
+        if( res.items ){
+            _.each(res.items, function(item){
+                if( item.place==0 ) {
+                    count ++;
+                }
+            })
+        }
+        ui.update("inventory");
         cb && cb();
     })
 }
 
-var items = {
-    9933887: { type: 'box',     name: 'Silver Box 5' },
-    9933877: { type: 'box',     name: 'Bronze Box 5' },
-    9935556: { type: 'silver',  name: 'Silver Card 2' },
-
-    9935569: { type: 'junk',    name: 'Pandora Cuirass'},
-    9935570: { type: 'junk',    name: 'Cloudsplitter Warboots'},
-    9935567: { type: 'junk',    name: 'Abyss Greatsword'},
-    9935565: { type: 'junk',    name: 'Bleak Helmet'},
-    9935558: { type: 'junk',    name: 'Redbone Force'},
-    9935568: { type: 'junk',    name: 'Pyrope'},
-    9935566: { type: 'junk',    name: 'Uncut Ruby'},
-    9935563: { type: 'junk',    name: 'Warscar Hammer'},
-    9936567: { type: 'junk',    name: 'Forelorn Leggins'},
-    9936597: { type: 'junk',    name: 'Lost Love Armor'},
-    9936575: { type: 'junk',    name: 'Lost Love Armor'},
-    9936576: { type: 'junk',    name: 'Lost Love Armor'},
-    9936566: { type: 'junk',    name: 'Lost Love Armor'}
+function findItem(itemId){
+    return _.find(res.items, function(item){return item.itemId == itemId;});
 }
 
+function findItemId(id){
+    return _.find(res.items, function(item){return item.id == id;});
+}
 _.extend(module.exports, {
-    itemAdded: itemAdded,
-    read: read,
     reload: reload,
     control: function(opts){
-        if( opts.reload ){
-            reload();
-        }
-        if( opts.open ){
+        reload(function(){
+            ui.update('inventory');
+            if( opts.open ){
+                boxes = [ 5109020, 5109021, 5109085 ];
 
-            var box = _.filter(_.keys(items), function(itemKey) { return items[itemKey].type == 'box' });
-            _.each(box, function(key){ use(key); });
+                _.each(boxes, function(boxId){
+                    var item = findItem(boxId);
+                    item && use(item.id);
+                });
 
-            var silver = _.filter(_.keys(items), function(itemKey) { return items[itemKey].type == 'silver' });
-            _.each(silver, function(key){ use(key); });
-
-            function use(itemId){
-                log.info("Use item " + items[itemId].name);
-                server.call({"Item_Use_Req":{"characterId":settings.player.characterId,"id":itemId,"count":1}}, function(rs){
-                    if( rs.Item_Use_Res.retMsg == 'SUCCESS' ) use(itemId);
-                })
+                function use(itemId){
+                    ui.update('inventory');
+                    status("Use item " + itemId);
+                    server.call({"Item_Use_Req":{"characterId":settings.player.characterId,"id":itemId,"count":1}}, function(rs){
+                        if( rs.Item_Use_Res.retMsg == 'SUCCESS' ) use(itemId);
+                    })
+                }
             }
-
-//            var junk = _.filter(_.keys(items), function(itemKey) { return items[itemKey].type == 'junk' });
-//            _.each(junk, function(key){ copper(key); });
-
-
-            function copper(itemId){
-                log.info("Copper item" + items[itemId].name);
-                server.call({"Item_Sell_Req":{"characterId":settings.player.characterId,"id":itemId,"count":1}}, function(rs){
-                    if( rs.Item_Sell_Res.retMsg == 'SUCCESS' ) copper(itemId);
-                })
+            if( opts.mark ){
+                trash = JSON.parse(fs.readFileSync(__dirname + '/trashlist.json', 'utf8'));
+                if( !_.contains(trash, opts.mark) ){
+                    trash.push(parseInt(opts.mark));
+                    fs.writeFileSync(__dirname + '/trashlist.json', JSON.stringify(trash), 'utf8');
+                }
+                soldItem = null;
+                ui.update('inventory');
             }
-        }
+            if( opts.trash ){
+                trash = JSON.parse(fs.readFileSync(__dirname + '/trashlist.json', 'utf8'));
+
+                _.each(trash, function(itemId){
+                    var item = findItem(itemId);
+                    item && sell(item.id);
+                });
+
+                function sell(itemId){
+                    ui.update('inventory');
+                    status("Sell item " + itemId);
+                    server.call({"Item_Sell_Req":{"characterId":settings.player.characterId,"id":itemId,"count":1}}, function(rs){
+                        if( rs.Item_Use_Res.retMsg == 'SUCCESS' ) sell(itemId);
+                    })
+                }
+            }
+        });
     },
-    model: function() { return { alerts: alerts, count: count }}
+    model: function() { return { count: count, soldItem: soldItem, statusMsg: statusMsg }},
+    onItemSold: function(id){
+
+        function cb(){
+            status('Item sale detected');
+            var item = findItemId(id);
+            if( item ){
+                trash = JSON.parse(fs.readFileSync(__dirname + '/trashlist.json', 'utf8'));
+                if( !_.contains(trash, item.itemId) ){
+                    soldItem = item.itemId;
+                } else {
+                    status('Sold item is already marked as trash');
+                }
+            } else {
+                status('Sold item is unknown');
+            }
+            ui.update('inventory');
+        }
+
+        if( res==null ){
+            reload(cb);
+        } else cb();
+    }
+
 });

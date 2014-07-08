@@ -30,10 +30,5 @@ module.exports = {
     'PreResource_Recruit_Res': function(rs, cb){
         strategy.resetDepleted();
         cb();
-    },
-
-    'Item_GetInfo_Res': function(rs, cb){
-        inventory.read(rs);
-        cb();
     }
 }

@@ -2,28 +2,34 @@
     <legend>Current strategy</legend>
     <div><b><%=status%></b></div>
     <%
-        var rec = record, det = heroDetails, sol = soldiersData;//underscore visibility scope trick
-        function info(code){
-            var hero = rec.deploy.HeroSet_SetTroopStrategy_Req.attackTroopStrategy[code];
-            if( hero == -1 ) return "N/A";
-            if( !det[hero] ) return "None";
+            var dep = deploy, ass = assigns, det = heroDetails, sol = soldiersData;//underscore visibility scope trick
+            function info(code){
+                var hero = dep.HeroSet_SetTroopStrategy_Req.attackTroopStrategy[code];
+                if( hero == -1 ) return "N/A";
+                if( !det[hero] ) return "None";
 
-            var soldierName = "-";
-            if( rec.assigns[hero] ) {
-                var soldierId = rec.assigns[hero].Hero_DeploySoldier_Req.soldierId;
-                soldierName = soldierId == 0 ? 'none' : (sol[soldierId] ? sol[soldierId].name : soldierId);
+                var soldierName = "-";
+                if( ass[hero] ) {
+                    var soldierId = ass[hero].Hero_DeploySoldier_Req.soldierId;
+                    soldierName = soldierId == 0 ? 'none' : (sol[soldierId] ? sol[soldierId].name : soldierId);
+                }
+
+                return det[hero].name + "<br/>[" + soldierName + "]";
             }
-
-            return det[hero].name + "<br/>[" + soldierName + "]";
-        }
-%>
-<% if ( sync ) { %>
-<table>
-    <tr><td><%= info('11') %></td><td><%= info('12') %></td><td><%= info('13') %></td><td><%= info('14') %></td></tr>
-    <tr><td><%= info('21') %></td><td><%= info('22') %></td><td><%= info('23') %></td><td><%= info('24') %></td></tr>
-</table>
-<% if( depleted ) { %><div style="font-weight:900; font-size: 14px; color:red">!!!Soldiers depleted!!!<br/> <%=depleted%> <a href="#" fire="strategy" args="{ reset: {}}">Ok</a> </div><% } %>
-<% } else { %>
+    %>
+    <% if ( sync ) { %>
+    <table>
+        <tr><td><%= info('11') %></td><td><%= info('12') %></td><td><%= info('13') %></td><td><%= info('14') %></td></tr>
+        <tr><td><%= info('21') %></td><td><%= info('22') %></td><td><%= info('23') %></td><td><%= info('24') %></td></tr>
+    </table>
+    <% if( depleted.length > 0 ) { %>
+        <div style="font-weight:900; font-size: 14px; color:red">Recruit more!:
+            <% _.each( depleted, function(soldierId){ %>
+            <br/><%=soldiersData[soldierId] ? soldiersData[soldierId].name : soldierId %>
+            <% }) %>
+            <a href="#" fire="strategy" args="{ reset: {}}">Done</a>
+        </div><% } %>
+    <% } else { %>
         <div>Capturing session... <span class="hint" hint="400">(?)</span></div>
         <div class="hint-info" hint="400">The CogBot Server is waiting for requests from game to game server</br>
             in order to capture game session code from the request.</br>
@@ -54,7 +60,7 @@
     <% if( loaded ) { %>
     <div>Strategy <%=strategyCode%> was automatically loaded</div>
     <% } %>
-    <div><a class="btn" href="#" fire="strategy" args="{load: 'default'}">Apply Primary Default Strategy</a></div>
-    <div><a class="btn" href="#" fire="strategy" args="{load: 'defaultalt'}">Apply Secondary Default Strategy</a></div>
+    <div><a class="btn" href="#" fire="strategy" args="{load: 'default'}">Try Load Primary Default Strategy</a></div>
+    <div><a class="btn" href="#" fire="strategy" args="{load: 'defaultalt'}">Load Secondary Default Strategy</a></div>
 </fieldset>
 <% } %>

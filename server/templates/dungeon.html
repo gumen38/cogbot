@@ -1,21 +1,21 @@
 <%
         var ps = pos, gr = grid, aOn = autoOn, cPos = crawlPos, pth = path;
 
-        function wrap(c){
-            var cls = "cell ";
+        function wrap(c, cc){
+            var cls = (cc?cc:'') + " cell ";
             if( aOn && cPos && cPos.x == x && cPos.y == y ) cls += 'crawl-location ';
             if( aOn && pth && _.find(pth, function(el){ return el.x == x && el.y == y }) ) cls += 'crawl-path';
             return '<span class="' + cls + '">' + c + '</span>';
         }
 
         function renderCell(x, y){
-            if( ps.x == x && ps.y == y ) return wrap('@');
+            if( ps.x == x && ps.y == y ) return wrap('@', 'player');
             var cell = gr[x][y];
             if( cell==null ) return wrap("&nbsp;");
             if( cell.visited ) return wrap(".");
-            if( cell.type=='bs' ) return wrap("B");
-            if( cell.type=='mo' ) return wrap("&");
-            if( cell.type=='ev' ) return wrap("?");
+            if( cell.type=='bs' ) return wrap("B", 'boss');
+            if( cell.type=='mo' ) return wrap("&", 'monster');
+            if( cell.type=='ev' ) return wrap("?", 'watwat');
             if( cell.type=='re' ) return wrap("$");
             if( cell.type=='it' ) return wrap("#");
             if( cell.type=='ex' ) return wrap(">");
@@ -40,6 +40,18 @@
             .crawl-location {
                 border: 1px solid #F00;
             }
+            .boss {
+                color: red;
+            }
+            .monster {
+                color: orange;
+            }
+            .player {
+                color: purple;
+            }
+            .watwat {
+                color: darkkhaki;
+            }
         </style>
 
 <fieldset id="dungeon">
@@ -59,17 +71,19 @@
             </table>
         </div>
         <% if ( boss != null ) { %>
-            <div>Primary Boss Strategy <%=boss%> <a class="btn" fire="dungeon" args="{save1:{}}"  href="#"><%= haveStrategy1 ? 'Overwrite' : 'Create' %></a></div>
-            <div>Secondary Boss Strategy <%=boss%> <a class="btn" fire="dungeon" args="{save2:{}}"  href="#"><%= haveStrategy2 ? 'Overwrite' : 'Create' %></a></div>
+            <div>Boss detected: <%=boss%></div>
+            <div>Primary Boss Strategy <a class="btn" fire="dungeon" args="{save1:{}}"  href="#"><%= haveStrategy1 ? 'Overwrite' : 'Create' %></a></div>
+            <div>Secondary Boss Strategy <a class="btn" fire="dungeon" args="{save2:{}}"  href="#"><%= haveStrategy2 ? 'Overwrite' : 'Create' %></a></div>
+            <div>Load Strategy Now! <a class="btn" fire="dungeon" args="{load:{}}"  href="#">Load</a></div>
         <% } %>
     <% } else { %>
         <div>Not entered a dungeon</div>
     <% } %>
-    <div><%=stateMsg%></div>
+    <div><%=statusMsg%></div>
     <div>
-        <div>Auto mode </div>
+        <div>Auto mode
             <%= aOn ? '' : 'not' %> started
-            <% if(!aOn) { %> <a class="btn" fire="dungeon" args="{autoStart:{}}"  href="#">Start</a> <% } else { %> <a class="btn" iire="dungeon" args="{autoStop:{}}" href="#">Stop</a> <% } %>
+            <% if(!aOn) { %> <a class="btn" fire="dungeon" args="{autoStart:{}}"  href="#">Start</a> <% } else { %> <a class="btn" fire="dungeon" args="{autoStop:{}}" href="#">Stop</a> <% } %>
         </div>
 
         <div><span class="hint" hint="da1">Fast mode: </span> <%= settings.dungeon.fastMode ? 'enabled' : 'disabled' %></div>

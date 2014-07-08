@@ -3,7 +3,7 @@
     "description": "CogBot Admin Panel",
     "version": "1.0",
     "permissions": [
-        "tabs", "http://*/*", "https://*/*", "cookies", "proxy"
+        "tabs", "http://*/*", "https://*/*", "cookies", "proxy", "management"
     ],
     "browser_action": {
         "default_title": "CogBot Admin Panel.",

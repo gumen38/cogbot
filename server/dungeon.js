@@ -137,8 +137,8 @@ function findUnexplored() {
     return result;
 }
 
-function findCell() {
-    for (var x = 0; x < 9; x++) for (var y = 0; y < 9; y++) if (grid[x][y] && grid[x][y].type == 'ex') return grid[x][y];
+function findCell(type) {
+    for (var x = 0; x < 9; x++) for (var y = 0; y < 9; y++) if (grid[x][y] && grid[x][y].type == type) return grid[x][y];
     return null;
 }
 
@@ -356,11 +356,17 @@ function autoTillExit() {
     }
 
     function doCrawl() {
+        if( !autoOn ) {
+            status('Stopped');
+            return;
+        }
+
         ui.update('dungeon');
         if (path) {
             var to = path[index];
             enter(to, function () {
                 if (strategy.isDepleted()) {
+                    autoOn = false;
                     status('Soldiers depleted, stopping');
                     return;
                 }
@@ -370,6 +376,18 @@ function autoTillExit() {
             var unexplored = findUnexplored();
             var exit = findCell('ex');
             var bossCell = findCell('bs');
+
+            if( settings.dungeon.fastMode && bossCell && bossCell.visited=='1'&& map.mapId%10 == 3 ){
+                autoOn = false;
+                status('Last boss defeated, stopping');
+                return;
+            }
+
+            if( !settings.dungeon.fastMode && !unexplored && map.mapId%10 == 3 ){
+                autoOn = false;
+                status('Dungeon clear, stopping');
+                return;
+            }
 
             if( settings.dungeon.fastMode && bossCell && bossCell.visited==0 ){
                 unexplored = bossCell;
@@ -432,15 +450,7 @@ function autoTillExit() {
                     p = new Cell(msgs['Object_Change_Notify.characterAdventureMap'].point);
                     server.call({ "Adventure_GetMapInfo_Req": {"mapId": msgs['Object_Change_Notify.characterAdventure'].mapId }}, function (rs1, msgs1) {
                         init(rs1.Adventure_GetMapInfo_Res.map);
-
-                        if( !settings.dungeon.fastMode ) {
-                            if( findUnexplored() ) doCrawl();
-                        } else {
-                            var bossCell = findCell('bs');
-                            if( bossCell && bossCell.visited == 0 ){
-                                doCrawl();
-                            }
-                        }
+                        doCrawl();
                     });
                     return;
                 }
@@ -473,8 +483,8 @@ function autoTillExit() {
                         }
                     }
 
-                    server.call({"Battle_Finish_Req": {"characterId": null}}, function (rs, msgs) {
-                        doCrawl();
+                    server.call({"Battle_Finish_Req": {"characterId": null}}, function () {
+                       doCrawl();
                     });
                 } else {
                     doCrawl();
@@ -532,7 +542,7 @@ _.extend(module.exports, {
             haveStrategy2: boss && strategy.haveStrategy(getStrategyCode(boss) + 'alt'),
             boss: boss,
             started: started && map != null && p != null,
-            stateMsg: stateMsg,
+            statusMsg: statusMsg,
             location: getLocation(),
             pos: p,
             grid: grid,
@@ -554,6 +564,9 @@ _.extend(module.exports, {
         }
         if (opts.autoStop) {
             autoOn = false;
+        }
+        if( opts.load ){
+            strategy.loadRecord(getStrategyCode(findBoss()));
         }
     }
 });

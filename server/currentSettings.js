@@ -11,6 +11,6 @@ settings = {
         "actionUrl": "http://m1-kongregate.callofgods.com/php/do.php"
     },
     "dungeon": {
-        "fastMode": true
+        "fastMode": false
     }
 }

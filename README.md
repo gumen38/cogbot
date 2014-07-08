@@ -13,6 +13,9 @@ When it will have all planned features and no bugs, it is 'release'.
 What it does
 ------------
 
+_Version 0.6a_
+1. Fixed numerous bugs with dungeon/strategy modules.
+
 _Version 0.5a_
 1. Removed FoxyProxy due to installation difficulty. Added custom proxy within "CogBot Admin Panel" chrome plugin.
 2. Added secondary -default, -per dungeon boss, -per abyss room strategies support. Handy to manage stuff like 'use barks when short on caterans'.
@@ -86,7 +89,7 @@ Planned Features:
 3. Scheduler for timed events like Alliance War/World Boss/2x Super Soldiers recruit/Clash of gods. Should help european players which have totally unbearable AW/WB/CG/2xSS times.
 
 
-Bugs/Issues
+Issues
 -----------
 
 1. Number of soldiers and formation in game client will be displayed wrong. But in battles you will see right soldiers/formation.  

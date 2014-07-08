@@ -13,7 +13,7 @@ _.extend(module.exports, {
 
         http.createServer(function (clientRequest, clientResponse) {
 
-            if (clientRequest.url != settings.player.actionUrl ) {
+            if (clientRequest.url != settings.player.actionUrl) {
                 log.info("FoxyProxy is misconfigured. Wrong url: " + clientRequest.url);
             }
 
@@ -29,8 +29,8 @@ _.extend(module.exports, {
                 }, function end() {
                     log.debug(responseData);
                     var _this = this;
-                    server.interceptResponse(responseData, function(){
-                        server.interceptMessages(responseData, function(){
+                    server.interceptResponse(responseData, function () {
+                        server.interceptMessages(responseData, function () {
                             _this.queue(responseData);
                             _this.emit('end');
                         });
@@ -47,13 +47,21 @@ _.extend(module.exports, {
             }, function end() {
                 log.debug(requestData);
                 var _this = this;
-                server.interceptRequest(requestData, function(){
+                server.interceptRequest(requestData, function () {
                     _this.queue(requestData);
                     _this.emit('end');
                 })
             });
             clientRequest.pipe(departureProcessor, {end: true});
             departureProcessor.pipe(proxy, {end: true});
+        }).on('error', function (e) {
+            if (e.code == 'EADDRINUSE') {
+                console.log('Address in use, retrying...');
+                setTimeout(function () {
+                    server.close();
+                    server.listen(PORT, HOST);
+                }, 1000);
+            }
         }).listen(3333);
     }
 });

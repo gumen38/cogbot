@@ -549,7 +549,7 @@ _.extend(module.exports, {
             strategy.saveRecord(getStrategyCode(findBoss()) + (opts.save2 ? 'alt' : ''));
             strategy.maximizeSoldiers();
         }
-        if (opts.auto) {
+        if (opts.autoStart) {
             autoTillExit();
         }
         if (opts.autoStop) {

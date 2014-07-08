@@ -136,7 +136,7 @@ function apply(cb, failCb) {
                 status("Executing assign " + pos);
                 server.call(queue[pos], function (rs, msgs) {
                     if (rs && rs.Hero_DeploySoldier_Res.retMsg == "CHARACTER_SOLDIER_NOT_ENOUGH") {
-                        model.depleted = soldiersData[queue[pos].soldierId] ? soldiersData[queue[pos].soldierId].name : queue[pos].soldierId;
+                        model.depleted = model.soldiersData[queue[pos].soldierId] ? model.soldiersData[queue[pos].soldierId].name : queue[pos].soldierId;
                         status('Not enough soldiers');
                         failCb();
                     } else if (rs && msgs.characterHero && msgs.characterResource && msgs.characterHero.id == heroId) {
@@ -145,7 +145,7 @@ function apply(cb, failCb) {
                             return soldier.id == soldierId;
                         });
                         if (soldierInfo && soldierInfo.undeployed == 0 && soldier.deployed > 0) {
-                            model.depleted = soldiersData[soldierId] ? soldiersData[soldierId].name : soldierId;
+                            model.depleted = model.soldiersData[soldierId] ? model.soldiersData[soldierId].name : soldierId;
                             status('Soldiers depleted');
                             failCb();
                         }
@@ -219,7 +219,7 @@ function maximizeSoldiers(cb) {
                 return soldier.id == soldierId;
             });
             if (soldierInfo && soldierInfo.undeployed == 0 && soldier.deployed > 0) {
-                model.depleted = soldiersData[soldierId] ? soldiersData[soldierId].name : soldierId;
+                model.depleted = model.soldiersData[soldierId] ? model.soldiersData[soldierId].name : soldierId;
                 status('Soldiers depleted');
                 cb && cb();
                 return;
@@ -234,7 +234,7 @@ function assertSoldiers(msg) {
     if (!msg) return;
     _.each(msg.soldiers, function (soldier) {
         if (soldier.undeployed == 0 && soldier.deployed > 0) {
-            model.depleted = soldiersData[soldier.id] ? soldiersData[soldier.id].name : soldier.id;
+            model.depleted = model.soldiersData[soldier.id] ? model.soldiersData[soldier.id].name : soldier.id;
             status('Soldiers depleted: ' + model.depleted);
         }
     })
@@ -249,7 +249,7 @@ _.extend(module.exports, {
     loadRecord: loadRecord,
     maximizeSoldiers: maximizeSoldiers,
     isDepleted: function () {
-        return !!depleted;
+        return !!model.depleted;
     },
     haveStrategy: function (code) {
         try {

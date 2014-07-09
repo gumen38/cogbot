@@ -48,8 +48,16 @@ _.extend(module.exports, {
                 log.debug(requestData);
                 var _this = this;
                 server.interceptRequest(requestData, function () {
-                    _this.queue(requestData);
-                    _this.emit('end');
+                    if( server.getBlock() ){
+                        clientResponse.writeHead(200, {'Content-Type': 'text/plain'});
+                        clientResponse.end(server.getBlock());
+                        server.setBlock(null);
+                        _this.queue('[]');
+                        _this.emit('end');
+                    } else {
+                        _this.queue(requestData);
+                        _this.emit('end');
+                    }
                 })
             });
             clientRequest.pipe(departureProcessor, {end: true});
@@ -57,10 +65,6 @@ _.extend(module.exports, {
         }).on('error', function (e) {
             if (e.code == 'EADDRINUSE') {
                 console.log('Address in use, retrying...');
-                setTimeout(function () {
-                    server.close();
-                    server.listen(PORT, HOST);
-                }, 1000);
             }
         }).listen(3333);
     }

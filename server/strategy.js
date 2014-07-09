@@ -69,25 +69,18 @@ function loadRecord(code, cb) {
     model.strategyCode = code;
 
     var strategyExists = fs.existsSync(model.folder + code);
-    var isDefault = code=='default' || code=='defaultalt';
-    var isAltStrategy = code.indexOf('alt')!=-1;
+    var isDefault = code == 'default';
 
 
-    if( !strategyExists ){
-        if( isAltStrategy ){
-            if( isDefault ){
-                status('Alternative default strategy is not defined. Loading cancelled.'); cb && cb(); return;
-            } else {
-                status('Alternative strategy ' + code + ' is not defined. Loading cancelled.'); cb && cb(); return;
-            }
+    if (!strategyExists) {
+        if (isDefault) {
+            status('Primary default strategy is not defined. Loading cancelled.');
+            cb && cb();
+            return;
         } else {
-            if( isDefault ){
-                status('Primary default strategy is not defined. Loading cancelled.'); cb && cb(); return;
-            } else {
-                status('Primary strategy ' + code + ' is not defined. Will use default strategy.');
-                loadRecord('default', cb);
-                return;
-            }
+            status('Primary strategy ' + code + ' is not defined. Will use default strategy.');
+            loadRecord('default', cb);
+            return;
         }
     }
 
@@ -95,18 +88,7 @@ function loadRecord(code, cb) {
     model.deploy = record.deploy;
     model.assigns = record.assigns;
     model.depleted = [];
-    apply(function () {
-        if (model.depleted.length > 0) {
-            status('Failed to apply strategy ' + code);
-            if (!code.match(/.*alt$/)) {
-                status('Loading secondary strategy ' + code + 'alt');
-                loadRecord(code + 'alt', cb);
-            } else {
-                status('Secondary strategy load failed');
-                cb && cb();
-            }
-        } else cb && cb();
-    });
+    apply(cb);
 }
 
 function apply(cb) {
@@ -135,7 +117,7 @@ function apply(cb) {
             var queue = [];
             _.each(_.keys(model.assigns), function (heroId, index) {
 
-                if (assigns[heroId].Hero_DeploySoldier_Req.soldierId != model.assigns[heroId].Hero_DeploySoldier_Req.soldierId || model.depleted[assigns[heroId].Hero_DeploySoldier_Req.soldierId] ) {
+                if (assigns[heroId].Hero_DeploySoldier_Req.soldierId != model.assigns[heroId].Hero_DeploySoldier_Req.soldierId || model.depleted[assigns[heroId].Hero_DeploySoldier_Req.soldierId]) {
 
                     status('Assign for hero ' + model.heroDetails[heroId].name + ' was changed, applying...');
                     var rsHero = _.find(rs.Hero_GetInfo_Res.heroes, function (hero) {
@@ -273,8 +255,8 @@ _.extend(module.exports, {
     resetDepleted: resetDepleted
 });
 
-function soldierName(id){
-    if( model.soldiersData[id] ) return model.soldiersData[id].name;
+function soldierName(id) {
+    if (model.soldiersData[id]) return model.soldiersData[id].name;
     else {
         return '(Unknown:' + id + ')';
     }

@@ -82,7 +82,7 @@ _.extend(module.exports, {
                     ui.update('inventory');
                     status("Sell item " + itemId);
                     server.call({"Item_Sell_Req":{"characterId":settings.player.characterId,"id":itemId,"count":1}}, function(rs){
-                        if( rs.Item_Use_Res.retMsg == 'SUCCESS' ) sell(itemId);
+                        if( rs.Item_Sell_Res.retMsg == 'SUCCESS' ) sell(itemId);
                     })
                 }
             }

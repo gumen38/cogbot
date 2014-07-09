@@ -72,9 +72,8 @@
         </div>
         <% if ( boss != null ) { %>
             <div>Boss detected: <%=boss%></div>
-            <div>Primary Boss Strategy <a class="btn" fire="dungeon" args="{save1:{}}"  href="#"><%= haveStrategy1 ? 'Overwrite' : 'Create' %></a></div>
-            <div>Secondary Boss Strategy <a class="btn" fire="dungeon" args="{save2:{}}"  href="#"><%= haveStrategy2 ? 'Overwrite' : 'Create' %></a></div>
-            <div>Load Strategy Now! <a class="btn" fire="dungeon" args="{load:{}}"  href="#">Load</a></div>
+            <div>Boss Strategy <a class="btn" fire="dungeon" args="{save1:{}}"  href="#"><%= haveStrategy1 ? 'Overwrite' : 'Create' %></a></div>
+            <div>Load Strategy Now <a class="btn" fire="dungeon" args="{load:{}}"  href="#">Load</a></div>
         <% } %>
     <% } else { %>
         <div>Not entered a dungeon</div>

@@ -42,9 +42,8 @@
 <fieldset id="save">
         <legend><span class="hint" hint="saveStr1">Save formation and assigns</span></legend>
         <ul>
-            <li><a class="btn" fire="strategy" args="{save: 'default'}" href="#">Save now as Primary Default Strategy</a></li>
-            <li><a class="btn" fire="strategy" args="{save: 'defaultalt'}" href="#">Save now as Secondary Default Strategy</a></li>
-            <li><a class="btn" fire="strategy" args="{save: 'wboss'}" href="#">Save now for World Boss</a>       </li>
+            <li><a class="btn" fire="strategy" args="{save: 'default'}" href="#">Save as Default Strategy</a></li>
+            <li><a class="btn" fire="strategy" args="{save: 'wboss'}" href="#">Save as World Boss Strategy</a>       </li>
         </ul>
         <div class="hint-info" hint="saveStr1">Save current attack formation and assigned soldiers. <br/>
             Secondary strategy is used when CogBot fails to load primary strategy due to depleted soldiers.<br/>
@@ -60,7 +59,6 @@
     <% if( loaded ) { %>
     <div>Strategy <%=strategyCode%> was automatically loaded</div>
     <% } %>
-    <div><a class="btn" href="#" fire="strategy" args="{load: 'default'}">Try Load Primary Default Strategy</a></div>
-    <div><a class="btn" href="#" fire="strategy" args="{load: 'defaultalt'}">Load Secondary Default Strategy</a></div>
+    <div><a class="btn" href="#" fire="strategy" args="{load: 'default'}">Load Default Strategy</a></div>
 </fieldset>
 <% } %>

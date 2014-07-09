@@ -35,7 +35,14 @@ function doRoom(cb) {
 
     strategy.loadRecord(strategy.haveStrategy(getStrategyCode()) ? getStrategyCode() : "default", function () {
         status("Maximizing assigned soldiers stacks sizes");
+        if( strategy.isDepleted() ) {
+            cb();return;
+        }
         strategy.maximizeSoldiers(function () {
+            if( strategy.isDepleted() ) {
+                cb();return;
+            }
+
             status("Initiating challenge sequence");
             server.call({"PurgatoryAbyss_Challenge_Req": {"auto": 0, "speedUp": 0, "characterId": null, "speedUpType": 0}}, function (rs, msgs) {
                 strategy.assertSoldiers(msgs['Object_Change_Notify.characterResource']);
@@ -50,7 +57,7 @@ function doRoom(cb) {
     });
 }
 
-function auto() {
+function auto(endRoom) {
 
 
     status("Now starting auto-mode till the room " + endRoom);
@@ -72,6 +79,9 @@ function auto() {
     }
 
     doRoom(function (rs) {
+        if (strategy.isDepleted()) {
+            status("Not enough soldiers, stopping");
+        }
 
         if (rs.PurgatoryAbyss_Challenge_Res.result.record.winner != 'attacker') {
             status('Battle was lost. Stopping auto-abyss.');
@@ -108,7 +118,7 @@ _.extend(module.exports, {
     },
     auto: function (_endRoom) {
         endRoom = _endRoom;
-        auto()
+        auto(endRoom)
     },
     model: function () {
         return {
@@ -121,7 +131,9 @@ _.extend(module.exports, {
     },
     control: function (opts) {
         opts.save1 && strategy.saveRecord(getStrategyCode());
-        opts.save2 && strategy.saveRecord(getStrategyCode() + 'alt');
-        opts.auto && auto(opts.auto);
+        opts.auto && auto(parseInt(opts.auto));
+        opts.load && strategy.loadRecord(getStrategyCode());
     }
 });
+
+scheduled = false;

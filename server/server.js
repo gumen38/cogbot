@@ -177,6 +177,14 @@ var interceptMessages = function (response, cb) {
     });
 };
 
+var block = null;
+function getBlock(){
+    return block;
+}
+function setBlock(rs){
+    block = rs;
+}
+
 process.on('uncaughtException', function (err) {
     console.log('Caught exception: ' + err);
 });
@@ -188,5 +196,7 @@ _.extend(module.exports, {
     captureHeaders: captureHeaders,
     interceptRequest: interceptRequest,
     interceptResponse: interceptResponse,
-    interceptMessages: interceptMessages
+    interceptMessages: interceptMessages,
+    getBlock: getBlock,
+    setBlock: setBlock
 })

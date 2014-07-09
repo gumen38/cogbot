@@ -21,11 +21,6 @@ module.exports = {
         cb();
     },
 
-//    'Object_Create_Notify.characterItem': function(msg, cb){
-//        inventory.itemAdded(msg);
-//        cb();
-//    },
-
     'Object_Delete_Notify.characterItem': function(msg, cb){
         inventory.reload();
         cb();

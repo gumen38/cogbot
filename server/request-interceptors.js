@@ -3,6 +3,7 @@ dungeon = require("./dungeon");
 abyss = require("./abyss");
 strategy = require("./strategy");
 inventory = require("./inventory");
+server = require("./server");
 
 module.exports = {
     'Battle_AttackMonster_Req': function(rq, cb){
@@ -33,7 +34,12 @@ module.exports = {
         cb();
     },
     'PurgatoryAbyss_Challenge_Req': function(rq, cb){
-        abyss.prepare(cb);
+        abyss.prepare(function(){
+            if( strategy.isDepleted() ){
+                server.setBlock('[{"PurgatoryAbyss_Challenge_Res":{"result":[],"ret":10011,"retMsg":"CHARACTER_ENERGY_NOT_ENOUGH","serialNo":392}}]')
+            }
+            cb();
+        });
     },
 
     'Item_Sell_Req': function(rq, cb){

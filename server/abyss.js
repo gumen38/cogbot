@@ -60,8 +60,6 @@ function doRoom(cb) {
 }
 
 function auto(endRoom) {
-
-
     status("Now starting auto-mode till the room " + endRoom);
     if (!endRoom) {
         status('Error: bad end room');

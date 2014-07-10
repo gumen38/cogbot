@@ -383,7 +383,7 @@ function autoTillExit() {
                 return;
             }
 
-            if( !settings.dungeon.fastMode && !unexplored && map.mapId%10 == 3 ){
+            if( !settings.dungeon.fastMode && !unexplored && exit.visited == 1 ){
                 autoOn = false;
                 status('Dungeon clear, stopping');
                 return;

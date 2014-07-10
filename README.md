@@ -101,6 +101,9 @@ If i figure it out, it will be fixed.
 CogBot captures session from proxied game requests, but it requires at least one game request.
 3. Don't use my strategy files - it contains hardcode for my chars & heroes.
 4. Installation guide is not very clear. I plan to make a screenshot series with installation steps and make installation easier.
+5. Memory leaks.
+6. Admin panels sometimes stops responding after game reload. Browser reload is required.
+7. Dungeon is not yet stable, sometimes it have strange error after recruiting. Server restart and dungeon re-enter required.
 
 Support project
 ---------------

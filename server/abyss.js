@@ -33,7 +33,9 @@ function doRoom(cb) {
     status("Now doing auto-mode abyss room/storey: " + nextRoom + "/" + nextStorey);
     status("Preparing room formation/soldiers setup.");
 
-    strategy.loadRecord(strategy.haveStrategy(getStrategyCode()) ? getStrategyCode() : "default", function () {
+    var roomCode = strategy.haveStrategy(getStrategyCode()) ? getStrategyCode() : "default";
+    status("Using room code " + roomCode);
+    strategy.loadRecord(roomCode, function () {
         status("Maximizing assigned soldiers stacks sizes");
         if( strategy.isDepleted() ) {
             cb();return;

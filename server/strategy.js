@@ -237,12 +237,7 @@ _.extend(module.exports, {
         return model.depleted.length > 0;
     },
     haveStrategy: function (code) {
-        try {
-            fs.readFileSync(__dirname + '/' + STRATEGIES_FOLDER + '/' + code, 'utf8');
-            return true;
-        } catch (e) {
-            return false;
-        }
+        return fs.existsSync(model.folder + code);
     },
     model: function () {
         return model;

@@ -46,4 +46,4 @@ module.exports = {
         inventory.onItemSold(rq.id);
         cb();
     }
-}
+};

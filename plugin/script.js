@@ -7,13 +7,13 @@ chrome.browserAction.onClicked.addListener(function (tab) {
         return;
     }
 
-    function inj(){
-        chrome.tabs.executeScript({file: 'jquery-2.1.1.min.js'});
-        chrome.tabs.executeScript({file: 'underscore-min.js'});
-        chrome.tabs.executeScript({file: 'socket.io-1.0.4.js'});
-        chrome.tabs.executeScript({file: 'widget.js'});
+    function inj(tabId){
+        chrome.tabs.executeScript(tabId, {file: 'jquery-2.1.1.min.js'});
+        chrome.tabs.executeScript(tabId, {file: 'underscore-min.js'});
+        chrome.tabs.executeScript(tabId, {file: 'socket.io-1.0.4.js'});
+        chrome.tabs.executeScript(tabId, {file: 'widget.js'});
     }
-    inj();
+    inj(tab.id);
 
     var config = {
         mode: "pac_script",
@@ -45,7 +45,7 @@ chrome.browserAction.onClicked.addListener(function (tab) {
     });
     chrome.tabs.onUpdated.addListener(function(tabId, changeInfo) {
         if( tab.id == tabId ){
-            inj();
+            inj(tabId);
         }
     });
 });

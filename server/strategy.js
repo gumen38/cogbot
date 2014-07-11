@@ -139,7 +139,7 @@ function apply(cb) {
             function execAssign(pos) {
                 status("Executing assign " + pos);
                 server.call(queue[pos], function (rs, msgs) {
-                    if (rs && rs.Hero_DeploySoldier_Res.retMsg == "CHARACTER_SOLDIER_NOT_ENOUGH") {
+                    if (rs && ( rs.Hero_DeploySoldier_Res.retMsg == "CHARACTER_SOLDIER_NOT_ENOUGH" || rs.Hero_DeploySoldier_Res.retMsg == "CHARACTER_SOLDIER_NOT_EXIST"))  {
                         model.depleted.push(queue[pos].Hero_DeploySoldier_Req.soldierId);
                         status('Not enough soldiers');
                     } else if (rs && msgs.characterHero && msgs.characterResource && msgs.characterHero.id == heroId) {

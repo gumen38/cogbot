@@ -113,8 +113,19 @@ If you accompany it with a donation, it will be prioritized according to the don
 Each bug have priority 10, each suggestion have priority 1.
 Donation amount will multiply priority by formula (donation_in_USD+1)*priority, e.g. if you have submitted suggestion and donated 2 USD, it will have priority 3.
 
-I will update suggestion/bugs and their priorities here in the table:
+I will update suggestion/bugs and their priorities here:
 
--nothing here yet-
+Request: Add ability to change CoG server.
+Priority: Average
+Status: DONE
+Details: Server can be changed in currentSettings.js
+
+Request: Simply FoxyProxy installation and setup
+Priority: Average
+Status: DONE
+Details: FoxyProxy removed. CogBot Admin Panel is proxy itself now.
+
+
+
 
 

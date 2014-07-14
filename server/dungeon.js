@@ -367,6 +367,7 @@ function autoTillExit() {
             enter(to, function () {
                 if (strategy.isDepleted()) {
                     autoOn = false;
+                    path = null;
                     status('Soldiers depleted, stopping');
                     return;
                 }

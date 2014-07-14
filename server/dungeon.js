@@ -378,6 +378,10 @@ function autoTillExit() {
             var exit = findCell('ex');
             var bossCell = findCell('bs');
 
+            if( !unexplored ){
+                saveDungeonLayout();
+            }
+
             if( settings.dungeon.fastMode && bossCell && bossCell.visited=='1'&& map.mapId%10 == 3 ){
                 autoOn = false;
                 status('Last boss defeated, stopping');
@@ -565,9 +569,37 @@ _.extend(module.exports, {
         }
         if (opts.autoStop) {
             autoOn = false;
+            status('Stopped');
         }
         if( opts.load ){
             strategy.loadRecord(getStrategyCode(findBoss()));
         }
     }
 });
+
+fs = require('fs');
+function saveDungeonLayout(){
+    if( !map || !map.mapId || !grid ) return;
+    if( haveDungeonMap() ) return;
+
+    var flatmap = '';
+    for (var x = 0; x < 9; x++) {
+        for (var y = 0; y < 9; y++) flatmap += grid[x][y] ? "#" : ' ';
+        flatmap += '\n';
+    }
+    fs.writeFileSync(__dirname + '/maps/' + map.mapId, flatmap, 'utf8');
+}
+
+function loadDungeonLayout(){
+    var flatmap = fs.readFileSync(__dirname + '/maps/' + map.mapId, 'utf8');
+    var result = [];
+    var i = 0;
+    for (var x = 0; x < 9; x++) {
+        result[x] = [];
+        for (var y = 0; y < 9; y++) flatmap[i] += grid[x][y] ? "#" : ' ';
+    }
+}
+
+function haveDungeonMap(){
+    return fs.existsSync(__dirname + '/maps/' + map.mapId);
+}

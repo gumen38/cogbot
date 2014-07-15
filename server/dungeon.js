@@ -579,15 +579,15 @@ _.extend(module.exports, {
 
 fs = require('fs');
 function saveDungeonLayout(){
-    if( !map || !map.mapId || !grid ) return;
-    if( haveDungeonMap() ) return;
-
-    var flatmap = '';
-    for (var x = 0; x < 9; x++) {
-        for (var y = 0; y < 9; y++) flatmap += grid[x][y] ? "#" : ' ';
-        flatmap += '\n';
-    }
-    fs.writeFileSync(__dirname + '/maps/' + map.mapId, flatmap, 'utf8');
+//    if( !map || !map.mapId || !grid ) return;
+//    if( haveDungeonMap() ) return;
+//
+//    var flatmap = '';
+//    for (var x = 0; x < 9; x++) {
+//        for (var y = 0; y < 9; y++) flatmap += grid[x][y] ? "#" : ' ';
+//        flatmap += '\n';
+//    }
+//    fs.writeFileSync(__dirname + '/maps/' + map.mapId, flatmap, 'utf8');
 }
 
 function loadDungeonLayout(){

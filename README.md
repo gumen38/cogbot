@@ -13,6 +13,11 @@ When it will have all planned features and no bugs, it is 'release'.
 What it does
 ------------
 
+_Version 0.7a_
+1. Fixed dungeon bugs.
+2. Added fullauto mode drafts (mode which doesn't require browser to run).
+3. Moved settings file outside of the project (say thanks to some smartasses lurking on private data). Example of settings file is provided below. Path to settings file is specified in server/userSettingsPath.txt
+
 _Version 0.6a_
 1. Fixed numerous bugs with dungeon/strategy modules.
 2. Added inventory utilites: autoopen bronze/silver/gold boxes (only tier 5 atm), autosell trash, trash learning button.

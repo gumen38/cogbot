@@ -64,6 +64,14 @@ if( !window.cogbotloaded ) (function() {
             fire('abyss', { auto: $("#abyss-end-room").val() });
         });
 
+        $("#goalts").unbind('click').bind('click', function(e){
+            e.preventDefault();
+            fire('alts', { start: {
+                namepattern: $("#namepattern").val(),
+                password: $("#password").val()
+            }});
+        });
+
         $(".minimize").unbind('click').on('click', function (e) {
             e.preventDefault();
             $(this).parent().siblings('.collapsible').toggle();

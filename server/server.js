@@ -95,6 +95,45 @@ var call = function (requestOrBatch, cb) {
 
 };
 
+var callHttp = function (_url, args, cb) {
+    cb = cb || function() {};
+
+    var body = args.body || '';
+    var headers = args.headers;
+    var method = args.method || 'GET';
+
+    if( method == 'POST' ) headers['content-length'] = args.body.length + '';
+
+    var opts = {
+        path: _url,
+        hostname: url.parse(_url).host,
+        port: 80,
+        method: method
+    };
+    if( headers ) opts.headers = headers;
+
+    var httpRq = http.request(opts, function(rs){
+        var input = "";
+        rs.on('data', function(data){
+            input += data;
+        });
+        rs.on('end', function(rs2){
+            var headers = [];
+
+            cb({ rs: rs, headers: rs.headers, body: input });
+        });
+        rs.on('error', function(msg){
+            log.debug(msg);
+        })
+
+    }).on('error', function(msg){
+        log.debug(msg);
+    });
+    if( method == 'POST' ) httpRq.write(body);
+    httpRq.end();
+};
+
+
 var captureHeaders = function (_headers) {
     headers = {};
     _.each(_.keys(_headers), function(key){
@@ -193,6 +232,7 @@ _.extend(module.exports, {
     parseRequest: parseRequest,
     parseResponse: parseResponse,
     call: call,
+    callHttp: callHttp,
     captureHeaders: captureHeaders,
     interceptRequest: interceptRequest,
     interceptResponse: interceptResponse,

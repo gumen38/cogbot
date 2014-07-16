@@ -364,8 +364,14 @@ function autoTillExit() {
         ui.update('dungeon');
         if (path) {
             var to = path[index];
+            var prevP = _.clone(p);
+            if( !to ){
+                var t = 333;
+            }
+
             enter(to, function () {
                 if (strategy.isDepleted()) {
+                    p = prevP;
                     autoOn = false;
                     path = null;
                     status('Soldiers depleted, stopping');

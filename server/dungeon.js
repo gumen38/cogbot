@@ -363,10 +363,11 @@ function autoTillExit() {
 
         ui.update('dungeon');
         if (path) {
+            if(!index) index = 0;
+
             var to = path[index];
             var prevP = _.clone(p);
             if( !to ){
-                var t = 333;
             }
 
             enter(to, function () {

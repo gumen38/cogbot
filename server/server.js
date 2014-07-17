@@ -104,6 +104,12 @@ var callHttp = function (_url, args, cb) {
 
     if( method == 'POST' ) headers['content-length'] = args.body.length + '';
 
+    if( headers && headers['set-cookie'] ) {
+        headers.cookie = headers['set-cookie'].join(';');
+    }
+
+    headers['set-cookie'] = null;
+
     var opts = {
         path: _url,
         hostname: url.parse(_url).host,

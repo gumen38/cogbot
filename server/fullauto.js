@@ -16,17 +16,11 @@ var model = {
 function loginKong(name, password, cb){
 
     server.callHttp('http://www.kongregate.com/games/callofgods/call-of-gods', { method: 'GET' }, function(rs1){
-
         var authenticity_token = /<meta.*content="(.*)".*name="csrf-token" \/>/.exec(rs1.body)[1];
-
         var body = 'utf8=%E2%9C%93&authenticity_token=' + authenticity_token + '&game_id=117070&from_welcome_box=true&username=' + name + '&password=' + password + '&remember_me=true';
-
         server.callHttp('https://www.kongregate.com/session', { body: body, method: 'POST', headers:rs1.headers }, function(rs2){
-
             server.callHttp('http://www.kongregate.com/games/callofgods/call-of-gods', { method: 'GET', headers:rs2.headers }, function(rs3){
-
                 var x = 33;
-
             });
         });
     });

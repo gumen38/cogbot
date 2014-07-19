@@ -78,6 +78,33 @@ Installation guide
 2. Go to CogBot page
 3. Press CogBot plugin button in chrome (a rusty cog icon).
 
+*Important: settings file*
+
+Put on your disc C file named
+
+cog_private_settings.json
+
+with content
+
+    settings = {
+        "minimize": {
+            "settings": true,
+            "log": true,
+            "save": true,
+            "load": false,
+            "current": true
+        },
+        "player": {
+            "characterId": 12345,
+            "actionUrl": "http://m1-kongregate.callofgods.com/php/do.php"
+        },
+        "dungeon": {
+            "fastMode": false
+        }
+    }
+
+and replace characterId with yours
+
 Planned
 -------
 

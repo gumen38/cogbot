@@ -2,26 +2,35 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="58514c26-2693-4612-94d0-0d71f2b5bc06" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/strategies38729/A2-25" afterPath="$PROJECT_DIR$/server/strategies38729/A2-25" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/strategies38729/A3-11" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/strategies38729/A3-12" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/strategies38729/A3-13" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/strategies38729/A3-14" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/strategies38729/A3-15" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/strategies38729/A3-16" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/strategies38729/A3-17" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/strategies38729/A3-18" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/strategies38729/A3-19" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/strategies38729/A3-1" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/strategies38729/A3-20" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/strategies38729/A3-21" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/strategies38729/A3-22" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/strategies38729/A3-23" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/strategies38729/A3-24" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/strategies38729/A3-25" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/strategies38729/A2-20" afterPath="$PROJECT_DIR$/server/strategies38729/A2-20" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/strategies38729/A2-21" afterPath="$PROJECT_DIR$/server/strategies38729/A2-21" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/strategies38729/A3-10" afterPath="$PROJECT_DIR$/server/strategies38729/A3-10" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/strategies38729/A3-12" afterPath="$PROJECT_DIR$/server/strategies38729/A3-12" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/strategies38729/A3-14" afterPath="$PROJECT_DIR$/server/strategies38729/A3-14" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/strategies38729/A3-15" afterPath="$PROJECT_DIR$/server/strategies38729/A3-15" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/strategies38729/A3-16" afterPath="$PROJECT_DIR$/server/strategies38729/A3-16" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/strategies38729/A3-18" afterPath="$PROJECT_DIR$/server/strategies38729/A3-18" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/strategies38729/A3-20" afterPath="$PROJECT_DIR$/server/strategies38729/A3-20" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/strategies38729/A3-2" afterPath="$PROJECT_DIR$/server/strategies38729/A3-2" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/strategies38729/A3-3" afterPath="$PROJECT_DIR$/server/strategies38729/A3-3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/strategies38729/A3-4" afterPath="$PROJECT_DIR$/server/strategies38729/A3-4" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/strategies38729/A3-5" afterPath="$PROJECT_DIR$/server/strategies38729/A3-5" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/strategies38729/A3-6" afterPath="$PROJECT_DIR$/server/strategies38729/A3-6" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/strategies38729/A3-7" afterPath="$PROJECT_DIR$/server/strategies38729/A3-7" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/strategies38729/A3-8" afterPath="$PROJECT_DIR$/server/strategies38729/A3-8" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/strategies38729/A3-9" afterPath="$PROJECT_DIR$/server/strategies38729/A3-9" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/COG.iws" afterPath="$PROJECT_DIR$/COG.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/strategies38729/D4631001" afterPath="$PROJECT_DIR$/server/strategies38729/D4631001" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/strategies38729/D4631002" afterPath="$PROJECT_DIR$/server/strategies38729/D4631002" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/strategies38729/D4631003" afterPath="$PROJECT_DIR$/server/strategies38729/D4631003" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/strategies38729/D4640801" afterPath="$PROJECT_DIR$/server/strategies38729/D4640801" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/strategies38729/default" afterPath="$PROJECT_DIR$/server/strategies38729/default" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/dungeon.js" afterPath="$PROJECT_DIR$/server/dungeon.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/fullauto.js" afterPath="$PROJECT_DIR$/server/fullauto.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/server.js" afterPath="$PROJECT_DIR$/server/server.js" />
     </list>
     <ignored path="COG.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -85,10 +94,91 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="fullauto.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="fullauto.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/fullauto.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="0" selection-start="808" selection-end="808" vertical-scroll-proportion="0.45908183" vertical-offset="178" max-vertical-offset="1479">
+            <state line="59" column="0" selection-start="1737" selection-end="1737" vertical-scroll-proportion="0.0" vertical-offset="468" max-vertical-offset="1377">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="default" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/strategies38729/default">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="46" selection-start="46" selection-end="46" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="A3-12" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/strategies38729/A3-12">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="1040" selection-start="1040" selection-end="1040" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="A3-14" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/strategies38729/A3-14">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="1039" selection-start="1039" selection-end="1039" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="A3-16" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/strategies38729/A3-16">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="56" selection-start="0" selection-end="1040" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="A3-11" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/strategies38729/A3-11">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="1021" selection-start="1021" selection-end="1021" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="A3-13" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/strategies38729/A3-13">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="1040" selection-start="1040" selection-end="1040" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="A3-15" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/strategies38729/A3-15">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="888" selection-start="888" selection-end="888" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="A3-25" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/strategies38729/A3-25">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="81" selection-start="0" selection-end="1111" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="A3-24" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/server/strategies38729/A3-24">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="1039" selection-start="1039" selection-end="1039" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="489">
               <folding />
             </state>
           </provider>
@@ -108,13 +198,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/server/strategies/readme.txt" />
-        <option value="$PROJECT_DIR$/server/utility.js" />
-        <option value="$PROJECT_DIR$/plugin/fpmanifest.json" />
-        <option value="$PROJECT_DIR$/plugin/vendor/scripts/parseUri.js" />
-        <option value="$PROJECT_DIR$/plugin/vendor/scripts/punycode.js" />
-        <option value="$PROJECT_DIR$/plugin/scripts/background-inline.js" />
-        <option value="$PROJECT_DIR$/plugin/scripts/foxyproxy-background.js" />
         <option value="$PROJECT_DIR$/plugin/scripts/extension.js" />
         <option value="$PROJECT_DIR$/plugin/pac.pac" />
         <option value="$PROJECT_DIR$/plugin/popup.html" />
@@ -156,9 +239,16 @@
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/main.js" />
         <option value="$PROJECT_DIR$/server/dungeon.js" />
-        <option value="$PROJECT_DIR$/server/fullauto.js" />
         <option value="$PROJECT_DIR$/inspect/log.html" />
         <option value="$PROJECT_DIR$/server/server.js" />
+        <option value="$PROJECT_DIR$/server/fullauto.js" />
+        <option value="$PROJECT_DIR$/server/strategies38729/default" />
+        <option value="$PROJECT_DIR$/server/strategies38729/A3-11" />
+        <option value="$PROJECT_DIR$/server/strategies38729/A3-12" />
+        <option value="$PROJECT_DIR$/server/strategies38729/A3-13" />
+        <option value="$PROJECT_DIR$/server/strategies38729/A3-14" />
+        <option value="$PROJECT_DIR$/server/strategies38729/A3-15" />
+        <option value="$PROJECT_DIR$/server/strategies38729/A3-24" />
       </list>
     </option>
   </component>
@@ -232,8 +322,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -276,12 +364,32 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="strategies38729" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="COG" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="COG" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="inspect" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -363,6 +471,16 @@
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
       <method />
     </configuration>
+    <configuration default="true" type="BatchConfigurationType" factoryName="Batch">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <module name="COG" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <method />
+    </configuration>
     <configuration default="true" type="FlexUnitRunConfigurationType" factoryName="FlexUnit" appDescriptorForEmulator="Android" class_name="" emulatorAdlOptions="" method_name="" output_log_level="null" package_name="" scope="Class">
       <option name="BCName" value="" />
       <option name="launcherParameters">
@@ -377,14 +495,8 @@
       <option name="trusted" value="true" />
       <method />
     </configuration>
-    <configuration default="true" type="BatchConfigurationType" factoryName="Batch">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <module name="COG" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="PARAMETERS" value="" />
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" working-dir="">
+      <browser start="false" url="" with-js-debugger="false" />
       <method />
     </configuration>
     <configuration default="true" type="Applet" factoryName="Applet">
@@ -398,10 +510,6 @@
       <option name="VM_PARAMETERS" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-      <method />
-    </configuration>
-    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" working-dir="">
-      <browser start="false" url="" with-js-debugger="false" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -581,7 +689,10 @@
       <workItem from="1405091624831" duration="6195000" />
       <workItem from="1405332123794" duration="3427000" />
       <workItem from="1405411259841" duration="26000" />
-      <workItem from="1405496960489" duration="16417000" />
+      <workItem from="1405496960489" duration="18926000" />
+      <workItem from="1405673885128" duration="6973000" />
+      <workItem from="1405957096609" duration="3864000" />
+      <workItem from="1406103951957" duration="3890000" />
     </task>
     <task id="LOCAL-00001" summary="Moved from dropbox">
       <created>1403253943340</created>
@@ -699,35 +810,47 @@
       <created>1405520803757</created>
       <updated>1405520803757</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="nms">
+      <created>1405612321462</created>
+      <updated>1405612321462</updated>
+    </task>
+    <task id="LOCAL-00031" summary="nms">
+      <created>1405697986100</created>
+      <updated>1405697986100</updated>
+    </task>
+    <task id="LOCAL-00032" summary="nms">
+      <created>1405957109679</created>
+      <updated>1405957109679</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="482367000" />
+    <option name="totallyTimeSpent" value="499603000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-4" y="-4" width="1688" height="1030" extended-state="6" />
     <editor active="false" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.42214912" sideWeight="0.493895" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.42105263" sideWeight="0.43284494" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="IntelliTail" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="CheckStyle" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.38157895" sideWeight="0.9090354" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3256579" sideWeight="0.09096459" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.38048247" sideWeight="0.9090354" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.42122537" sideWeight="0.56715506" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33479214" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33442983" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31013432" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30973452" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22100122" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31030703" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Regex" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -741,12 +864,12 @@
     </layout>
     <layout-to-restore>
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.48451328" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="IntelliTail" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.48451328" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4616228" sideWeight="0.09035409" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33628318" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -765,8 +888,8 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Regex" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
@@ -785,7 +908,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="Refactored all UI.&#10;Abyss bot now is working.&#10;Dungeon work better now.&#10;Removed trash settings/" />
     <MESSAGE value="few drafts" />
     <MESSAGE value="-Added 'soldiers depleted' check and alert message. Works with abyss &amp; maximize (+dungeons). Have several issues, because now data is gathered by reactive way, need implement proactive way to make it reliable.&#10;-Made proactive deploy/assign verification + no assign is called if its already same.&#10;" />
     <MESSAGE value="too lazy to write a message" />
@@ -810,7 +932,8 @@
     <MESSAGE value="fixed own strategiy" />
     <MESSAGE value="few own strategies &#10;&#10;dungeon fullmap mining code (needed for true fast mode at dungeons)" />
     <MESSAGE value="fullauto mode drafts&#10;&#10;secretized settings file" />
-    <option name="LAST_COMMIT_MESSAGE" value="fullauto mode drafts&#10;&#10;secretized settings file" />
+    <MESSAGE value="nms" />
+    <option name="LAST_COMMIT_MESSAGE" value="nms" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -825,51 +948,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/server/inventory.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="0" selection-start="78" selection-end="78" vertical-scroll-proportion="0.0" vertical-offset="85" max-vertical-offset="1717" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/userSettingsPath.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="6" selection-start="153" selection-end="153" vertical-scroll-proportion="0.0" vertical-offset="119" max-vertical-offset="357" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/templates/strategy.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="63" column="77" selection-start="3308" selection-end="3308" vertical-scroll-proportion="0.0" vertical-offset="663" max-vertical-offset="1224" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/templates/dungeon.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="52" column="33" selection-start="1750" selection-end="1750" vertical-scroll-proportion="0.0" vertical-offset="884" max-vertical-offset="1717" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/drafts/dungeonCrawler.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="0" selection-start="1321" selection-end="1367" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1938" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/strategies38729/wboss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="28" selection-start="28" selection-end="28" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/drafts/aggx.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="60" column="5" selection-start="1806" selection-end="1806" vertical-scroll-proportion="0.0" vertical-offset="867" max-vertical-offset="4777" />
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.IntelliJIdea13/system/extLibs/nodejs-v0.10.25-src/core-modules-sources/lib/_stream_writable.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="270" column="0" selection-start="8100" selection-end="8100" vertical-scroll-proportion="0.33265308" vertical-offset="4427" max-vertical-offset="6409" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/plugin/css.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="588" />
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.IntelliJIdea13/system/extLibs/nodejs-v0.10.25-src/core-modules-sources/lib/module.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="348" column="0" selection-start="9798" selection-end="9798" vertical-scroll-proportion="0.0" vertical-offset="5566" max-vertical-offset="9231" />
@@ -923,11 +1001,6 @@
     <entry file="file://$PROJECT_DIR$/server/utility.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="20" column="22" selection-start="632" selection-end="632" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="731" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/strategies38729/default">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="748" selection-start="740" selection-end="748" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="102" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server/soldiers.json">
@@ -997,44 +1070,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server/abyss.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="62" column="0" selection-start="2042" selection-end="2042" vertical-scroll-proportion="0.0" vertical-offset="884" max-vertical-offset="2448">
-          <folding />
-        </state>
+        <state line="62" column="0" selection-start="2042" selection-end="2042" vertical-scroll-proportion="0.0" vertical-offset="884" max-vertical-offset="2448" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server/templates/abyss.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="15" selection-start="751" selection-end="751" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="527">
-          <folding />
-        </state>
+        <state line="17" column="15" selection-start="751" selection-end="751" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="527" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server/strategy.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="38" selection-start="151" selection-end="177" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4471">
-          <folding />
-        </state>
+        <state line="7" column="38" selection-start="151" selection-end="177" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4471" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server/templates/dungeon.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="84" column="161" selection-start="3058" selection-end="3066" vertical-scroll-proportion="0.0" vertical-offset="1112" max-vertical-offset="1700">
-          <folding />
-        </state>
+        <state line="84" column="161" selection-start="3058" selection-end="3066" vertical-scroll-proportion="0.0" vertical-offset="1112" max-vertical-offset="1700" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server/templates/utility.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="0" selection-start="750" selection-end="750" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="357">
-          <folding />
-        </state>
+        <state line="15" column="0" selection-start="750" selection-end="750" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="357" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server/ui.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="40" selection-start="428" selection-end="428" vertical-scroll-proportion="0.0" vertical-offset="185" max-vertical-offset="1071">
-          <folding />
-        </state>
+        <state line="12" column="40" selection-start="428" selection-end="428" vertical-scroll-proportion="0.0" vertical-offset="185" max-vertical-offset="1071" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
@@ -1049,229 +1110,124 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="0" selection-start="189" selection-end="189" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="306">
-          <folding />
-        </state>
+        <state line="5" column="0" selection-start="189" selection-end="189" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="306" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/plugin/widget.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="71" column="14" selection-start="2395" selection-end="2395" vertical-scroll-proportion="0.0" vertical-offset="1020" max-vertical-offset="1955">
-          <folding />
-        </state>
+        <state line="71" column="14" selection-start="2395" selection-end="2395" vertical-scroll-proportion="0.0" vertical-offset="1020" max-vertical-offset="1955" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server/userSettingsPath.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="2" selection-start="2" selection-end="2" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="886">
-          <folding />
-        </state>
+        <state line="0" column="2" selection-start="2" selection-end="2" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="886" />
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/.IntelliJIdea13/system/extLibs/nodejs-v0.10.25-src/core-modules-sources/lib/fs.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="283" column="14" selection-start="7828" selection-end="7828" vertical-scroll-proportion="0.24950495" vertical-offset="4685" max-vertical-offset="30005">
-          <folding />
-        </state>
+        <state line="283" column="14" selection-start="7828" selection-end="7828" vertical-scroll-proportion="0.24950495" vertical-offset="4685" max-vertical-offset="30005" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server/templates/template.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="190" column="0" selection-start="3854" selection-end="3854" vertical-scroll-proportion="0.0" vertical-offset="2629" max-vertical-offset="3502">
-          <folding />
-        </state>
+        <state line="190" column="0" selection-start="3854" selection-end="3854" vertical-scroll-proportion="0.0" vertical-offset="2629" max-vertical-offset="3502" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/node-gyp/node_modules/osenv/test/windows.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1377">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1377" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server/dungeon.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="365" column="33" selection-start="13629" selection-end="13629" vertical-scroll-proportion="0.0" vertical-offset="6030" max-vertical-offset="10489">
-          <folding />
-        </state>
+        <state line="365" column="33" selection-start="13629" selection-end="13629" vertical-scroll-proportion="0.0" vertical-offset="6030" max-vertical-offset="10489" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/inspect/log.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="2650" column="5" selection-start="174337" selection-end="174337" vertical-scroll-proportion="0.0" vertical-offset="459" max-vertical-offset="45322">
-          <folding>
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1405610783475" expanded="true" signature="-1:-1" placeholder="..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="118" column="8" selection-start="3465" selection-end="3465" vertical-scroll-proportion="0.0" vertical-offset="1827" max-vertical-offset="4301">
+        <state line="118" column="8" selection-start="3465" selection-end="3465" vertical-scroll-proportion="0.0" vertical-offset="1827" max-vertical-offset="4301" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/strategies38729/A3-10">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="875">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server/fullauto.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="0" selection-start="808" selection-end="808" vertical-scroll-proportion="0.45908183" vertical-offset="178" max-vertical-offset="1479">
+        <state line="59" column="0" selection-start="1737" selection-end="1737" vertical-scroll-proportion="0.0" vertical-offset="468" max-vertical-offset="1377">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/strategies38729/default">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="46" selection-start="46" selection-end="46" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="873">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/strategies38729/A3-11">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="1021" selection-start="1021" selection-end="1021" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="873">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/strategies38729/A3-12">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="1040" selection-start="1040" selection-end="1040" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="873">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/strategies38729/A3-13">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="1040" selection-start="1040" selection-end="1040" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="873">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/strategies38729/A3-14">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="1039" selection-start="1039" selection-end="1039" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="873">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/strategies38729/A3-16">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="56" selection-start="0" selection-end="1040" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/strategies38729/A3-15">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="888" selection-start="888" selection-end="888" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="873">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/strategies38729/A3-25">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="81" selection-start="0" selection-end="1111" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/strategies38729/A3-24">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="1039" selection-start="1039" selection-end="1039" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="873">
           <folding />
         </state>
       </provider>

@@ -91,16 +91,28 @@ function loadRecord(code, cb) {
     apply(cb);
 }
 
+var heroInfo = null;
 function apply(cb) {
     status('Applying strategy ' + model.strategyCode);
     status('Synchronizing formation...');
-    server.call([
-        {"HeroSet_GetInfo_Req": {"characterId": null }},
-        {"Hero_GetInfo_Req": {"characterId": null }}
-    ], function (rs) {
+
+    if( heroInfo == null ){
+        server.call([
+            {"HeroSet_GetInfo_Req": {"characterId": null }},
+            {"Hero_GetInfo_Req": {"characterId": null }}
+        ], function(rs){
+            heroInfo = rs;
+            applyProc(rs);
+        });
+    } else {
+        applyProc(heroInfo);
+    }
+
+    function applyProc(rs) {
 
         if (!_.isEqual(model.deploy.HeroSet_SetTroopStrategy_Req.attackTroopStrategy, rs.HeroSet_GetInfo_Res.attackTroopStrategy)) {
             status('Deploy was changed, applying...');
+            heroInfo = null;
             server.call(model.deploy, assign);
         } else {
             assign();
@@ -159,6 +171,7 @@ function apply(cb) {
 
             if (queue.length != 0) {
                 status(queue.length + " assigns to do");
+                heroInfo = null;
                 execAssign(0);
             } else {
                 changed = false;
@@ -168,7 +181,7 @@ function apply(cb) {
             }
 
         }
-    })
+    }
 }
 
 function init() {

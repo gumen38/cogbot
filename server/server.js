@@ -106,9 +106,9 @@ var callHttp = function (_url, args, cb) {
 
     if( headers && headers['set-cookie'] ) {
         headers.cookie = headers['set-cookie'].join(';');
+        headers['set-cookie'] = null;
     }
 
-    headers['set-cookie'] = null;
 
     var opts = {
         path: _url,
@@ -230,9 +230,6 @@ function setBlock(rs){
     block = rs;
 }
 
-process.on('uncaughtException', function (err) {
-    console.log('Caught exception: ' + err);
-});
 
 _.extend(module.exports, {
     parseRequest: parseRequest,

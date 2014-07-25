@@ -1,4 +1,4 @@
-if( !window.cogbotloaded ) (function() {
+if (!window.cogbotloaded) (function () {
 
     $('#cogbot_panel').remove();
     $('body').append('<div id="cogbot_panel"><div>CogBot server is not available at localhost:3333</div></div>');
@@ -7,21 +7,64 @@ if( !window.cogbotloaded ) (function() {
     var socket = io('http://localhost:3334');
 
     socket.on('connection', function (socket) {
-        console.log('------Connected-------');
         socket.on('disconnect', function () {
-            console.log('------Disconnected-------');
         });
     });
 
     socket.on('update-view', function (html) {
         var content = $(html);
-        $.each($("#cogbot_panel .collapsible"), function(i, el) {
-            var display = $(el).css('display')? $(el).css('display') : 'block';
+        $.each($("#cogbot_panel .collapsible"), function (i, el) {
+            var display = $(el).css('display') ? $(el).css('display') : 'block';
             $($(content).find(".collapsible")[i]).css('display', display);
         });
-        panel.empty();
-        panel.append(content);
+
+         panel.empty();
+         panel.append(content);
+
+        /*
+        function update(oldContent, content) {
+            content = _.filter($(content), function(el){ return el.nodeName != '#text' })
+
+            if ($(oldContent).children().length != $(content).length) {
+                $(oldContent).empty();
+                $(oldContent).append(content);
+            } else {
+
+                $(oldContent).children().each(function (i, elem) {
+                    if ($(content[i]).html() != $(elem).html()) {
+                        $(elem).html($(content[i]).html());
+                    } else {
+                        update(elem, content[i]);
+                    }
+                });
+            }
+        }
+
+        update(panel.children()[0], content);
+        */
         bindHandlers();
+    });
+
+    socket.on('loguser', function (user) {
+        $.ajax("/session", {
+            method: 'DELETE'
+        }).done(function (request) {
+
+            $.ajax("/session", {
+                method: 'POST',
+                data: {
+                    utf8: true,
+                    authenticity_token: $('meta[name=csrf-token]').attr('content'),
+                    game_id: 117070,
+                    from_welcome_box: true,
+                    username: user.name,
+                    password: user.pwd,
+                    remember_me: true
+                }
+            }).done(function (rs) {
+                document.location.reload();
+            });
+        });
     });
 
     function fire(code, data) {
@@ -54,22 +97,19 @@ if( !window.cogbotloaded ) (function() {
             fire(code, args);
         });
 
-        $("#save-default").unbind('click').on('click', function (e) {
-            e.preventDefault();
-            fire("strategy", {save: 'default'});
-        });
-
-        $("#abyss-auto").unbind('click').bind('click', function(e){
+        $("#abyss-auto").unbind('click').bind('click', function (e) {
             e.preventDefault();
             fire('abyss', { auto: $("#abyss-end-room").val() });
         });
 
-        $("#goalts").unbind('click').bind('click', function(e){
+        $("#next-alt").unbind('click').bind('click', function (e) {
             e.preventDefault();
-            fire('alts', { start: {
-                namepattern: $("#namepattern").val(),
-                password: $("#password").val()
-            }});
+            fire('alts', { change: 'next' });
+        });
+
+        $("#prev-alt").unbind('click').bind('click', function (e) {
+            e.preventDefault();
+            fire('alts', { change: 'prev' });
         });
 
         $(".minimize").unbind('click').on('click', function (e) {
@@ -85,7 +125,7 @@ if( !window.cogbotloaded ) (function() {
             $('.hint-info[hint=' + $(this).attr('hint') + ']').hide();
         });
 
-        $("#purge").unbind('click').bind('click', function(e){
+        $("#purge").unbind('click').bind('click', function (e) {
             e.preventDefault();
             $(".game_details_outer").remove();
             $(".game_page_wrap").remove();

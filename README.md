@@ -1,17 +1,27 @@
 CogBot - a Call of Gods game bot
 =====================
 
-Disclaimer
+What is it?
 ----------
 
-I've made this tool mostly for myself, but trying to make it usable by other people.
-At this moment it's raw alpha, which means it is buggy and unstable.
-It's OK for alpha version.
-When it become stable, i.e. it will be able to do full daily routine without bugs, it is 'stable beta'.
-When it will have all planned features and no bugs, it is 'release'.
+It is an assistance tool to CoG players.
 
-What it does
+Features:
+
+* Save/load deploy/formations and soldier assigns on dungeon boss and abyss room.
+
+* Automatically do dungeon and abyss using saved by player strategies.
+
+* Bunch of utilites.
+
+
+
+Version history
 ------------
+
+_Version 0.8a_
+1. Fast mode in dungeon now is about acceptable efficiency. Still laying path through the monsters, but to avoid it would require some work.
+2. Improved readme.
 
 _Version 0.7a_
 1. Fixed dungeon bugs.
@@ -60,8 +70,9 @@ Installation guide
 1. Install node.js
 2. Download CogBot distrib as a zip from github.
 3. Unpack zip somewhere, say c:/cogbot.
-4. Modify actionUrl and characterId in c:/cogbot/server/currentSettings.js. See futher for details.
-5. Run run.bat
+4. Create settings file somewhere. Edit c:/cogbot/server/userSettingsPath.txt - it should be path to your settings file.
+5. Copy defaults to settings file (see below). Modify actionUrl and characterId in settings file. See further for details on settings file.
+6. Run run.bat
 
 *How to get your character id and server url*
 
@@ -103,46 +114,35 @@ with content
         }
     }
 
-and replace characterId with yours
+and replace characterId with yours. Also modify actionUrl if you are playing not on S1 server.
 
 Planned
 -------
 
-Installation comfort:
-
-1. Add runnable built-in Node.js server to make it not neccessary for user to install it.  
-
-Planned Important features:
-
-1. Handle situation when CogServer is on maintenance.
-
 Planned Features:
 
-1. Auto-manage recruiting and keeping enough soldiers (it's boring micromanagement).
-2. Daily Auto-routine (typical daily boring must-do stuff like alliance quests and so on).
-3. Scheduler for timed events like Alliance War/World Boss/2x Super Soldiers recruit/Clash of gods. Should help european players which have totally unbearable AW/WB/CG/2xSS times.
-
+1. Auto-manage recruitment and resource gathering.
+2. Alts quick switch. Alts routines, like sign-in.
+3. Scheduler for daily events (World Boss/2x Super Soldiers recruit/Clash of gods).
 
 Issues
 -----------
 
 1. Number of soldiers and formation in game client will be displayed wrong. But in battles you will see right soldiers/formation.  
-I dont yet know how to fix it, because i don't know how to tell flash client to refresh its visual state without reloading itself.
-If i figure it out, it will be fixed.
+I dont yet know how to fix it, because i don't know how to tell flash client to refresh its visual state without reloading itself. If i figure it out, it will be fixed.
+Same for inventory. There is inventory assistance utilites and trash detector, which can help a bit. But anyway you'll need reload often.
 2. Session capture can be done directly from chrome plugin, but it's unsafe to let plugin watch cookies. At this moment
 CogBot captures session from proxied game requests, but it requires at least one game request.
 3. Don't use my strategy files - it contains hardcode for my chars & heroes.
-4. Installation guide is not very clear. I plan to make a screenshot series with installation steps and make installation easier.
-5. Memory leaks.
-6. Admin panels sometimes stops responding after game reload. Browser reload is required.
-7. Dungeon is not yet stable, sometimes it have strange error after recruiting. Server restart and dungeon re-enter required.
+4. Installation guide maybe not very clear. But you can mail me with questions.
+5. Memory leaks due to rather crude ui-refresh mechanism.
 
 Support project
 ---------------
 
 If you have found a bug or have a suggestion, write me about it to setec.by@gmail.com.  
 If you accompany it with a donation, it will be prioritized according to the donated amount.  
-Each bug have priority 10, each suggestion have priority 1.
+Each bug have priority 2, each suggestion have priority 1.
 Donation amount will multiply priority by formula (donation_in_USD+1)*priority, e.g. if you have submitted suggestion and donated 2 USD, it will have priority 3.
 
 I will update suggestion/bugs and their priorities here:

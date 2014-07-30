@@ -125,7 +125,22 @@ function getStrategyCode(monsterId) {
 function findUnexplored() {
     var result = null, minLengthSqr = 1000;
     for (var x = 0; x < 9; x++) for (var y = 0; y < 9; y++) {
-        if (grid[x][y] && grid[x][y].visited == 0 && grid[x][y].type != 'ex' ) {
+        if (grid[x][y] && grid[x][y].visited == 0 && grid[x][y].type != 'ex') {
+            var dx = p.x - x, dy = p.y - y;
+            var lengthSqr = dx * dx + dy * dy;
+            if (lengthSqr < minLengthSqr) {
+                minLengthSqr = lengthSqr;
+                result = grid[x][y];
+            }
+        }
+    }
+    return result;
+}
+
+function findFast() {
+    var result = null, minLengthSqr = 1000;
+    for (var x = 0; x < 9; x++) for (var y = 0; y < 9; y++) {
+        if (grid[x][y] && grid[x][y].visited == 0 && grid[x][y].type != 'mo' && grid[x][y].type != 'bs') {
             var dx = p.x - x, dy = p.y - y;
             var lengthSqr = dx * dx + dy * dy;
             if (lengthSqr < minLengthSqr) {
@@ -220,7 +235,7 @@ function autoTillExit() {
 
         //remove blocked cells
         var limit = 0, pathFound = false;
-        while (true && !pathFound) {
+        while (!pathFound) {
             log.debug("Path search loop: " + path);
 
             //find next blocking cell
@@ -356,18 +371,18 @@ function autoTillExit() {
     }
 
     function doCrawl() {
-        if( !autoOn ) {
+        if (!autoOn) {
             status('Stopped');
             return;
         }
 
         ui.update('dungeon');
         if (path) {
-            if(!index) index = 0;
+            if (!index) index = 0;
 
             var to = path[index];
             var prevP = _.clone(p);
-            if( !to ){
+            if (!to) {
             }
 
             enter(to, function () {
@@ -382,52 +397,52 @@ function autoTillExit() {
             }, grid[to.x][to.y].type == 'bs');
         } else {
             var unexplored = findUnexplored();
+            var fast = findFast();
             var exit = findCell('ex');
             var bossCell = findCell('bs');
 
-            if( !unexplored ){
+            if (!unexplored) {
                 saveDungeonLayout();
             }
 
-            if( settings.dungeon.fastMode && bossCell && bossCell.visited=='1'&& map.mapId%10 == 3 ){
+            if (settings.dungeon.fastMode && bossCell && bossCell.visited == '1' && bossCell.monsterId % 10 == 1) {
                 autoOn = false;
                 status('Last boss defeated, stopping');
                 return;
             }
 
-            if( !settings.dungeon.fastMode && !unexplored && exit.visited == 1 ){
+            if (!settings.dungeon.fastMode && !unexplored && exit.visited == 1) {
                 autoOn = false;
                 status('Dungeon clear, stopping');
                 return;
             }
 
-            if( settings.dungeon.fastMode && bossCell && bossCell.visited==0 ){
+            if (fast && settings.dungeon.fastMode) {
+                unexplored = fast;
+            }
+
+            if (!unexplored || settings.dungeon.fastMode && exit) {
+                unexplored = exit;
+            }
+
+            if (settings.dungeon.fastMode && bossCell && bossCell.visited == 0 && bossCell.monsterId % 10 == 1) {
                 unexplored = bossCell;
             }
 
-            if (!unexplored || (exit && bossCell && bossCell.visited==1 && settings.dungeon.fastMode==true ) ) {
-                path = buildPathTo(exit, false);
-                if (path.length == 0) {
-                    log.info("Found path of 0 length, stopping.");
-                    autoOn = false;
-                    return;
-                }
-                index = 0;
-                doCrawl();
-            } else {
-                path = buildPathTo(unexplored, true);
-                if (path.length == 0) {
-                    log.info("Found path of 0 length, stopping.");
-                    autoOn = false;
-                    return;
-                }
-                index = 0;
-                doCrawl();
+            path = buildPathTo(unexplored, unexplored != exit);
+            if (path.length == 0) {
+                log.info("Found path of 0 length, stopping.");
+                autoOn = false;
+                return;
             }
+            index = 0;
+            doCrawl();
+
         }
     }
 
     var prevRs = null;
+
     function doStep(to) {
         ui.update('dungeon');
 
@@ -445,7 +460,7 @@ function autoTillExit() {
                 if (rs.Adventure_MapMove_Res.retMsg != 'SUCCESS') {
                     status("BAD RESPONSE");
 
-                    if( rs.Adventure_MapMove_Res.point && prevRs && prevRs.Adventure_MapMove_Res && prevRs.Adventure_MapMove_Res.point){
+                    if (rs.Adventure_MapMove_Res.point && prevRs && prevRs.Adventure_MapMove_Res && prevRs.Adventure_MapMove_Res.point) {
                         path = null;
                         p = new Cell(prevRs.Adventure_MapMove_Res.point);
                         doCrawl();
@@ -483,7 +498,7 @@ function autoTillExit() {
                             status("LOST FIGHT");
                             return;
                         } else {
-                            if( msgs['Object_Change_Notify.characterResource'] ) {
+                            if (msgs['Object_Change_Notify.characterResource']) {
                                 strategy.assertSoldiers(msgs['Object_Change_Notify.characterResource']);
                                 if (strategy.isDepleted()) {
                                     path = null;
@@ -496,7 +511,7 @@ function autoTillExit() {
                     }
 
                     server.call({"Battle_Finish_Req": {"characterId": null}}, function () {
-                       doCrawl();
+                        doCrawl();
                     });
                 } else {
                     doCrawl();
@@ -513,7 +528,7 @@ var autos = 0;
 function enter(point, cb, early) {
 
     p = get(point);
-    if( !p ) {
+    if (!p) {
         status("Dungeon must be reloaded to activate dungeon bot.");
         cb();
     }
@@ -578,14 +593,14 @@ _.extend(module.exports, {
             autoOn = false;
             status('Stopped');
         }
-        if( opts.load ){
+        if (opts.load) {
             strategy.loadRecord(getStrategyCode(findBoss()));
         }
     }
 });
 
 fs = require('fs');
-function saveDungeonLayout(){
+function saveDungeonLayout() {
 //    if( !map || !map.mapId || !grid ) return;
 //    if( haveDungeonMap() ) return;
 //
@@ -597,7 +612,7 @@ function saveDungeonLayout(){
 //    fs.writeFileSync(__dirname + '/maps/' + map.mapId, flatmap, 'utf8');
 }
 
-function loadDungeonLayout(){
+function loadDungeonLayout() {
     var flatmap = fs.readFileSync(__dirname + '/maps/' + map.mapId, 'utf8');
     var result = [];
     var i = 0;
@@ -607,6 +622,6 @@ function loadDungeonLayout(){
     }
 }
 
-function haveDungeonMap(){
+function haveDungeonMap() {
     return fs.existsSync(__dirname + '/maps/' + map.mapId);
 }

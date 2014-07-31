@@ -4,7 +4,7 @@ ui = require('./ui');
 
 function state(msg) {
     model.currentState = msg;
-    ui.update('alts');
+    //ui.update('alts');
 }
 
 var model = {
@@ -69,7 +69,7 @@ function routine(){
 //setInterval(routine, 60);
 
 
-routine();
+//routine();
 
 _.extend(module.exports, {
 

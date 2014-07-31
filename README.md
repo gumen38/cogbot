@@ -20,7 +20,7 @@ Version history
 ------------
 
 _Version 0.8a_
-1. Fast mode in dungeon now is about acceptable efficiency. Still laying path through the monsters, but to avoid it would require some work.
+1. Fast mode in dungeon now is about acceptable efficiency. Still not optimal and sill laying path through the monsters, but to avoid it would require some work.
 2. Improved readme.
 
 _Version 0.7a_

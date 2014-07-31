@@ -165,6 +165,7 @@ var started = false;
 var autoOn = false;
 var crawlPos = null;
 var path = null;
+var lastBossMaps = [ '9102' ];
 function autoTillExit() {
     autos = 0;
     autoOn = true;
@@ -400,12 +401,13 @@ function autoTillExit() {
             var fast = findFast();
             var exit = findCell('ex');
             var bossCell = findCell('bs');
+            var isEndBoss = bossCell && parseInt(bossCell.monsterId) % 10 == 1;
 
             if (!unexplored) {
                 saveDungeonLayout();
             }
 
-            if (settings.dungeon.fastMode && bossCell && bossCell.visited == '1' && bossCell.monsterId % 10 == 1) {
+            if (settings.dungeon.fastMode && bossCell && bossCell.visited == '1' && isEndBoss) {
                 autoOn = false;
                 status('Last boss defeated, stopping');
                 return;
@@ -421,13 +423,14 @@ function autoTillExit() {
                 unexplored = fast;
             }
 
-            if (!unexplored || settings.dungeon.fastMode && exit) {
+            if (!unexplored || settings.dungeon.fastMode && exit && bossCell ) {
                 unexplored = exit;
             }
 
-            if (settings.dungeon.fastMode && bossCell && bossCell.visited == 0 && bossCell.monsterId % 10 == 1) {
+            if (settings.dungeon.fastMode && bossCell && bossCell.visited == 0 && isEndBoss){
                 unexplored = bossCell;
             }
+
 
             path = buildPathTo(unexplored, unexplored != exit);
             if (path.length == 0) {

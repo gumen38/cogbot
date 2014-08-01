@@ -10,7 +10,8 @@ var components = {
     abyss: require('./abyss'),
     dungeon: require('./dungeon'),
     log: require('./log.js'),
-    inventory: require('./inventory.js')
+    inventory: require('./inventory.js'),
+    fullauto: require('./fullauto.js')
 };
 var template = _.template(fs.readFileSync(__dirname + '/templates/template.html').toString());
 var templates = {
@@ -19,7 +20,8 @@ var templates = {
     abyss: _.template(fs.readFileSync(__dirname + '/templates/abyss.html').toString()),
     dungeon: _.template(fs.readFileSync(__dirname + '/templates/dungeon.html').toString()),
     log: _.template(fs.readFileSync(__dirname + '/templates/log.html').toString()),
-    inventory: _.template(fs.readFileSync(__dirname + '/templates/inventory.html').toString())
+    inventory: _.template(fs.readFileSync(__dirname + '/templates/inventory.html').toString()),
+    fullauto: _.template(fs.readFileSync(__dirname + '/templates/fullauto.html').toString())
 };
 var views = {
     utility: '',
@@ -27,7 +29,8 @@ var views = {
     abyss: '',
     dungeon: '',
     log: '',
-    inventory: ''
+    inventory: '',
+    fullauto: ''
 };
 var socket = null;
 
@@ -54,5 +57,6 @@ _.extend(module.exports, {
         log.info("Starting CogBot admin panel injector service at localhost:3334");
         _.each(_.keys(components), function(componentId){ update(componentId); })
     },
-    update: update
+    update: update,
+    getSocket: function() { return socket; }
 });

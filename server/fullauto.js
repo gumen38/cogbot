@@ -2,16 +2,19 @@ server = require('./server');
 log = require('./log');
 ui = require('./ui');
 
-function state(msg) {
-    model.currentState = msg;
-    //ui.update('alts');
-}
-
 var model = {
     currentState: '',
     currentAltName: '',
-    running: false
+    running: false,
+    currAlt: 1
 }
+
+function status(msg) {
+    log.info(msg);
+    model.currentState = msg;
+    ui.update('fullauto');
+}
+
 
 function loginKong(name, password, cb){
 
@@ -38,39 +41,56 @@ function signup(cb){
     })
 }
 
-function start() {
+function switchalt() {
 
     var range;
     try {
         range = settings.alts.namepattern.split('[')[1].split(']')[0].split('-'); range[0] = parseInt(range[0]); range[1] = parseInt(range[1]);
     } catch (e) {
-        state('Bad name pattern');
+        status('Bad name pattern');
     }
+
+    if( model.currAlt < range[0] || model.currAlt > range[1] ){
+        log.info('No such alt');
+    }
+
 
     function doAlt(index){
         var name = settings.alts.namepattern.replace(/\[.*\]/, index);
-        loginKong(name, settings.alts.password, function(){
-            loginCog(name, function(){
-                signup(function(){
-                    if ( index != range[1] ) doAlt(index+1);
-                })
-            })
-        })
+//        loginKong(name, settings.alts.password, function(){
+//            loginCog(name, function(){
+//                signup(function(){
+//                    if ( index != range[1] ) doAlt(index+1);
+//                })
+//            })
+//        })
+
+        var socket = ui.getSocket();
+        if (socket) socket.emit('loguser', name, settings.alts.password);
+
     }
 
-    doAlt(range[0]);
+    doAlt(model.currAlt);
 }
 
 
 function routine(){
     start();
 }
-
-//setInterval(routine, 60);
-
-
-//routine();
-
 _.extend(module.exports, {
-
+    model: function () {
+        return model;
+    },
+    control: function (data) {
+        if (data.alts == 'next') {
+            model.currAlt++;
+            switchalt();
+            status('Alt swiching...');
+        }
+        if (data.alts == 'prev'){
+            model.currAlt--;
+            switchalt();
+            status('Alt swiching...');
+        }
+    }
 });

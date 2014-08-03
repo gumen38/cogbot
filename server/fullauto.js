@@ -6,7 +6,7 @@ var model = {
     currentState: '',
     currentAltName: '',
     running: false,
-    currAlt: 1
+    currAlt: 0
 }
 
 function status(msg) {
@@ -16,13 +16,13 @@ function status(msg) {
 }
 
 
-function loginKong(name, password, cb){
+function loginKong(name, password, cb) {
 
-    server.callHttp('http://www.kongregate.com/games/callofgods/call-of-gods', { method: 'GET' }, function(rs1){
+    server.callHttp('http://www.kongregate.com/games/callofgods/call-of-gods', { method: 'GET' }, function (rs1) {
         var authenticity_token = /<meta.*content="(.*)".*name="csrf-token" \/>/.exec(rs1.body)[1];
         var body = 'utf8=%E2%9C%93&authenticity_token=' + authenticity_token + '&game_id=117070&from_welcome_box=true&username=' + name + '&password=' + password + '&remember_me=true';
-        server.callHttp('https://www.kongregate.com/session', { body: body, method: 'POST', headers:rs1.headers }, function(rs2){
-            server.callHttp('http://www.kongregate.com/games/callofgods/call-of-gods', { method: 'GET', headers:rs2.headers }, function(rs3){
+        server.callHttp('https://www.kongregate.com/session', { body: body, method: 'POST', headers: rs1.headers }, function (rs2) {
+            server.callHttp('http://www.kongregate.com/games/callofgods/call-of-gods', { method: 'GET', headers: rs2.headers }, function (rs3) {
                 var x = 33;
             });
         });
@@ -31,12 +31,12 @@ function loginKong(name, password, cb){
     cb();
 }
 
-function loginCog(name, cb){
+function loginCog(name, cb) {
     cb();
 }
 
-function signup(cb){
-    server.call({}, function(){
+function signup(cb) {
+    server.call({}, function () {
         cb();
     })
 }
@@ -45,36 +45,38 @@ function switchalt() {
 
     var range;
     try {
-        range = settings.alts.namepattern.split('[')[1].split(']')[0].split('-'); range[0] = parseInt(range[0]); range[1] = parseInt(range[1]);
+        range = settings.alts.namepattern.split('[')[1].split(']')[0].split('-');
+        range[0] = parseInt(range[0]);
+        range[1] = parseInt(range[1]);
     } catch (e) {
         status('Bad name pattern');
     }
 
-    if( model.currAlt < range[0] || model.currAlt > range[1] ){
+    if (model.currAlt < range[0] || model.currAlt > range[1]) {
         log.info('No such alt');
+        rollingAlts = false;
+        return;
     }
 
 
-    function doAlt(index){
+    function doAlt(index) {
         var name = settings.alts.namepattern.replace(/\[.*\]/, index);
-//        loginKong(name, settings.alts.password, function(){
-//            loginCog(name, function(){
-//                signup(function(){
-//                    if ( index != range[1] ) doAlt(index+1);
-//                })
-//            })
-//        })
 
         var socket = ui.getSocket();
-        if (socket) socket.emit('loguser', name, settings.alts.password);
+        listeningAfterLoad = false;
+        if (socket) socket.emit('loguser', { name: name, pwd: settings.alts.password});
 
     }
 
     doAlt(model.currAlt);
 }
 
+var listeningAfterLoad = false;
+var rollingAlts = false;
 
-function routine(){
+
+
+function routine() {
     start();
 }
 _.extend(module.exports, {
@@ -87,10 +89,30 @@ _.extend(module.exports, {
             switchalt();
             status('Alt swiching...');
         }
-        if (data.alts == 'prev'){
+        if (data.alts == 'prev') {
             model.currAlt--;
             switchalt();
             status('Alt swiching...');
+        }
+        if (data.alts == 'roll') {
+            rollingAlts = true;
+            model.currAlt++;
+            switchalt();
+            status('Alt swiching...');
+        }
+        if (data.loaded) {
+            listeningAfterLoad = true;
+        }
+    },
+    lookslikegameisactive: function () {
+        if (listeningAfterLoad && rollingAlts) {
+            listeningAfterLoad = false;
+            server.call({"Character_SignIn_Req": {"characterId": null}},
+                function () {
+                    model.currAlt++;
+                    switchalt();
+                }
+            );
         }
     }
 });

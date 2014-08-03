@@ -1,12 +1,13 @@
 <fieldset id="dungeon">
     <legend>Fullauto<span class="minimize">[+/-]</span></legend>
-    <div class="main collapsible">
+    <div class="main">
         <fieldset>
             <legend>Alts</legend>
             <%=currentState%><br/>
             Current alt: <%= currAlt %>
             <div><a class="btn" fire="fullauto" args="{alts: 'prev'}"  href="#">{{{PREVIOUS </a>
-            <a class="btn" fire="fullauto" args="{alts: 'next' }"  href="#"> NEXT}}}</a></div>
+            <a class="btn" fire="fullauto" args="{alts: 'next' }"  href="#"> NEXT}}}</a>
+            <a class="btn" fire="fullauto" args="{alts: 'roll' }"  href="#"> ROLL!!!</a></div>
         </fieldset>
     </div>
 </fieldset>

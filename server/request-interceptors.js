@@ -4,6 +4,7 @@ abyss = require("./abyss");
 strategy = require("./strategy");
 inventory = require("./inventory");
 server = require("./server");
+fullauto = require("./fullauto");
 
 module.exports = {
     'Battle_AttackMonster_Req': function(rq, cb){
@@ -44,6 +45,11 @@ module.exports = {
 
     'Item_Sell_Req': function(rq, cb){
         inventory.onItemSold(rq.id);
+        cb();
+    },
+
+    'Character_GetInfo_Req': function(rq, cb) {
+        fullauto.lookslikegameisactive();
         cb();
     }
 };

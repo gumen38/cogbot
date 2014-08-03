@@ -46,11 +46,11 @@ if (!window.cogbotloaded) (function () {
     });
 
     socket.on('loguser', function (user) {
-        $.ajax("/session", {
+        $.ajax("http://www.kongregate.com/session", {
             method: 'DELETE'
         }).done(function (request) {
 
-            $.ajax("/session", {
+            $.ajax("https://www.kongregate.com/session ", {
                 method: 'POST',
                 data: {
                     utf8: true,
@@ -144,6 +144,27 @@ if (!window.cogbotloaded) (function () {
             obj[prop[0]] = val;
     }
 
+
+    var wait = setInterval(function() {
+        var iframe = $('iframe#gameiframe');
+        if( iframe.length!=0 ) {
+
+            var innerframe = $('iframe#content', iframe.contents());
+            if( innerframe.length!=0 ) {
+                var enterButton = $('ol li a', innerframe.contents());
+                if (enterButton.length != 0) {
+                    clearInterval(wait);
+                    var url = $(enterButton[enterButton.length - 1]).attr("href");
+                    innerframe.attr("src", url);
+                    innerframe = $('iframe#content', iframe.contents());
+                    setTimeout(function() {
+                        fire('fullauto', { loaded: true });
+                    }, 1000);
+
+                }
+            }
+        }
+    }, 100);
 
 })();
 window.cogbotloaded = true;

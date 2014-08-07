@@ -113,7 +113,14 @@ function apply(cb) {
         if (!_.isEqual(model.deploy.HeroSet_SetTroopStrategy_Req.attackTroopStrategy, rs.HeroSet_GetInfo_Res.attackTroopStrategy)) {
             status('Deploy was changed, applying...');
             heroInfo = null;
-            server.call(model.deploy, assign);
+            server.call(model.deploy, function(rs) {
+                if( rs.HeroSet_SetTroopStrategy_Res.ret != 0 ) {
+                    status("Strategy setting error");
+                    return;//todo - block call
+                } else {
+                    assign()
+                }
+            });
         } else {
             assign();
         }

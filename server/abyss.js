@@ -81,6 +81,7 @@ function auto(endRoom) {
     doRoom(function (rs) {
         if (strategy.isDepleted()) {
             status("Not enough soldiers, stopping");
+            return;
         }
 
         if (rs.PurgatoryAbyss_Challenge_Res.result.record.winner != 'attacker') {

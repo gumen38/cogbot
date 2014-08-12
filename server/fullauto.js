@@ -23,7 +23,6 @@ function loginKong(name, password, cb) {
         var body = 'utf8=%E2%9C%93&authenticity_token=' + authenticity_token + '&game_id=117070&from_welcome_box=true&username=' + name + '&password=' + password + '&remember_me=true';
         server.callHttp('https://www.kongregate.com/session', { body: body, method: 'POST', headers: rs1.headers }, function (rs2) {
             server.callHttp('http://www.kongregate.com/games/callofgods/call-of-gods', { method: 'GET', headers: rs2.headers }, function (rs3) {
-                var x = 33;
             });
         });
     });
@@ -109,8 +108,12 @@ _.extend(module.exports, {
             listeningAfterLoad = false;
             server.call({"Character_SignIn_Req": {"characterId": null}},
                 function () {
-                    model.currAlt++;
-                    switchalt();
+                    server.call({"FortuneWheel_GetInfo_Req":{"type":1,"characterId":null,"serialNo":208}}, function(){
+                        server.call({"FortuneWheel_Stop_Req":{"type":1, "useItem":0, "characterId":null}}, function(){
+                            model.currAlt++;
+                            switchalt();
+                        });
+                    });
                 }
             );
         }

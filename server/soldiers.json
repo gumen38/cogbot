@@ -11,5 +11,7 @@
     "11000426": { "size": 1, "name": "Bark Monsters"   },
     "11000308": { "size": 2, "name": "Stygian Knights" },
     "11000455": { "size": 3, "name": "Griffins"        },
-    "11000454": { "size": 3, "name": "Occultists"      }
+    "11000454": { "size": 3, "name": "Occultists"      },
+    "11000421": { "size": 1, "name": "Bandits"         },
+    "11000309": { "size": 1, "name": "Liches"          }
 }

@@ -19,6 +19,7 @@ Version history
 ------------
 
 _Version 0.9a_
+
 1. Automated session id, character id, game server url management. No longer need to set it in settings file!
 2. Individualized strategy files: now each alt will have own strategy folder!
 3. A routine to automatically login all your alts and sign-in them and also roll free wheel.
@@ -27,33 +28,40 @@ _Version 0.9a_
 *Important*: remove characterId and actionUrl from your private settings file - they are not longer needed (but you can leave them as is).
 
 _Version 0.8a_
+
 1. Fast mode in dungeon now is about acceptable efficiency. Still not optimal and sill laying path through the monsters, but to avoid it would require some work.
 2. Improved readme.
 
 _Version 0.7a_
+
 1. Fixed dungeon bugs.
 2. Added fullauto mode drafts (mode which doesn't require browser to run).
 3. Moved settings file outside of the project (say thanks to some smartasses lurking on private data). Example of settings file is provided below. Path to settings file is specified in server/userSettingsPath.txt
 
 _Version 0.6a_
+
 1. Fixed numerous bugs with dungeon/strategy modules.
 2. Added inventory utilites: autoopen bronze/silver/gold boxes (only tier 5 atm), autosell trash, trash learning button.
 3. Found some crazy memory leaks (1GB/per day). Planning fix in next version.
 
 _Version 0.5a_
+
 1. Removed FoxyProxy due to installation difficulty. Added custom proxy within "CogBot Admin Panel" chrome plugin.
 2. Added secondary -default, -per dungeon boss, -per abyss room strategies support. Handy to manage stuff like 'use barks when short on caterans'.
 
 _Version 0.4a_
+
 1. Dungeon crawler.
 2. Depleted soldiers notification.
 
 _Version 0.3a_
+
 1. Automatic Abyss crawler
 2. Better dungeon feedback
 3. Removed some options
 
 _Version 0.2a_
+
 1. Automatic 'Maximize soldiers'.  
 2. Automatic formation/soldiers loading.  
 3. Manual formation/soldiers save.  

@@ -143,22 +143,35 @@ Donation amount will multiply priority by formula (donation_in_USD+1)*priority, 
 
 I will update suggestion/bugs and their priorities here:
 
-Request: Add ability to change CoG server.
-Source: forum
-Priority: Average
-Status: DONE
-Details: Server can be changed in currentSettings.js
+**Request: Add ability to change CoG server**
 
-Request: Simply FoxyProxy installation and setup
 Source: forum
+
 Priority: Average
+
 Status: DONE
+
+Details: Server and other info loaded automatically
+
+**Request: Simply FoxyProxy installation and setup**
+
+Source: forum
+
+Priority: Average
+
+Status: DONE
+
 Details: FoxyProxy removed. CogBot Admin Panel is proxy itself now.
 
-Request: Ability to manage dungeon boss strategies without visiting dungeon
+**Request: Ability to manage dungeon boss strategies without visiting dungeon**
+
 Source: in-game mail
+
 Priority: Average
+
 Status: will be done after UI rework
+
 Details: At this moment strategies can be managed also manually, they are kept in /strategiesXXXX folder. One may backup and restore them. This is not handy, and
 certain tool in cogbot is needed to improve strategy management.
+
 Planned solution: replace 'Save Default Strategy' button with: button 'Save' and one/two selectors [Abyss * Abyss_Room, Dungeon * Dungeon_Name_and_Boss, Default, World Boss]

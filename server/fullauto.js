@@ -53,6 +53,7 @@ function switchalt() {
 
     if (model.currAlt < range[0] || model.currAlt > range[1]) {
         log.info('No such alt');
+        model.currAlt = 0;
         rollingAlts = false;
         return;
     }

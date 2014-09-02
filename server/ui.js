@@ -1,6 +1,7 @@
 var app = require('http').createServer(function(rq, rs) {rs.writeHead(200);rs.end();});
 var io = require('socket.io')(app);
 var fs = require('fs');
+var server = require('./server');
 var log = require('./log');
 app.listen(3334);
 
@@ -11,7 +12,8 @@ var components = {
     dungeon: require('./dungeon'),
     log: require('./log.js'),
     inventory: require('./inventory.js'),
-    fullauto: require('./fullauto.js')
+    fullauto: require('./fullauto.js'),
+    server: server
 };
 var template = _.template(fs.readFileSync(__dirname + '/templates/template.html').toString());
 var templates = {
@@ -21,7 +23,8 @@ var templates = {
     dungeon: _.template(fs.readFileSync(__dirname + '/templates/dungeon.html').toString()),
     log: _.template(fs.readFileSync(__dirname + '/templates/log.html').toString()),
     inventory: _.template(fs.readFileSync(__dirname + '/templates/inventory.html').toString()),
-    fullauto: _.template(fs.readFileSync(__dirname + '/templates/fullauto.html').toString())
+    fullauto: _.template(fs.readFileSync(__dirname + '/templates/fullauto.html').toString()),
+    server: _.template(fs.readFileSync(__dirname + '/templates/server.html').toString())
 };
 var views = {
     utility: '',
@@ -30,7 +33,8 @@ var views = {
     dungeon: '',
     log: '',
     inventory: '',
-    fullauto: ''
+    fullauto: '',
+    server: ''
 };
 var socket = null;
 
@@ -49,6 +53,7 @@ _.extend(module.exports, {
             socket.on('error', function() {
                 socket.destroy();
             });
+            server.loadSession();
             log.info("Connected to admin panel.");
         });
         io.on('disconnect', function() { log.debug("Disconnected from admin panel.");});

@@ -7,6 +7,7 @@ if (!window.cogbotloaded) (function () {
     var socket = io('http://localhost:3334');
 
     socket.on('connection', function (socket) {
+        pushSessionInfo();
         socket.on('disconnect', function () {
         });
     });
@@ -20,36 +21,41 @@ if (!window.cogbotloaded) (function () {
 
          panel.empty();
          panel.append(content);
-
-        /*
-        function update(oldContent, content) {
-            content = _.filter($(content), function(el){ return el.nodeName != '#text' })
-
-            if ($(oldContent).children().length != $(content).length) {
-                $(oldContent).empty();
-                $(oldContent).append(content);
-            } else {
-
-                $(oldContent).children().each(function (i, elem) {
-                    if ($(content[i]).html() != $(elem).html()) {
-                        $(elem).html($(content[i]).html());
-                    } else {
-                        update(elem, content[i]);
-                    }
-                });
-            }
-        }
-
-        update(panel.children()[0], content);
-        */
-        bindHandlers();
+         bindHandlers();
     });
+
+    socket.on('getSessionInfo', function (socket) {
+        pushSessionInfo();
+    });
+
+    function pushSessionInfo(){
+        var pollId = setInterval(function(){
+            var frame1 = document.getElementById('gameiframe');
+            if( frame1 && frame1.contentWindow && frame1.contentWindow.document ) {
+                var frame2 = frame1.contentWindow.document.getElementById('content');
+                if( frame2 && frame2.contentWindow ){
+                    var doc = frame2.contentWindow.document
+                }
+            }
+            if( !doc ) return;
+            if( doc.URL.indexOf('play.php')==-1 ) return;
+            if( $(doc).find('script').length<3 ) return;
+
+            clearInterval(pollId);
+
+            var script = $($(doc).find('script')[2]).html();
+            var start = script.indexOf('swfobject.embedSWF(');
+            var end = script.indexOf(');', start);
+            var initCode = script.substr(start+20, end-start-20);
+
+            fire('server', { sessionInfo: eval('[' + initCode + ',"' + doc.cookie + '"]') });
+        }, 100);
+    }
 
     socket.on('loguser', function (user) {
         $.ajax("http://www.kongregate.com/session", {
             method: 'DELETE'
         }).done(function (request) {
-
             $.ajax("https://www.kongregate.com/session ", {
                 method: 'POST',
                 data: {

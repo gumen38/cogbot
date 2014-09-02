@@ -12,6 +12,6 @@ require('./server/ui').init();
 
 require('./server/fullauto');
 
-process.on('uncaughtException', function (err) {
-    console.log('Caught exception: ' + err);
-});
+//process.on('uncaughtException', function (err) {
+//    console.log('Caught exception: ' + err);
+//});

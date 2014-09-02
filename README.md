@@ -15,9 +15,16 @@ Features:
 * Bunch of utilites.
 
 
-
 Version history
 ------------
+
+_Version 0.9a_
+1. Automated session id, character id, game server url management. No longer need to set it in settings file!
+2. Individualized strategy files: now each alt will have own strategy folder!
+3. A routine to automatically login all your alts and sign-in them and also roll free wheel.
+4. Fixed PayPal account. Donations now should work!
+
+*Important*: remove characterId and actionUrl from your private settings file - they are not longer needed (but you can leave them as is).
 
 _Version 0.8a_
 1. Fast mode in dungeon now is about acceptable efficiency. Still not optimal and sill laying path through the monsters, but to avoid it would require some work.
@@ -71,17 +78,8 @@ Installation guide
 2. Download CogBot distrib as a zip from github.
 3. Unpack zip somewhere, say c:/cogbot.
 4. Create settings file somewhere. Edit c:/cogbot/server/userSettingsPath.txt - it should be path to your settings file.
-5. Copy defaults to settings file (see below). Modify actionUrl and characterId in settings file. See further for details on settings file.
+5. Copy defaults to settings file (see below).
 6. Run run.bat
-
-*How to get your character id and server url*
-
-1. Open http://www.kongregate.com/games/callofgods/call-of-gods in chrome
-2. Press F12 to open Chrome Developer Tools and go to the network tab. Enable network log.
-3. Reload page and type in filter do.php
-4. Click on first entry.
-5. Find there 'Request URL'. Copy it to your settings (player.actionUrl).
-5. Inspect request details. There will be somewhere field 'characterId'. Copy it to your settings (player.characterId).
 
 *Installing CogBot Admin plugin*
 
@@ -93,7 +91,7 @@ Installation guide
 
 Put on your disc C file named
 
-cog_private_settings.json
+`cog_private_settings.json`
 
 with content
 
@@ -105,37 +103,27 @@ with content
             "load": false,
             "current": true
         },
-        "player": {
-            "characterId": 12345,
-            "actionUrl": "http://m1-kongregate.callofgods.com/php/do.php"
-        },
         "dungeon": {
             "fastMode": false
         }
     }
 
-and replace characterId with yours. Also modify actionUrl if you are playing not on S1 server.
-
 Planned
 -------
 
 Planned Features:
-
 1. Auto-manage recruitment and resource gathering.
-2. Alts quick switch. Alts routines, like sign-in.
-3. Scheduler for daily events (World Boss/2x Super Soldiers recruit/Clash of gods).
+2. Scheduler.
+3. Browserless mode.
 
 Issues
 -----------
 
-1. Number of soldiers and formation in game client will be displayed wrong. But in battles you will see right soldiers/formation.  
-I dont yet know how to fix it, because i don't know how to tell flash client to refresh its visual state without reloading itself. If i figure it out, it will be fixed.
-Same for inventory. There is inventory assistance utilites and trash detector, which can help a bit. But anyway you'll need reload often.
-2. Session capture can be done directly from chrome plugin, but it's unsafe to let plugin watch cookies. At this moment
-CogBot captures session from proxied game requests, but it requires at least one game request.
-3. Don't use my strategy files - it contains hardcode for my chars & heroes.
-4. Installation guide maybe not very clear. But you can mail me with questions.
-5. Memory leaks due to rather crude ui-refresh mechanism.
+1. Soldiers and formation in game will be displayed wrong (at battles you will see actual soldiers/formation). Same for inventory.
+There is inventory assistance utilites and trash detector, which can help a bit. But anyway you'll need reload often.
+2. Don't use my strategy files - it contains hardcode for my chars & heroes.
+3. Memory leaks due to rather crude ui-refresh mechanism.
+4. Dungeon crawler is sometimes (rarely) stuck. Fix: stop crawler, re-enter dungeon, make few steps out of stuck and continue crawler.
 
 Support project
 ---------------
@@ -148,16 +136,21 @@ Donation amount will multiply priority by formula (donation_in_USD+1)*priority, 
 I will update suggestion/bugs and their priorities here:
 
 Request: Add ability to change CoG server.
+Source: forum
 Priority: Average
 Status: DONE
 Details: Server can be changed in currentSettings.js
 
 Request: Simply FoxyProxy installation and setup
+Source: forum
 Priority: Average
 Status: DONE
 Details: FoxyProxy removed. CogBot Admin Panel is proxy itself now.
 
-
-
-
-
+Request: Ability to manage dungeon boss strategies without visiting dungeon
+Source: in-game mail
+Priority: Average
+Status: will be done after UI rework
+Details: At this moment strategies can be managed also manually, they are kept in /strategiesXXXX folder. One may backup and restore them. This is not handy, and
+certain tool in cogbot is needed to improve strategy management.
+Planned solution: replace 'Save Default Strategy' button with: button 'Save' and one/two selectors [Abyss * Abyss_Room, Dungeon * Dungeon_Name_and_Boss, Default, World Boss]

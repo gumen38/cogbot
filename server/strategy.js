@@ -5,7 +5,7 @@ log = require('./log');
 ui = require('./ui');
 
 var model = {
-    folder: __dirname + '/strategies' + settings.player.characterId + '/',
+    folder: function(){ return __dirname + '/strategies' + server.getCharacterId() + '/'; },
     sync: false,
     deploy: {},
     assigns: {},
@@ -44,10 +44,10 @@ function recordAssign(response) {
 
 function saveRecord(code) {
     if (!assertSync()) return;
-    mkdirp(model.folder);
-    if (fs.existsSync(model.folder + code)) status("Strategy " + code + " exists, it will be overwritten.");
+    mkdirp(model.folder());
+    if (fs.existsSync(model.folder() + code)) status("Strategy " + code + " exists, it will be overwritten.");
     normalizeDeploy();
-    fs.writeFileSync(model.folder + code, JSON.stringify({ deploy: model.deploy, assigns: model.assigns }), 'utf8');
+    fs.writeFileSync(model.folder() + code, JSON.stringify({ deploy: model.deploy, assigns: model.assigns }), 'utf8');
     status("Current strategy was saved as \'" + code + "\' strategy");
 }
 
@@ -68,7 +68,7 @@ function loadRecord(code, cb) {
     if (!assertSync()) return;
     model.strategyCode = code;
 
-    var strategyExists = fs.existsSync(model.folder + code);
+    var strategyExists = fs.existsSync(model.folder() + code);
     var isDefault = code == 'default';
 
 
@@ -84,7 +84,7 @@ function loadRecord(code, cb) {
         }
     }
 
-    var record = JSON.parse(fs.readFileSync(model.folder + code, 'utf8'));
+    var record = JSON.parse(fs.readFileSync(model.folder() + code, 'utf8'));
     model.deploy = record.deploy;
     model.assigns = record.assigns;
     model.depleted = [];
@@ -206,6 +206,7 @@ function reloadDeploy() {
         {"Hero_GetInfo_Req": {"characterId": null }}
     ];
     server.call(rq, function (rs) {
+
         model.deploy = {"HeroSet_SetTroopStrategy_Req": {
             attackTroopStrategy: rs.HeroSet_GetInfo_Res.attackTroopStrategy,
             defenceTroopStrategy: rs.HeroSet_GetInfo_Res.defenceTroopStrategy,
@@ -257,7 +258,7 @@ _.extend(module.exports, {
         return model.depleted.length > 0;
     },
     haveStrategy: function (code) {
-        return fs.existsSync(model.folder + code);
+        return fs.existsSync(model.folder() + code);
     },
     model: function () {
         return model;

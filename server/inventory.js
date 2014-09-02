@@ -17,7 +17,7 @@ function status(msg) {
 }
 
 function reload(cb){
-    server.call({"Item_GetInfo_Req":{"type":-1,"characterId":settings.player.characterId}}, function(rs){
+    server.call({"Item_GetInfo_Req":{"type":-1,"characterId": server.getCharacterId()}}, function(rs){
         res = rs.Item_GetInfo_Res;
         max = res.backpackItemCountMax;
         count = 0;
@@ -56,7 +56,7 @@ _.extend(module.exports, {
                 function use(itemId){
                     ui.update('inventory');
                     status("Use item " + itemId);
-                    server.call({"Item_Use_Req":{"characterId":settings.player.characterId,"id":itemId,"count":1}}, function(rs){
+                    server.call({"Item_Use_Req":{"characterId":server.getCharacterId(),"id":itemId,"count":1}}, function(rs){
                         if( rs.Item_Use_Res.retMsg == 'SUCCESS' ) use(itemId);
                     })
                 }
@@ -81,7 +81,7 @@ _.extend(module.exports, {
                 function sell(itemId){
                     ui.update('inventory');
                     status("Sell item " + itemId);
-                    server.call({"Item_Sell_Req":{"characterId":settings.player.characterId,"id":itemId,"count":1}}, function(rs){
+                    server.call({"Item_Sell_Req":{"characterId":server.getCharacterId(),"id":itemId,"count":1}}, function(rs){
                         if( rs.Item_Sell_Res.retMsg == 'SUCCESS' ) sell(itemId);
                     })
                 }

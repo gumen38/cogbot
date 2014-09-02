@@ -19,20 +19,6 @@ _.extend(module.exports, {
 
             rep();
         }
-        if (params.sunfire60) {
-            function doit() {
-
-                strategy.maximizeSoldiers(function () {
-                    server.call({"BattleMonsterTeam_Enter_Req": {"characterId": null, "monsterId": 4938113}}, function (rs) {
-                        server.call({"BattleMonsterTeam_CreateTeam_Req": {"characterId": null, "desc": "Let&#39;s beat monsters!"}}, function (rs2) {
-                            server.call({"BattleMonsterTeam_Start_Req": {"characterId": null}}, function (rs3, msgs) {
-                            });
-                        });
-                    });
-                });
-
-            }
-        }
     },
     model: function () {
         return { model: {} };

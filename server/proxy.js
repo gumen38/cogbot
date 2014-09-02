@@ -13,12 +13,11 @@ _.extend(module.exports, {
 
         http.createServer(function (clientRequest, clientResponse) {
 
-            if (clientRequest.url != settings.player.actionUrl) {
+            if (clientRequest.url != server.getActionUrl() ) {
                 log.info("FoxyProxy is misconfigured. Wrong url: " + clientRequest.url);
             }
 
             clientRequest.headers['accept-encoding'] = 'utf-8';
-            server.captureHeaders(clientRequest.headers);
             var opts = { hostname: url.parse(clientRequest.url).host, port: 80, path: clientRequest.url, method: clientRequest.method, headers: clientRequest.headers };
 
 

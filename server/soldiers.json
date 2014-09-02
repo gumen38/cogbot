@@ -14,5 +14,8 @@
     "11000454": { "size": 3, "name": "Occultists"      },
     "11000421": { "size": 1, "name": "Bandits"         },
     "11000309": { "size": 1, "name": "Liches"          },
-    "11000451": { "size": 1, "name": "Rippers"         }
+    "11000451": { "size": 1, "name": "Rippers"         },
+    "11000102": { "size": 1, "name": "Archers"         },
+    "11000104": { "size": 1, "name": "Monks"           },
+    "11000101": { "size": 1, "name": "Swordsmans"      }
 }

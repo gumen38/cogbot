@@ -39,11 +39,22 @@ if (!window.cogbotloaded) (function () {
             }
             if( !doc ) return;
             if( doc.URL.indexOf('play.php')==-1 ) return;
-            if( $(doc).find('script').length<3 ) return;
+
+            var scripts = $(doc).find('script')
+            for( var i = 0; i < scripts.length; i++ ) {
+                var script = $($(doc).find('script')[i]).html();
+                if( script.indexOf('var sysRefresh')!=-1 ) {
+                    break;
+                }
+                script = null;
+            }
+            if( !script ) return;
+
+
+
 
             clearInterval(pollId);
 
-            var script = $($(doc).find('script')[2]).html();
             var start = script.indexOf('swfobject.embedSWF(');
             var end = script.indexOf(');', start);
             var initCode = script.substr(start+20, end-start-20);

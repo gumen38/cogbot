@@ -15,6 +15,12 @@ Features:
 * Bunch of utilites.
 
 
+Important known bugs
+--------------------
+
+At this moment automatic server login always logs in game to server 1. Will be fixed soon.
+As a workaround, disabled alts switch/roll now.
+
 Version history
 ------------
 

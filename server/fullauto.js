@@ -109,10 +109,12 @@ _.extend(module.exports, {
             listeningAfterLoad = false;
             server.call({"Character_SignIn_Req": {"characterId": null}},
                 function () {
-                    server.call({"FortuneWheel_GetInfo_Req":{"type":1,"characterId":null,"serialNo":208}}, function(){
+                    server.call({"FortuneWheel_GetInfo_Req":{"type":1,"characterId":null}}, function(){
                         server.call({"FortuneWheel_Stop_Req":{"type":1, "useItem":0, "characterId":null}}, function(){
-                            model.currAlt++;
-                            switchalt();
+                            server.call({"PreResource_HarvestAll_Req":{"characterId":server.getCharacterId()}}, function(){
+                                model.currAlt++;
+                                switchalt();
+                            });
                         });
                     });
                 }

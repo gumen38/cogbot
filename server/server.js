@@ -281,7 +281,7 @@ _.extend(module.exports, {
         if (data.sessionInfo) {
             sessionInfo = data.sessionInfo;
             buildHeaders();
-            strategy.init();
+            strategy.reset();
             dungeon.reset();
             abyss.reset();
         }

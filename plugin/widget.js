@@ -50,9 +50,6 @@ if (!window.cogbotloaded) (function () {
             }
             if( !script ) return;
 
-
-
-
             clearInterval(pollId);
 
             var start = script.indexOf('swfobject.embedSWF(');
@@ -165,7 +162,6 @@ if (!window.cogbotloaded) (function () {
     var wait = setInterval(function() {
         var iframe = $('iframe#gameiframe');
         if( iframe.length!=0 ) {
-
             var innerframe = $('iframe#content', iframe.contents());
             if( innerframe.length!=0 ) {
                 var enterButton = $('ol li a', innerframe.contents());
@@ -177,7 +173,6 @@ if (!window.cogbotloaded) (function () {
                     setTimeout(function() {
                         fire('fullauto', { loaded: true });
                     }, 1000);
-
                 }
             }
         }

@@ -194,10 +194,15 @@ function apply(cb) {
 function init() {
     status('Strategy module initialization: loading current deploy and soldier assigments...');
     if (model.sync) {
-        status('Strategy module was alsync initialized.');
+        status('Strategy module was already initialized.');
         return;
     }
     reloadDeploy();
+}
+
+function reset() {
+    model.sync = false;
+    init();
 }
 
 function reloadDeploy() {
@@ -254,6 +259,7 @@ _.extend(module.exports, {
     saveRecord: saveRecord,
     loadRecord: loadRecord,
     maximizeSoldiers: maximizeSoldiers,
+    reset: reset,
     isDepleted: function () {
         return model.depleted.length > 0;
     },

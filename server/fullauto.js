@@ -21,7 +21,7 @@ function init(){
             range[0] = parseInt(range[0]);
             range[1] = parseInt(range[1]);
 
-            for( var i = range[0]; i < range[1]; i++ ){
+            for( var i = range[0]; i <= range[1]; i++ ){
                 model.alts.push(name + i);
             }
         } else {
@@ -82,7 +82,6 @@ function proceedPlan(){
         if( plan.switchingStarted && (plan.switchingStarted - new Date().getTime() < 1000*60*5) ) {
             return;
         }
-        plan.switchingStarted = new Date().getTime();
         switchalt(plan.currAlt);
     }
     if( plan.code == 'reset' ){
@@ -115,7 +114,6 @@ function onGameLoaded(){
                                                 plan.currAlt = null;
                                                 return;
                                             }
-                                            plan.switchingStarted = new Date().getTime();
                                             switchalt(model.activePlan.currAlt);
                                         });
                                     });
@@ -130,6 +128,11 @@ function onGameLoaded(){
 }
 
 function switchalt(index) {
+
+    var plan = model.activePlan;
+    if( plan && plan.code == 'altroutine' ){
+        plan.switchingStarted = new Date().getTime();
+    }
 
     status('Switching to alt ' + model.alts[index] + "(" + index + ")");
 

@@ -5,9 +5,16 @@
         <div><b><%= statusMsg %></b></div>
         <div>Reload count <a class="btn" fire="inventory" args="{reload:{}}">Reload</a></div>
         <div>Open silver/bronze chests <a class="btn" fire="inventory" args="{open:{}}">Open</a></div>
-        <div>Copper trash items <a class="btn" fire="inventory" args="{trash:{}}">Sell</a></div>
+        <div>Copper trash items <a class="btn" fire="inventory" args="{trash: 'sell'}">Sell</a></div>
         <% if( soldItem ) { %>
-            <div>You sold an item <b><%=soldItem%></b>. Mark as trash? <a class="btn" href="#" fire="inventory" args="{mark: '<%=soldItem%>'}">Mark</a></div>
+            <div>You sold an item <b><%=soldItem%></b>.</div>
+        <% } %>
+
+        <% if( !trashMode ) { %>
+        <div>Start trash marking: <a class="btn" href="#" fire="inventory" args="{trash: 'start'}">Start</a></div>
+        <% } %>
+        <% if( trashMode ) { %>
+        <div>Stop trash marking: <a class="btn" href="#" fire="inventory" args="{trash: 'stop'}">Stop</a></div>
         <% } %>
     </div>
 

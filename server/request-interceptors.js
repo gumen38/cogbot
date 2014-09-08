@@ -49,7 +49,7 @@ module.exports = {
     },
 
     'Character_GetInfo_Req': function(rq, cb) {
-        fullauto.lookslikegameisactive();
+        fullauto.gameRequestDetected();
         cb();
     }
 };

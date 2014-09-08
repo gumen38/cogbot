@@ -21,24 +21,39 @@ _.extend(module.exports, {
             var opts = { hostname: url.parse(clientRequest.url).host, port: 80, path: clientRequest.url, method: clientRequest.method, headers: clientRequest.headers };
 
 
-            var proxy = http.request(opts, function (serverResponse) {
-                var responseData = "";
-                var arrivalProcessor = through(function write(data) {
-                    responseData += data;
-                }, function end() {
-                    log.debug(responseData);
-                    var _this = this;
-                    server.interceptResponse(responseData, function () {
-                        server.interceptMessages(responseData, function () {
-                            _this.queue(responseData);
-                            _this.emit('end');
+            var proxy;
+            var attempts = 0;
+            function proxyCall() {
+                proxy = http.request(opts, function (serverResponse) {
+                    var responseData = "";
+                    var arrivalProcessor = through(function write(data) {
+                        responseData += data;
+                    }, function end() {
+                        log.debug(responseData);
+                        var _this = this;
+                        server.interceptResponse(responseData, function () {
+                            server.interceptMessages(responseData, function () {
+                                _this.queue(responseData);
+                                _this.emit('end');
+                            });
                         });
                     });
-                });
 
-                serverResponse.pipe(arrivalProcessor, {end: true});
-                arrivalProcessor.pipe(clientResponse, {end: true});
-            });
+                    serverResponse.pipe(arrivalProcessor, {end: true});
+                    arrivalProcessor.pipe(clientResponse, {end: true});
+                });
+                proxy.on('error', function(e) {
+                    console.log("Proxy connect error");
+                    attempts++;
+                    if( attempts>5 ){
+                        console.log("Stopped retrying connect");
+                        throw "Proxy error";
+                    }
+                    proxyCall();
+                });
+            }
+
+            proxyCall();
 
             var requestData = "";
             var departureProcessor = through(function write(data) {
@@ -68,3 +83,4 @@ _.extend(module.exports, {
         }).listen(3333);
     }
 });
+

@@ -111,11 +111,6 @@ if (!window.cogbotloaded) (function () {
             fire(code, args);
         });
 
-        $("#abyss-auto").unbind('click').bind('click', function (e) {
-            e.preventDefault();
-            fire('abyss', { auto: $("#abyss-end-room").val() });
-        });
-
         $("#next-alt").unbind('click').bind('click', function (e) {
             e.preventDefault();
             fire('alts', { change: 'next' });
@@ -158,25 +153,26 @@ if (!window.cogbotloaded) (function () {
             obj[prop[0]] = val;
     }
 
-
-//    var wait = setInterval(function() {
-//        var iframe = $('iframe#gameiframe');
-//        if( iframe.length!=0 ) {
-//            var innerframe = $('iframe#content', iframe.contents());
-//            if( innerframe.length!=0 ) {
-//                var enterButton = $('ol li a', innerframe.contents());
-//                if (enterButton.length != 0) {
-//                    clearInterval(wait);
-//                    var url = $(enterButton[enterButton.length - 1]).attr("href");
-//                    innerframe.attr("src", url);
-//                    innerframe = $('iframe#content', iframe.contents());
-//                    setTimeout(function() {
-//                        fire('fullauto', { loaded: true });
-//                    }, 1000);
-//                }
-//            }
-//        }
-//    }, 100);
-
+    //UNCOMMENT THIS CODE TO ENABLE ALTS ROUTINE AND AUTO ENTER
+/*
+    var wait = setInterval(function() {
+        var iframe = $('iframe#gameiframe');
+        if( iframe.length!=0 ) {
+            var innerframe = $('iframe#content', iframe.contents());
+            if( innerframe.length!=0 ) {
+                var enterButton = $('ol li a', innerframe.contents());
+                if (enterButton.length != 0) {
+                    clearInterval(wait);
+                    var url = $(enterButton[enterButton.length - 1]).attr("href");
+                    innerframe.attr("src", url);
+                    innerframe = $('iframe#content', iframe.contents());
+                    setTimeout(function() {
+                        fire('fullauto', { loaded: true });
+                    }, 1000);
+                }
+            }
+        }
+    }, 100);
+*/
 })();
 window.cogbotloaded = true;

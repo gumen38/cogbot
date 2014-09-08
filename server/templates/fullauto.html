@@ -1,13 +1,10 @@
 <fieldset id="dungeon">
     <legend>Fullauto<span class="minimize">[+/-]</span></legend>
     <div class="main">
-        <fieldset>
-            <legend>Alts</legend>
-            <%=currentState%><br/>
-            Current alt: <%= currAlt %>
-            <div><a class="btn" fire="fullauto" args="{alts: 'prev'}"  href="#">{{{PREVIOUS </a>
-            <a class="btn" fire="fullauto" args="{alts: 'next' }"  href="#"> NEXT}}}</a>
-            <a class="btn" fire="fullauto" args="{alts: 'roll' }"  href="#"> ROLL!!!</a></div>
-        </fieldset>
+        <div><a class="btn" fire="fullauto" args="{alts: 'prev'}"  href="#">{{{PREVIOUS </a><a class="btn" fire="fullauto" args="{alts: 'next' }"  href="#"> NEXT}}}</a></div>
+        <div>Now executing: <span class="hint" hint="plandetails"><%= plan && plan.code %></span></div>
+        <div class="hint-info" hint="planedetails">
+           <%= plan && JSON.stringify(plan, undefined, 2) %>
+        </div>
     </div>
 </fieldset>

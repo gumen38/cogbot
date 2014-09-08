@@ -8,6 +8,7 @@ var count = 0;
 var max = 90;
 var res = null;
 var soldItem = null;
+var trashSale = null;
 
 var statusMsg = "";
 function status(msg) {
@@ -61,16 +62,7 @@ _.extend(module.exports, {
                     })
                 }
             }
-            if( opts.mark ){
-                trash = JSON.parse(fs.readFileSync(__dirname + '/trashlist.json', 'utf8'));
-                if( !_.contains(trash, opts.mark) ){
-                    trash.push(parseInt(opts.mark));
-                    fs.writeFileSync(__dirname + '/trashlist.json', JSON.stringify(trash), 'utf8');
-                }
-                soldItem = null;
-                ui.update('inventory');
-            }
-            if( opts.trash ){
+            if( opts.trash == 'sell' ){
                 trash = JSON.parse(fs.readFileSync(__dirname + '/trashlist.json', 'utf8'));
 
                 _.each(trash, function(itemId){
@@ -86,20 +78,37 @@ _.extend(module.exports, {
                     })
                 }
             }
+            if( opts.trash == 'start' ){
+                reload(function(){
+                    trashSale = [];
+                    ui.update('inventory');
+                });
+            }
+            if( opts.trash == 'stop' ){
+                trash = JSON.parse(fs.readFileSync(__dirname + '/trashlist.json', 'utf8'));
+                trash = _.union(trash, trashSale);
+                trashSale = null;
+                fs.writeFileSync(__dirname + '/trashlist.json', JSON.stringify(trash), 'utf8');
+                ui.update('inventory');
+            }
+
         });
     },
-    model: function() { return { count: count, soldItem: soldItem, statusMsg: statusMsg }},
+    model: function() { return { count: count, soldItem: soldItem, statusMsg: statusMsg, trashMode: !!trashSale }},
     onItemSold: function(id){
 
+        if( !trashSale ) return;
+
         function cb(){
-            status('Item sale detected');
             var item = findItemId(id);
             if( item ){
+                status('Item sale detected: ' + item.itemId);
                 trash = JSON.parse(fs.readFileSync(__dirname + '/trashlist.json', 'utf8'));
                 if( !_.contains(trash, item.itemId) ){
                     soldItem = item.itemId;
+                    trashSale.push(parseInt(item.itemId));
                 } else {
-                    status('Sold item is already marked as trash');
+                    status('Sold item was trash');
                 }
             } else {
                 status('Sold item is unknown');

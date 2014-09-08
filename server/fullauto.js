@@ -2,123 +2,173 @@ server = require('./server');
 log = require('./log');
 ui = require('./ui');
 
+function status(msg) { log.info(msg); model.currentState = msg; ui.update('fullauto');}
+
 var model = {
-    currentState: '',
-    currentAltName: '',
-    running: false,
-    currAlt: 0
-}
+    currentState: "",
+    alts: [],
+    manualAlt: 0,
+    plan: [],
+    waitingForGameStart: false
+};
 
-function status(msg) {
-    log.info(msg);
-    model.currentState = msg;
-    ui.update('fullauto');
-}
+function init(){
+    var altsList = settings.chars.alts.split(',');
+    _.each(altsList, function(altName){
+        if(altName.indexOf('[') != -1 ){
+            var name = altName.replace(/\[.*\]/, '');
+            var range = altName.split('[')[1].split(']')[0].split('-');
+            range[0] = parseInt(range[0]);
+            range[1] = parseInt(range[1]);
 
+            for( var i = range[0]; i < range[1]; i++ ){
+                model.alts.push(name + i);
+            }
+        } else {
+            model.alts.push(altName);
+        }
+    });
 
-function loginKong(name, password, cb) {
-
-    server.callHttp('http://www.kongregate.com/games/callofgods/call-of-gods', { method: 'GET' }, function (rs1) {
-        var authenticity_token = /<meta.*content="(.*)".*name="csrf-token" \/>/.exec(rs1.body)[1];
-        var body = 'utf8=%E2%9C%93&authenticity_token=' + authenticity_token + '&game_id=117070&from_welcome_box=true&username=' + name + '&password=' + password + '&remember_me=true';
-        server.callHttp('https://www.kongregate.com/session', { body: body, method: 'POST', headers: rs1.headers }, function (rs2) {
-            server.callHttp('http://www.kongregate.com/games/callofgods/call-of-gods', { method: 'GET', headers: rs2.headers }, function (rs3) {
-            });
+    _.each(_.keys(settings.schedule.plan), function(interval){
+        var from = interval.split('-')[0];
+        var to = interval.split('-')[1];
+        from = { hour: parseInt(from.split(':')[0]), min: parseInt(from.split(':')[1]) };
+        to = { hour: parseInt(to.split(':')[0]), min: parseInt(to.split(':')[1]) };
+        model.plan.push({
+            from: from,
+            to: to,
+            code: settings.schedule.plan[interval]
         });
     });
 
-    cb();
+    setInterval(function(){
+        checkSchedule();
+    }, 10*1000);
 }
 
-function loginCog(name, cb) {
-    cb();
+init();
+
+
+function pad(n, width) {
+    n = n + '';
+    return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
 }
 
-function signup(cb) {
-    server.call({}, function () {
-        cb();
-    })
-}
+function checkSchedule(){
+    if( settings.schedule.enable ){
 
-function switchalt() {
+        var time = new Date();
+        var hour = time.getHours();
+        var min = time.getMinutes();
 
-    var range;
-    try {
-        range = settings.alts.namepattern.split('[')[1].split(']')[0].split('-');
-        range[0] = parseInt(range[0]);
-        range[1] = parseInt(range[1]);
-    } catch (e) {
-        status('Bad name pattern');
+        var activePlan = _.find(model.plan, function(plan){ 
+            var planStart = plan.from.hour * 60 + plan.from.min;
+            var planEnd = plan.to.hour * 60 + plan.to.min;
+            var now = hour*60+min;
+            return planStart <= now && planEnd >= now;
+        });
+        
+        if( activePlan ) {
+            model.activePlan = activePlan;
+            proceedPlan();
+        }
     }
-
-    if (model.currAlt < range[0] || model.currAlt > range[1]) {
-        log.info('No such alt');
-        model.currAlt = 0;
-        rollingAlts = false;
-        return;
+}
+function proceedPlan(){
+    var plan = model.activePlan;
+    
+    if( plan.code == 'altroutine' ){
+        if( !plan.currAlt ) plan.currAlt = 0;
+        if( plan.switchingStarted && (plan.switchingStarted - new Date().getTime() < 1000*60*5) ) {
+            return;
+        }
+        plan.switchingStarted = new Date().getTime();
+        switchalt(plan.currAlt);
     }
+    if( plan.code == 'reset' ){
 
-
-    function doAlt(index) {
-        var name = settings.alts.namepattern.replace(/\[.*\]/, index);
-
-        var socket = ui.getSocket();
-        listeningAfterLoad = false;
-        if (socket) socket.emit('loguser', { name: name, pwd: settings.alts.password});
+        _.each(model.plan, function(plan){
+            if( plan.code == 'altroutine' ){
+                plan.currAlt = 0;
+                plan.switchingStarted = null;
+            }
+        });
 
     }
-
-    doAlt(model.currAlt);
 }
 
-var listeningAfterLoad = false;
-var rollingAlts = false;
+function onGameLoaded(){
+    var plan = model.activePlan;
+    if( plan && plan.code == 'altroutine' ){
+        server.call({"Character_SignIn_Req": {"characterId": null}},
+            function () {
+                server.call({"FortuneWheel_GetInfo_Req":{"type":1,"characterId":null}}, function(){
+                    server.call({"FortuneWheel_Stop_Req":{"type":1, "useItem":0, "characterId":null}}, function(){
+                        server.call({"PreResource_HarvestAll_Req":{"characterId":server.getCharacterId()}}, function(){
+                            server.call({"CashCow_ShakeCash_Req":{"characterId":null}}, function(){
+                                server.call({"Group_GetCharacterGroupInfo_Req":{"characterId":null}}, function(allianceInfoRs){
+                                    server.call({"Group_GroupDailyAward_Req":{"characterId":null, "groupId": allianceInfoRs.Group_GetCharacterGroupInfo_Res.id}}, function(){
+                                        server.call({"Group_GroupColonyAward_Req":{"characterId":null, "groupId": allianceInfoRs.Group_GetCharacterGroupInfo_Res.id}}, function(){
 
-
-
-function routine() {
-    start();
+                                            plan.currAlt++;
+                                            if( plan.currAlt >= model.alts.length ){
+                                                plan.currAlt = null;
+                                                return;
+                                            }
+                                            plan.switchingStarted = new Date().getTime();
+                                            switchalt(model.activePlan.currAlt);
+                                        });
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            }
+        );
+    }
 }
+
+function switchalt(index) {
+
+    status('Switching to alt ' + model.alts[index] + "(" + index + ")");
+
+    if (index < 0 || index >= model.alts.length ) { log.info('Alt does not exist'); return; }
+
+    model.waitingForGameStart = false;
+    if (ui.getSocket()) ui.getSocket().emit('loguser', { name: model.alts[index], pwd: settings.chars.password});
+}
+
 _.extend(module.exports, {
     model: function () {
         return model;
     },
     control: function (data) {
         if (data.alts == 'next') {
-            model.currAlt++;
-            switchalt();
-            status('Alt swiching...');
+            if( model.activePlan ){
+                status('Scheduler is active now, can`t force alt switch...');
+                return;
+            }
+            if( model.manualAlt<=(model.alts.length-1)) model.manualAlt++;
+            switchalt(model.manualAlt);
         }
         if (data.alts == 'prev') {
-            model.currAlt--;
-            switchalt();
-            status('Alt swiching...');
-        }
-        if (data.alts == 'roll') {
-            rollingAlts = true;
-            model.currAlt++;
-            switchalt();
+            if( model.activePlan ){
+                status('Scheduler is active now, can`t force alt switch...');
+                return;
+            }
+            if( model.manualAlt>0 ) model.manualAlt--;
+            switchalt(model.manualAlt);
             status('Alt swiching...');
         }
         if (data.loaded) {
-            listeningAfterLoad = true;
+            model.waitingForGameStart = true;
         }
     },
-    lookslikegameisactive: function () {
-        if (listeningAfterLoad && rollingAlts) {
-            listeningAfterLoad = false;
-            server.call({"Character_SignIn_Req": {"characterId": null}},
-                function () {
-                    server.call({"FortuneWheel_GetInfo_Req":{"type":1,"characterId":null}}, function(){
-                        server.call({"FortuneWheel_Stop_Req":{"type":1, "useItem":0, "characterId":null}}, function(){
-                            server.call({"PreResource_HarvestAll_Req":{"characterId":server.getCharacterId()}}, function(){
-                                model.currAlt++;
-                                switchalt();
-                            });
-                        });
-                    });
-                }
-            );
+    gameRequestDetected: function () {
+        if (model.waitingForGameStart ) {
+            model.waitingForGameStart = false;
+            onGameLoaded();
         }
     }
 });

@@ -10,7 +10,12 @@
                 <div>Room strategy: <a class="btn" fire="abyss" args="{load:{}}" href="#">Load</a></div><br/>
             </div>
             <div>
-                <a class='btn' id="abyss-auto">Auto Mode</a> to <input type="number" id="abyss-end-room" value="<%=endRoom%>"/>
+                Auto clear:
+                <a class='btn' href="#" fire="abyss" args="{auto: 25}">[1]</a>
+                <a class='btn' href="#" fire="abyss" args="{auto: 50}">[2]</a>
+                <a class='btn' href="#" fire="abyss" args="{auto: 75}">[3]</a>
+                <a class='btn' href="#" fire="abyss" args="{auto: 100}">[4]</a>
+                <a class='btn' href="#" fire="abyss" args="{auto: 125}">[5]</a>
             </div>
 
         <% } else { %>

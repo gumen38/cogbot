@@ -15,14 +15,19 @@ Features:
 * Bunch of utilites.
 
 
-Important known bugs
---------------------
-
-At this moment automatic server login always logs in game to server 1. Will be fixed soon.
-As a workaround, disabled alts switch/roll now.
 
 Version history
 ------------
+
+_Version 0.10a_
+
+1. Abyss auto UI now have button for each layer, not more laggy input
+2. Inventory trash marking easier: press button to start marking, sell stuff, press button to stop marking
+3. Added scheduling alts routine.
+4. Removed 'Roll' button, it's now controlled by scheduler.
+
+**ALTS ROUTINE IS BLOCKED ATM FOR COMPATIBILITY REASONS IF U NEED IT UNCOMMENT CODE IN WIDGET.JS**
+
 
 _Version 0.9a_
 
@@ -121,6 +126,49 @@ with content
             "fastMode": false
         }
     }
+
+Multi-acc bot guide
+-------------------
+
+Bot supports automatic switching of multiple alts and doing stuff on them (sigh-in, roll wheel, grab resources, grab alliance stuff).
+To enable it, you need run chrome browser with --disable-web-security flag and add chars and schedule sections to private settings file.
+
+    "chars": {
+        "alts": "MyMainChar,MyAlt[1-50]",
+        "password": "myPassword",
+        "main": "MyMainChar"
+    },
+    "schedule": {
+        "plan": {
+          "00:20-03:00":   "altroutine",
+            "03:01-03:10":   "clash",
+            "05:01-05:59":   "superunits",
+            "06:00-07:59":   "altroutine",
+            "08:00-08:30":   "wboss",
+            "10:00-10:05":   "reset",
+            "12:00-13:00": "altroutine",
+            "13:01-14:00": "altroutine",
+            "14:01-15:00": "altroutine",
+            "15:01-16:00": "altroutine",
+            "16:01-17:00": "altroutine",
+            "17:01-18:00": "altroutine",
+            "18:01-19:00": "altroutine",
+            "19:01-20:00": "altroutine",
+            "20:01-20:59": "superunits",
+            "21:00-21:30": "wboss",
+            "23:01-23:10": "clash"
+        },
+        "enable": true
+    }
+
+`chars.alts` here is a list of all your chars (main and alts). Separate them by comma, use [] to specify number range, dont use spaces/
+`chars.password` here is password (should be same for all)
+`schedule.enable` enables or disables schedule
+`schedule.plan` is list of timeranges (your local time) when specified plan should run. For alts rolling its 'altroutine' plan.
+
+There are only 2 plans are supported now:
+`altroutine`: iterate all characters and do some daily stuff on them
+`reset`: specifies your local time of server reset time (0:00);
 
 Planned
 -------

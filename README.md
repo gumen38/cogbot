@@ -19,6 +19,13 @@ Features:
 Version history
 ------------
 
+_Version 0.11a_
+
+1. New donation account. Previous was not able to accept donation (Paypal, doh..). New account was tested and seems working.
+2. Auto box opener is slightly better now. Opens III, IV silver/bronze and V gold chests.
+3. Monster island auto clear (atm only lvl 100 - plan island100).
+4. Ability to force schedule-able plans like island100, altroutine, reset (scheduler must be disabled).
+
 _Version 0.10a_
 
 1. Abyss auto UI now have button for each layer, not more laggy input

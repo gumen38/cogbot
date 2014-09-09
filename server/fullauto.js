@@ -76,7 +76,11 @@ function checkSchedule(){
 }
 function proceedPlan(){
     var plan = model.activePlan;
-    
+
+    if( !plan ) return;
+
+    status("Proceeding plan " + plan.code);
+
     if( plan.code == 'altroutine' ){
         if( !plan.currAlt ) plan.currAlt = 0;
         if( plan.switchingStarted && (plan.switchingStarted - new Date().getTime() < 1000*60*5) ) {
@@ -85,15 +89,71 @@ function proceedPlan(){
         switchalt(plan.currAlt);
     }
     if( plan.code == 'reset' ){
-
         _.each(model.plan, function(plan){
             if( plan.code == 'altroutine' ){
                 plan.currAlt = 0;
                 plan.switchingStarted = null;
             }
+            if( plan.code == 'island100' ){
+                plan.active = false;
+            }
         });
-
     }
+    if( plan.code == 'island100' ){
+        if( plan.active ) return;
+        plan.active = true;
+        doMonsterIsland(100);
+    }
+}
+function forcePlan(planName){
+    if( settings.schedule.enable ) {
+        status("Scheduler is active, can't force plan manually");
+    } else {
+        model.activePlan = {
+            code: planName
+        };
+        proceedPlan();
+    }
+}
+
+function doMonsterIsland(level){
+    var monsters = { 100: [
+        4935001, 4935009, 4935003, 4935011,
+        4935005, 4935006, 4935007, 4935008,
+        4935002, 4935010, 4935004, 4935012
+    ]};
+
+    function doMonster(monId, cb){
+        server.call({"PetIsland_AttackMonster_Req":{"characterId":null,"lose":null,"monsterId": monId}}, function(){
+            server.call({"Battle_Finish_Req":{"characterId":null,"serialNo":1826}}, function(){
+                cb();
+            });
+        });
+    }
+
+    var i = 0;
+    var clears = 0;
+    function rec(){
+        status("Island " + i + "/" + (clears+1));
+        doMonster(monsters[level][i], function(){
+            i++;
+            if( i<12 ) {
+                rec();
+            } else {
+                clears++;
+                if( clears == 2 ) {
+                    status("Island cleared 2 times");
+                    return;
+                }
+                status("Island resetting");
+                server.call({"PetIsland_ResetCopy_Req":{"level":level,"characterId":null}}, function(){
+                    i = 0;
+                    rec();
+                });
+            }
+        })
+    }
+    rec();
 }
 
 function onGameLoaded(){
@@ -163,6 +223,9 @@ _.extend(module.exports, {
             if( model.manualAlt>0 ) model.manualAlt--;
             switchalt(model.manualAlt);
             status('Alt swiching...');
+        }
+        if( data.force == 'island100' ){
+            forcePlan(data.force);
         }
         if (data.loaded) {
             model.waitingForGameStart = true;

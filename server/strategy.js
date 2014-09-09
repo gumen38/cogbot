@@ -247,6 +247,10 @@ function assertSoldiers(msg) {
     })
 }
 
+function recruit(soldierId){
+
+}
+
 function resetDepleted() {
     model.depleted = [];
     ui.update('strategy');

@@ -47,20 +47,29 @@ _.extend(module.exports, {
         reload(function(){
             ui.update('inventory');
             if( opts.open ){
-                boxes = [ 5109020, 5109021, 5109085 ];
-
-                _.each(boxes, function(boxId){
-                    var item = findItem(boxId);
-                    item && use(item.id);
-                });
-
-                function use(itemId){
-                    ui.update('inventory');
-                    status("Use item " + itemId);
-                    server.call({"Item_Use_Req":{"characterId":server.getCharacterId(),"id":itemId,"count":1}}, function(rs){
-                        if( rs.Item_Use_Res.retMsg == 'SUCCESS' ) use(itemId);
+                var boxes = [ 5109020, 5109021, 5109085, 5109017, 5109018 ];
+                var index = 0;
+                function use(){
+                    var itemId = boxes[index];
+                    var item = findItem(itemId);
+                    if( !item ){
+                        index++;
+                        if( index < boxes.length ) use();
+                        return;
+                    }
+                    status("Use item " + item.id);
+                    server.call({"Item_Use_Req":{"characterId":server.getCharacterId(),"id":item.id,"count":1}}, function(rs){
+                        ui.update('inventory');
+                        if( rs.Item_Use_Res.retMsg == 'SUCCESS' ) {
+                            use();
+                        } else {
+                            index++;
+                            if( index < boxes.length ) use();
+                            return;
+                        }
                     })
                 }
+                use();
             }
             if( opts.trash == 'sell' ){
                 trash = JSON.parse(fs.readFileSync(__dirname + '/trashlist.json', 'utf8'));

@@ -224,7 +224,7 @@ _.extend(module.exports, {
             switchalt(model.manualAlt);
             status('Alt swiching...');
         }
-        if( data.force == 'island100' ){
+        if( data.force ){
             forcePlan(data.force);
         }
         if (data.loaded) {

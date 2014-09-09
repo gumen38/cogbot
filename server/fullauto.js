@@ -1,6 +1,7 @@
 server = require('./server');
 log = require('./log');
 ui = require('./ui');
+strategy = require('./strategy');
 
 function status(msg) { log.info(msg); model.currentState = msg; ui.update('fullauto');}
 
@@ -102,7 +103,8 @@ function proceedPlan(){
     if( plan.code == 'island100' ){
         if( plan.active ) return;
         plan.active = true;
-        doMonsterIsland(100);
+        var mainIndex = _.indexOf(model.alts, function(alt){ return alt == settings.chars.main });
+        switchalt(mainIndex);
     }
 }
 function forcePlan(planName){
@@ -126,7 +128,7 @@ function doMonsterIsland(level){
     function doMonster(monId, cb){
         server.call({"PetIsland_AttackMonster_Req":{"characterId":null,"lose":null,"monsterId": monId}}, function(){
             server.call({"Battle_Finish_Req":{"characterId":null,"serialNo":1826}}, function(){
-                cb();
+                strategy.maximizeSoldiers(cb);
             });
         });
     }
@@ -184,6 +186,9 @@ function onGameLoaded(){
                 });
             }
         );
+    }
+    if( plan && plan.code == 'island100' ){
+        doMonsterIsland(100);
     }
 }
 

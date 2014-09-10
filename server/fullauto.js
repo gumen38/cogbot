@@ -103,7 +103,7 @@ function proceedPlan(){
     if( plan.code == 'island100' ){
         if( plan.active ) return;
         plan.active = true;
-        var mainIndex = _.indexOf(model.alts, function(alt){ return alt == settings.chars.main });
+        var mainIndex = _.indexOf(model.alts, settings.chars.main);
         switchalt(mainIndex);
     }
 }
@@ -137,23 +137,31 @@ function doMonsterIsland(level){
     var clears = 0;
     function rec(){
         status("Island " + i + "/" + (clears+1));
-        doMonster(monsters[level][i], function(){
-            i++;
-            if( i<12 ) {
-                rec();
-            } else {
-                clears++;
-                if( clears == 2 ) {
-                    status("Island cleared 2 times");
-                    return;
-                }
-                status("Island resetting");
-                server.call({"PetIsland_ResetCopy_Req":{"level":level,"characterId":null}}, function(){
-                    i = 0;
+        if( i==0 ){
+            server.call({"PetIsland_Enter_Req":{"level":level,"characterId":null}}, irec);
+        } else {
+            irec();
+        }
+        function irec(){
+            doMonster(monsters[level][i], function(){
+                i++;
+                if( i<12 ) {
                     rec();
-                });
-            }
-        })
+                } else {
+                    clears++;
+                    if( clears == 2 ) {
+                        status("Island cleared 2 times");
+                        return;
+                    }
+                    status("Island resetting");
+                    server.call({"PetIsland_ResetCopy_Req":{"level":level,"characterId":null}}, function(){
+                        i = 0;
+                        rec();
+                    });
+                }
+            })
+        }
+
     }
     rec();
 }
@@ -188,7 +196,7 @@ function onGameLoaded(){
         );
     }
     if( plan && plan.code == 'island100' ){
-        doMonsterIsland(100);
+        setTimeout(function(){ doMonsterIsland(100) }, 5000);
     }
 }
 

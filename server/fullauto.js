@@ -14,6 +14,8 @@ var model = {
 };
 
 function init(){
+    if( !settings.chars || !settings.chars.alts ) return;
+
     var altsList = settings.chars.alts.split(',');
     _.each(altsList, function(altName){
         if(altName.indexOf('[') != -1 ){
@@ -29,6 +31,8 @@ function init(){
             model.alts.push(altName);
         }
     });
+
+    if( !settings.schedule ) return;
 
     _.each(_.keys(settings.schedule.plan), function(interval){
         var from = interval.split('-')[0];
@@ -56,19 +60,19 @@ function pad(n, width) {
 }
 
 function checkSchedule(){
-    if( settings.schedule.enable ){
+    if( settings.schedule &&  settings.schedule.enable ){
 
         var time = new Date();
         var hour = time.getHours();
         var min = time.getMinutes();
 
-        var activePlan = _.find(model.plan, function(plan){ 
+        var activePlan = _.find(model.plan, function(plan){
             var planStart = plan.from.hour * 60 + plan.from.min;
             var planEnd = plan.to.hour * 60 + plan.to.min;
             var now = hour*60+min;
             return planStart <= now && planEnd >= now;
         });
-        
+
         if( activePlan ) {
             model.activePlan = activePlan;
             proceedPlan();
@@ -108,7 +112,7 @@ function proceedPlan(){
     }
 }
 function forcePlan(planName){
-    if( settings.schedule.enable ) {
+    if( settings.schedule && settings.schedule.enable ) {
         status("Scheduler is active, can't force plan manually");
     } else {
         model.activePlan = {
@@ -181,14 +185,16 @@ function onGameLoaded(){
                                             server.call({"City_TrainStart_Req":{"characterId":server.getCharacterId(),"buildingId":106003,"cityId":106}}, function(){
                                                 server.call({"City_TrainInfo_Req":{"characterId":server.getCharacterId()}}, function(){
                                                     server.call([{"City_TrainCollect_Req":{"characterId":null,"buildingId":106003}}], function(){
-                                                        plan.currAlt++;
-                                                        if( plan.currAlt >= model.alts.length ){
-                                                            plan.currAlt = null;
-                                                            return;
-                                                        }
-                                                        setTimeout(function(){
-                                                            switchalt(model.activePlan.currAlt);
-                                                        }, 10000);
+                                                        checkMail(function(){
+                                                            plan.currAlt++;
+                                                            if( plan.currAlt >= model.alts.length ){
+                                                                plan.currAlt = null;
+                                                                return;
+                                                            }
+                                                            setTimeout(function(){
+                                                                switchalt(model.activePlan.currAlt);
+                                                            }, 500);
+                                                        });
                                                     });
                                                 });
                                             });
@@ -205,6 +211,25 @@ function onGameLoaded(){
     if( plan && plan.code == 'island100' ){
         setTimeout(function(){ doMonsterIsland(100) }, 5000);
     }
+}
+
+function checkMail(cb){
+    server.call({"Mail_GetList_Req":{"page":1,"pagesize":14,"getNewCount":1,"type":3}}, function(rs){
+        var index = 0;
+        function open(){
+            if( index >= rs.Mail_GetList_Res.mails.length ) { cb(); return; }
+            var mail = rs.Mail_GetList_Res.mails[index];
+            if( mail.invalid == 0 ){
+                server.call({"Mail_GetInfo_Req":{"characterId":null,"id":3729538}}, function(rs2){
+                    server.call({"Mail_AcceptGiftMail_Req":{"characterId":null,"id":mail.id}}, function(){
+                        index++;
+                        open();
+                    });
+                });
+            }
+        }
+        open();
+    });
 }
 
 function switchalt(index) {

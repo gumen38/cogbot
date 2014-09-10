@@ -19,6 +19,10 @@ Features:
 Version history
 ------------
 
+_hotfixes_
+
+-Fixed issue with partial settings file. Check end of this file to see example of full settings file
+
 _Version 0.11a_
 
 1. New donation account. Previous was not able to accept donation (Paypal, doh..). New account was tested and seems working.
@@ -236,3 +240,45 @@ Details: At this moment strategies can be managed also manually, they are kept i
 certain tool in cogbot is needed to improve strategy management.
 
 Planned solution: replace 'Save Default Strategy' button with: button 'Save' and one/two selectors [Abyss * Abyss_Room, Dungeon * Dungeon_Name_and_Boss, Default, World Boss]
+
+Settings file sample (C:\cog_private_settings.json) //thats not my passwords and accounts, do dont try using it :)
+--------------------
+
+settings = {
+    "minimize": {
+        "settings": true,
+        "log": true,
+        "save": true,
+        "load": false,
+        "current": true
+    },
+    "dungeon": {
+        "fastMode": true
+    },
+    "chars": {
+        "alts": "johndoe,johndoealt[1-10]",
+        "password": "kinininigen",
+        "main": "johndoe"
+    },
+    "schedule": {
+        "plan": {
+            "00:20-03:00": "altroutine",
+            "03:01-03:10": "clash",
+	        "04:01-04:59": "island100",
+            "05:01-05:59": "superunits",
+            "06:00-07:59": "altroutine",
+            "08:00-08:30": "wboss",
+            "10:00-10:05": "reset",
+            "12:00-13:00": "altroutine",
+            "13:01-14:00": "altroutine",
+            "14:01-15:00": "altroutine",
+            "15:01-16:00": "altroutine",
+            "16:01-17:00": "altroutine",
+            "17:01-18:00": "altroutine",
+            "20:01-20:59": "superunits",
+            "21:00-21:30": "wboss",
+            "23:01-23:10": "clash"
+        },
+        "enable": false
+    }
+}

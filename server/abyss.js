@@ -18,11 +18,20 @@ function updateLocation(rs) {
     started = true;
     nextRoom = rs.nextRoomId;
     nextStorey = rs.nextStorey;
-    status("Abyss location changed: storey/room are " + nextStorey + " / " + ((nextRoom - 1) % 25 + 1));
+    status("Abyss location: " + nextStorey + " / " + ((nextRoom - 1) % 25 + 1));
 }
 
-function getStrategyCode() {
-    return 'A' + nextStorey + '-' + (1 + ((nextRoom - 1) % 25));
+function getStrategyCode(shift) {
+    shift = shift === undefined ? 0 : shift;
+    if( nextRoom == 1 && shift < 0 ) {
+        status("LOLWUT?");
+        return;
+    }
+
+    var room = 1 + ((nextRoom - 1 + shift) % 25);
+    var storey = nextStorey - (room%25==1 ? 1 : 0);
+
+    return 'A' + storey + '-' + room;
 }
 
 function doRoom(cb) {
@@ -131,6 +140,7 @@ _.extend(module.exports, {
         };
     },
     control: function (opts) {
+        opts.save0 && strategy.saveRecord(getStrategyCode(-1));
         opts.save1 && strategy.saveRecord(getStrategyCode());
         opts.auto && auto(parseInt(opts.auto));
         opts.load && strategy.loadRecord(getStrategyCode());

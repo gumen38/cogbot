@@ -6,16 +6,40 @@
 
             <div>
                 <b>Layer: <%=nextStorey%> Room: <%=1+(nextRoom-1)%25%></b><br/>
+                <div>Previous room strategy: <a class="btn" fire="abyss" args="{save0:{}}" href="#">Save PREVIOUS</a></div><br/>
                 <div>Room strategy: <a class="btn" fire="abyss" args="{save1:{}}" href="#">Save</a></div><br/>
                 <div>Room strategy: <a class="btn" fire="abyss" args="{load:{}}" href="#">Load</a></div><br/>
             </div>
             <div>
                 Auto clear:
-                <a class='btn' href="#" fire="abyss" args="{auto: 25}">[1]</a>
-                <a class='btn' href="#" fire="abyss" args="{auto: 50}">[2]</a>
-                <a class='btn' href="#" fire="abyss" args="{auto: 75}">[3]</a>
-                <a class='btn' href="#" fire="abyss" args="{auto: 100}">[4]</a>
-                <a class='btn' href="#" fire="abyss" args="{auto: 125}">[5]</a>
+                <div>[1]
+                    <a class='btn' href="#" fire="abyss" args="{auto: 5}"> 5</a>
+                    <a class='btn' href="#" fire="abyss" args="{auto: 10}">10</a>
+                    <a class='btn' href="#" fire="abyss" args="{auto: 15}">15</a>
+                    <a class='btn' href="#" fire="abyss" args="{auto: 20}">20</a>
+                    <a class='btn' href="#" fire="abyss" args="{auto: 25}">25</a>
+                </div>
+                <div>[2]
+                    <a class='btn' href="#" fire="abyss" args="{auto: 30}"> 5</a>
+                    <a class='btn' href="#" fire="abyss" args="{auto: 35}">10</a>
+                    <a class='btn' href="#" fire="abyss" args="{auto: 40}">15</a>
+                    <a class='btn' href="#" fire="abyss" args="{auto: 45}">20</a>
+                    <a class='btn' href="#" fire="abyss" args="{auto: 50}">25</a>
+                </div>
+                <div>[3]
+                    <a class='btn' href="#" fire="abyss" args="{auto: 55}"> 5</a>
+                    <a class='btn' href="#" fire="abyss" args="{auto: 60}">10</a>
+                    <a class='btn' href="#" fire="abyss" args="{auto: 65}">15</a>
+                    <a class='btn' href="#" fire="abyss" args="{auto: 70}">20</a>
+                    <a class='btn' href="#" fire="abyss" args="{auto: 75}">25</a>
+                </div>
+                <div>[4]
+                    <a class='btn' href="#" fire="abyss" args="{auto: 80}"> 5</a>
+                    <a class='btn' href="#" fire="abyss" args="{auto: 85}">10</a>
+                    <a class='btn' href="#" fire="abyss" args="{auto: 90}">15</a>
+                    <a class='btn' href="#" fire="abyss" args="{auto: 95}">20</a>
+                    <a class='btn' href="#" fire="abyss" args="{auto: 100}">25</a>
+                </div>
             </div>
 
         <% } else { %>

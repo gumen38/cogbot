@@ -3,6 +3,7 @@ mkdirp = require('mkdirp');
 server = require('./server');
 log = require('./log');
 ui = require('./ui');
+inventory = require('./inventory');
 
 var model = {
     folder: function(){ return __dirname + '/strategies' + server.getCharacterId() + '/'; },
@@ -247,7 +248,36 @@ function assertSoldiers(msg) {
     })
 }
 
-function recruit(soldierId){
+
+function recruit(){
+
+    if( !model.depleted || model.depleted.length==0 ){
+        return;
+    }
+
+    if( model.waitingReplenish && ((model.waitingReplenish + 10*60*1000) < new Date().getTime())) {
+        return;
+    }
+
+    var soldierIndex = model.depleted[0];
+
+    server.call({"PreResource_GetAllSoldier_Req":{"characterId":null}}, function(rs1){
+        var sx = _.find(rs1.PreResource_GetAllSoldier_Res.soldier, function(soldier){ return soldeir.id == soldierIndex}).count;
+
+        function recr(){
+            server.call({"PreResource_Recruit_Req":{"characterId":null,"id":soldierIndex,"count":sx}}, function(rs2, msgs){
+                assertSoldiers(msgs['Object_Change_Notify.characterResource']);
+                if( _.find(model.depleted, soldierIndex) != -1 ){
+
+                    if( inventory.haveTSC() ){
+
+                    }
+
+                }
+            });
+        }
+
+    });
 
 }
 

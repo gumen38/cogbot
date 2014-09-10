@@ -128,6 +128,12 @@ _.extend(module.exports, {
         if( res==null ){
             reload(cb);
         } else cb();
+    },
+    haveTSC: function(){
+        return false;
+//        reload(function(){
+//            ui.update('inventory');
+//            var item = findItem(itemId);
+//        });
     }
-
 });

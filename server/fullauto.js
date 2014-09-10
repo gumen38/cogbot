@@ -178,13 +178,20 @@ function onGameLoaded(){
                                 server.call({"Group_GetCharacterGroupInfo_Req":{"characterId":null}}, function(allianceInfoRs){
                                     server.call({"Group_GroupDailyAward_Req":{"characterId":null, "groupId": allianceInfoRs.Group_GetCharacterGroupInfo_Res.id}}, function(){
                                         server.call({"Group_GroupColonyAward_Req":{"characterId":null, "groupId": allianceInfoRs.Group_GetCharacterGroupInfo_Res.id}}, function(){
-
-                                            plan.currAlt++;
-                                            if( plan.currAlt >= model.alts.length ){
-                                                plan.currAlt = null;
-                                                return;
-                                            }
-                                            switchalt(model.activePlan.currAlt);
+                                            server.call({"City_TrainStart_Req":{"characterId":server.getCharacterId(),"buildingId":106003,"cityId":106}}, function(){
+                                                server.call({"City_TrainInfo_Req":{"characterId":server.getCharacterId()}}, function(){
+                                                    server.call([{"City_TrainCollect_Req":{"characterId":null,"buildingId":106003}}], function(){
+                                                        plan.currAlt++;
+                                                        if( plan.currAlt >= model.alts.length ){
+                                                            plan.currAlt = null;
+                                                            return;
+                                                        }
+                                                        setTimeout(function(){
+                                                            switchalt(model.activePlan.currAlt);
+                                                        }, 10000);
+                                                    });
+                                                });
+                                            });
                                         });
                                     });
                                 });

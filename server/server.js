@@ -2,6 +2,7 @@ var requestInterceptors = require('./request-interceptors');
 var responseInterceptors = require('./response-interceptors');
 var messageInterceptors = require('./message-interceptors');
 var http = require("http");
+//var httpsync = require("httpsync");
 var url = require('url');
 var log = require('./log');
 var strategy = require('./strategy');
